@@ -98,5 +98,4 @@ def get_graph_data(title, test):
 			]
 		}
    	}
-
 	return chart

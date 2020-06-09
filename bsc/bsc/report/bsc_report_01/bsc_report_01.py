@@ -310,20 +310,16 @@ def execute(filters=None):
 				month_achieved["nov"],
 				month_achieved["dec"]]
 		})
-
     	chart = {
         	"data": {
             		'labels': labels,
             		'datasets': datasets
         	}
    	}
-
     	chart["type"] = "bar"
     	##chart["height"] = "140"
     	chart["colors"] = ['green','red']
-
 	return columns, data, None, chart
-
 
 def get_columns(filters):
 	columns = [
@@ -352,7 +348,6 @@ def get_columns(filters):
 		columns+=[_("Dec") + ":Data:50"]
 	columns+=[_("Achieved") + ":Float:50", _("Targeted") + ":Float:50", _("Progress") + ":Percent:50", _("Year") + ":Link/Fiscal Year:40"]
 	return columns
-
 
 def get_conditions(filters):
 	conditions = []
@@ -388,7 +383,6 @@ def get_indicators(filters):
 	for ind in ind_list:
 		if ind:
 			ind_map.setdefault(ind.name, ind)
-
 	return ind_map
 
 def get_chart(filters):
@@ -415,7 +409,6 @@ def get_chart(filters):
 		filters, as_dict=1)
 	labels = []
 	datasets = []
-
 	for ind in ind_list:
 		if ind:
 			months = filters.get("bsc_month")
@@ -423,11 +416,9 @@ def get_chart(filters):
 				chart_values_target = []			
 				chart_values_achieved= []			
 				labels = months
-
 				for d in months:
 					month_target=0.0
 					month_achieved=0.0
-
 					if d=='Jan':
 						month_target=flt(ind.jan,2) if ind.jan>0.0 else 0.0
 						month_achieved=flt(ind.jan_,2) if ind.jan_>0.0 else 0.0
@@ -472,8 +463,6 @@ def get_chart(filters):
 				datasets.append({
 					'name':'Achieved','values':chart_values_achieved
 				})
-
-
 			else:
 				labels=["Jan","Feb","Mar","Apr","May","Jun","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 				datasets.append({
@@ -504,8 +493,6 @@ def get_chart(filters):
 						flt(ind.nov_,2) if ind.nov_>0.0 else 0.0,
 						flt(ind.dec_,2) if ind.dec_>0.0 else 0.0,]
 				})
-
-
 			ind_map.setdefault(ind.name, ind)
     	chart = {
         	"data": {
@@ -514,6 +501,4 @@ def get_chart(filters):
         	}
    	}
     	chart["type"] = "bar"
-
-
 	return chart
