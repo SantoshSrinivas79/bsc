@@ -1,0 +1,96 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-06-02 19:10:45.077284",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "bsc_indicator",
+  "indicator_name",
+  "department",
+  "fiscal_year",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series "
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Department",
+   "options": "Department",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "bsc_indicator",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "BSC Indicator",
+   "options": "BSC Indicator",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fetch_from": "bsc_indicator.full_name",
+   "fieldname": "indicator_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "BSC Indicator Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "BSC Initiative Assignment",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2020-06-03 02:02:44.174648",
+ "modified_by": "Administrator",
+ "module": "BSC",
+ "name": "BSC Initiative Assignment",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "search_fields": "bsc_indicator,indicator_name,department,fiscal_year",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "indicator_name",
+ "track_changes": 1
+}

@@ -1,0 +1,53 @@
+{
+ "creation": "2020-05-16 22:28:03.773823",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "evidence_mandatory",
+  "weakness_mandatory",
+  "suggested_mandatory"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "evidence_mandatory",
+   "fieldtype": "Check",
+   "label": "Evidence Mandatory in Initiative Log"
+  },
+  {
+   "default": "0",
+   "fieldname": "weakness_mandatory",
+   "fieldtype": "Check",
+   "label": "Weakness Mandatory in Initiative Log"
+  },
+  {
+   "default": "0",
+   "fieldname": "suggested_mandatory",
+   "fieldtype": "Check",
+   "label": "Suggested Mandatory in Initiative Log"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2020-05-16 22:28:03.773823",
+ "modified_by": "Administrator",
+ "module": "BSC",
+ "name": "BSC Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

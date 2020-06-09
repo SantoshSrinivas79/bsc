@@ -1,0 +1,442 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-05-15 02:06:45.844413",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "department",
+  "bsc_indicator",
+  "indicator_name",
+  "fiscal_year",
+  "uom",
+  "cumulative_target",
+  "target",
+  "section_break_9",
+  "jan__",
+  "jan_",
+  "jan",
+  "feb__",
+  "feb_",
+  "feb",
+  "column_break_11",
+  "mar__",
+  "mar_",
+  "mar",
+  "apr__",
+  "apr_",
+  "apr",
+  "column_break_13",
+  "may__",
+  "may_",
+  "may",
+  "jun__",
+  "jun_",
+  "jun",
+  "column_break_15",
+  "jul__",
+  "jul_",
+  "jul",
+  "aug__",
+  "aug_",
+  "aug",
+  "column_break_17",
+  "sep__",
+  "sep_",
+  "sep",
+  "oct__",
+  "oct_",
+  "oct",
+  "column_break_19",
+  "nov__",
+  "nov_",
+  "nov",
+  "dec__",
+  "dec_",
+  "dec",
+  "section_break_52",
+  "amended_from",
+  "target_logs_created"
+ ],
+ "fields": [
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Target Total",
+   "precision": "1",
+   "reqd": 1
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Select",
+   "label": "UOM",
+   "options": "\nNumerical\nCumulative\nPercent",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bsc_indicator",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Indicator",
+   "options": "BSC Indicator",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "bsc_indicator.full_name",
+   "fieldname": "indicator_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Indicator Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Department",
+   "options": "Department",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "jan",
+   "fieldtype": "Float",
+   "label": "Jan",
+   "precision": "1",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "feb",
+   "fieldtype": "Float",
+   "label": "Feb",
+   "precision": "1",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "mar",
+   "fieldtype": "Float",
+   "label": "Mar",
+   "precision": "1",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "apr",
+   "fieldtype": "Float",
+   "label": "Apr",
+   "precision": "1",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "may",
+   "fieldtype": "Float",
+   "label": "May",
+   "precision": "1"
+  },
+  {
+   "default": "0",
+   "fieldname": "jun",
+   "fieldtype": "Float",
+   "label": "Jun",
+   "precision": "1"
+  },
+  {
+   "default": "0",
+   "fieldname": "jul",
+   "fieldtype": "Float",
+   "label": "Jul",
+   "precision": "1"
+  },
+  {
+   "default": "0",
+   "fieldname": "aug",
+   "fieldtype": "Float",
+   "label": "Aug",
+   "precision": "1"
+  },
+  {
+   "default": "0",
+   "fieldname": "sep",
+   "fieldtype": "Float",
+   "label": "Sep",
+   "precision": "1"
+  },
+  {
+   "default": "0",
+   "fieldname": "oct",
+   "fieldtype": "Float",
+   "label": "Oct",
+   "precision": "1"
+  },
+  {
+   "default": "0",
+   "fieldname": "nov",
+   "fieldtype": "Float",
+   "label": "Nov",
+   "precision": "1"
+  },
+  {
+   "default": "0",
+   "fieldname": "dec",
+   "fieldtype": "Float",
+   "label": "Dec",
+   "precision": "1"
+  },
+  {
+   "default": "0",
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Percent'",
+   "fieldname": "jan_",
+   "fieldtype": "Percent",
+   "label": "Jan Percent"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Percent'",
+   "fieldname": "feb_",
+   "fieldtype": "Percent",
+   "label": "Feb Percent"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Percent'",
+   "fieldname": "mar_",
+   "fieldtype": "Percent",
+   "label": "Mar Percent"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Percent'",
+   "fieldname": "apr_",
+   "fieldtype": "Percent",
+   "label": "Apr Percent"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Percent'",
+   "fieldname": "may_",
+   "fieldtype": "Percent",
+   "label": "May Percent"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Percent'",
+   "fieldname": "jun_",
+   "fieldtype": "Percent",
+   "label": "Jun Percent"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Percent'",
+   "fieldname": "jul_",
+   "fieldtype": "Percent",
+   "label": "Jul Percent"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Percent'",
+   "fieldname": "aug_",
+   "fieldtype": "Percent",
+   "label": "Aug Percent"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Percent'",
+   "fieldname": "sep_",
+   "fieldtype": "Percent",
+   "label": "Sep Percent"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Percent'",
+   "fieldname": "oct_",
+   "fieldtype": "Percent",
+   "label": "Oct Percent"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Percent'",
+   "fieldname": "nov_",
+   "fieldtype": "Percent",
+   "label": "Nov Percent"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Percent'",
+   "fieldname": "dec_",
+   "fieldtype": "Percent",
+   "label": "Dec Percent"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.uom=='Cumulative'",
+   "fieldname": "cumulative_target",
+   "fieldtype": "Float",
+   "label": "Cumulative Target",
+   "precision": "1"
+  },
+  {
+   "default": "0",
+   "fieldname": "feb__",
+   "fieldtype": "Check",
+   "label": "feb__"
+  },
+  {
+   "default": "0",
+   "fieldname": "mar__",
+   "fieldtype": "Check",
+   "label": "mar__"
+  },
+  {
+   "default": "0",
+   "fieldname": "apr__",
+   "fieldtype": "Check",
+   "label": "apr__"
+  },
+  {
+   "default": "0",
+   "fieldname": "may__",
+   "fieldtype": "Check",
+   "label": "may__"
+  },
+  {
+   "default": "0",
+   "fieldname": "jun__",
+   "fieldtype": "Check",
+   "label": "jun__"
+  },
+  {
+   "default": "0",
+   "fieldname": "jul__",
+   "fieldtype": "Check",
+   "label": "jul__"
+  },
+  {
+   "default": "0",
+   "fieldname": "aug__",
+   "fieldtype": "Check",
+   "label": "aug__"
+  },
+  {
+   "default": "0",
+   "fieldname": "sep__",
+   "fieldtype": "Check",
+   "label": "sep__"
+  },
+  {
+   "default": "0",
+   "fieldname": "oct__",
+   "fieldtype": "Check",
+   "label": "oct__"
+  },
+  {
+   "default": "0",
+   "fieldname": "nov__",
+   "fieldtype": "Check",
+   "label": "nov__"
+  },
+  {
+   "default": "0",
+   "fieldname": "dec__",
+   "fieldtype": "Check",
+   "label": "dec__"
+  },
+  {
+   "default": "0",
+   "fieldname": "jan__",
+   "fieldtype": "Check",
+   "label": "jan__"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "BSC Target",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_52",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "target_logs_created",
+   "fieldtype": "Check",
+   "label": "target_logs_created",
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2020-06-09 00:41:24.540778",
+ "modified_by": "Administrator",
+ "module": "BSC",
+ "name": "BSC Target",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "search_fields": "bsc_indicator,indicator_name,department,fiscal_year",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "indicator_name",
+ "track_changes": 1
+}

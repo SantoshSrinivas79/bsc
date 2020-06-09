@@ -1,0 +1,85 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-06-09 00:13:52.578253",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "bsc_meeting_minutes",
+  "meeting_minutes_description",
+  "bsc_meeting",
+  "meeting_name",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series"
+  },
+  {
+   "fieldname": "bsc_meeting_minutes",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "BSC Meeting Minutes",
+   "options": "BSC Meeting Minutes",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fetch_from": "bsc_meeting_minutes.description",
+   "fieldname": "meeting_minutes_description",
+   "fieldtype": "Small Text",
+   "label": "Meeting Minutes Description",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "bsc_meeting_minutes.bsc_meeting",
+   "fieldname": "bsc_meeting",
+   "fieldtype": "Link",
+   "label": "BSC Meeting",
+   "options": "BSC Meeting",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "bsc_meeting.meeting_name",
+   "fieldname": "meeting_name",
+   "fieldtype": "Small Text",
+   "label": "Meeting Name",
+   "read_only": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Description",
+   "reqd": 1
+  }
+ ],
+ "modified": "2020-06-09 00:20:32.146606",
+ "modified_by": "Administrator",
+ "module": "BSC",
+ "name": "BSC Meeting Recommendation",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "search_fields": "description,meeting_minutes_description,meeting_name",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

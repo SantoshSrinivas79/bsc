@@ -1,0 +1,40 @@
+{
+ "creation": "2020-05-15 02:03:29.827114",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "month",
+  "target"
+ ],
+ "fields": [
+  {
+   "fieldname": "month",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Month",
+   "options": "Jan\nFeb\nMar\nApr\nMay\nJun\nJul\nAug\nSep\nOct\nNov\nDec",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Target",
+   "reqd": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-05-16 02:14:56.828337",
+ "modified_by": "Administrator",
+ "module": "BSC",
+ "name": "BSC Target Month",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

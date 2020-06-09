@@ -1,0 +1,163 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-05-15 04:24:46.132802",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "indicator_name",
+  "month",
+  "achieved",
+  "target",
+  "target_log_percent",
+  "column_break_6",
+  "bsc_target",
+  "bsc_indicator",
+  "department",
+  "fiscal_year",
+  "start_date",
+  "last_date",
+  "section_break_10",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Department",
+   "options": "Department",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fetch_from": "bsc_target.bsc_indicator",
+   "fieldname": "bsc_indicator",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "BSC Indicator",
+   "options": "BSC Indicator",
+   "read_only": 1,
+   "set_only_once": 1
+  },
+  {
+   "fetch_from": "bsc_indicator.full_name",
+   "fieldname": "indicator_name",
+   "fieldtype": "Small Text",
+   "label": "Indicator Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Month",
+   "options": "\nJan\nFeb\nMar\nApr\nMay\nJun\nJul\nAug\nSep\nOct\nNov\nDec",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "achieved",
+   "fieldtype": "Float",
+   "label": "Achieved",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bsc_target",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "BSC Target",
+   "options": "BSC Target",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "BSC Target Log",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "bsc_target.fiscal_year",
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "read_only": 1
+  },
+  {
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "label": "Target",
+   "read_only": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "target_log_percent",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Target Log Percent",
+   "read_only": 1
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_date",
+   "fieldtype": "Date",
+   "label": "Last Date",
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2020-06-03 02:35:49.203764",
+ "modified_by": "Administrator",
+ "module": "BSC",
+ "name": "BSC Target Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "search_fields": "bsc_indicator",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "indicator_name",
+ "track_changes": 1
+}

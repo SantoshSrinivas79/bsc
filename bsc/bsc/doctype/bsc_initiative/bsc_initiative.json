@@ -1,0 +1,343 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-05-15 02:11:41.797127",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "initiative_name",
+  "target_group",
+  "target_total",
+  "time_total",
+  "total_amount",
+  "employee",
+  "employee_name",
+  "user_id",
+  "column_break_9",
+  "bsc_initiative_assignment",
+  "bsc_indicator",
+  "indicator_name",
+  "department",
+  "fiscal_year",
+  "desc_section_section",
+  "description",
+  "months_section",
+  "jan",
+  "feb",
+  "column_break_20",
+  "mar",
+  "apr",
+  "column_break_23",
+  "may",
+  "jun",
+  "column_break_26",
+  "jul",
+  "aug",
+  "column_break_29",
+  "sep",
+  "oct",
+  "column_break_32",
+  "nov",
+  "dec",
+  "section_break_37",
+  "amended_from",
+  "initiative_logs_created",
+  "month_count"
+ ],
+ "fields": [
+  {
+   "fieldname": "initiative_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Initiative Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Responsible",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "target_group",
+   "fieldtype": "Link",
+   "label": "Target Group",
+   "options": "BSC Target Group",
+   "reqd": 1
+  },
+  {
+   "fieldname": "target_total",
+   "fieldtype": "Int",
+   "label": "Target Total",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Amount Total"
+  },
+  {
+   "fetch_from": "bsc_initiative_assignment.fiscal_year",
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fetch_from": "bsc_indicator.full_name",
+   "fieldname": "indicator_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Indicator Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series "
+  },
+  {
+   "default": "0",
+   "fieldname": "time_total",
+   "fieldtype": "Int",
+   "label": "Time Total",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fetch_from": "bsc_initiative_assignment.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Department",
+   "options": "Department",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Responsible Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "desc_section_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "bsc_initiative_assignment",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "BSC Initiative Assignment",
+   "options": "BSC Initiative Assignment",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "jan",
+   "fieldtype": "Int",
+   "label": "Jan",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "feb",
+   "fieldtype": "Int",
+   "label": "Feb",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "mar",
+   "fieldtype": "Int",
+   "label": "Mar",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "apr",
+   "fieldtype": "Int",
+   "label": "Apr",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "may",
+   "fieldtype": "Int",
+   "label": "May",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "jun",
+   "fieldtype": "Int",
+   "label": "Jun",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "jul",
+   "fieldtype": "Int",
+   "label": "Jul",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "aug",
+   "fieldtype": "Int",
+   "label": "Aug",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_29",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "sep",
+   "fieldtype": "Int",
+   "label": "Sep",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "oct",
+   "fieldtype": "Int",
+   "label": "Oct",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_32",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "nov",
+   "fieldtype": "Int",
+   "label": "Nov",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "dec",
+   "fieldtype": "Int",
+   "label": "Dec",
+   "reqd": 1
+  },
+  {
+   "fieldname": "months_section",
+   "fieldtype": "Section Break",
+   "label": "Months"
+  },
+  {
+   "fetch_from": "employee.user_id",
+   "fieldname": "user_id",
+   "fieldtype": "Link",
+   "label": "Responsible Email",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "bsc_initiative_assignment.bsc_indicator",
+   "fieldname": "bsc_indicator",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "BSC Indicator",
+   "options": "BSC Indicator",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "BSC Initiative",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_37",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "initiative_logs_created",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "initiative_logs_created",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "month_count",
+   "fieldtype": "Int",
+   "label": "Month Count",
+   "no_copy": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2020-06-03 10:34:45.320825",
+ "modified_by": "Administrator",
+ "module": "BSC",
+ "name": "BSC Initiative",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "initiative_name,bsc_initiative_assignment,indicator_name,department,fiscal_year",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "initiative_name",
+ "track_changes": 1,
+ "track_seen": 1
+}
