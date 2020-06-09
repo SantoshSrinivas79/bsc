@@ -16,6 +16,11 @@
   "bsc_indicator",
   "department",
   "fiscal_year",
+  "desc_section",
+  "employee",
+  "employee_name",
+  "user_id",
+  "column_break_16",
   "start_date",
   "last_date",
   "section_break_10",
@@ -132,10 +137,46 @@
    "fieldtype": "Date",
    "label": "Last Date",
    "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "desc_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fetch_from": "bsc_target.employee",
+   "fetch_if_empty": 1,
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Responsible",
+   "options": "Employee"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Responsible Name",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "employee.user_id",
+   "fieldname": "user_id",
+   "fieldtype": "Link",
+   "label": "Responsible Email",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-03 02:35:49.203764",
+ "modified": "2020-06-09 11:23:51.921459",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Target Log",

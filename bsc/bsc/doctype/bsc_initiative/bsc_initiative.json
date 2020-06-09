@@ -10,10 +10,9 @@
   "target_group",
   "target_total",
   "time_total",
+  "achieved",
+  "per_initiative",
   "total_amount",
-  "employee",
-  "employee_name",
-  "user_id",
   "column_break_9",
   "bsc_initiative_assignment",
   "bsc_indicator",
@@ -22,6 +21,9 @@
   "fiscal_year",
   "desc_section_section",
   "description",
+  "employee",
+  "employee_name",
+  "user_id",
   "months_section",
   "jan",
   "feb",
@@ -78,13 +80,13 @@
   {
    "fieldname": "target_total",
    "fieldtype": "Int",
-   "label": "Target Total",
+   "label": "Target",
    "reqd": 1
   },
   {
    "fieldname": "total_amount",
    "fieldtype": "Currency",
-   "label": "Amount Total"
+   "label": "Amount"
   },
   {
    "fetch_from": "bsc_initiative_assignment.fiscal_year",
@@ -114,7 +116,7 @@
    "default": "0",
    "fieldname": "time_total",
    "fieldtype": "Int",
-   "label": "Time Total",
+   "label": "Times",
    "read_only": 1,
    "reqd": 1
   },
@@ -128,14 +130,6 @@
    "options": "Department",
    "read_only": 1,
    "reqd": 1
-  },
-  {
-   "fetch_from": "employee.employee_name",
-   "fieldname": "employee_name",
-   "fieldtype": "Small Text",
-   "in_list_view": 1,
-   "label": "Responsible Name",
-   "read_only": 1
   },
   {
    "fieldname": "column_break_9",
@@ -267,6 +261,7 @@
    "label": "Months"
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "employee.user_id",
    "fieldname": "user_id",
    "fieldtype": "Link",
@@ -312,10 +307,36 @@
    "label": "Month Count",
    "no_copy": 1,
    "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "ignore_user_permissions": 1,
+   "label": "Responsible Name",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "per_initiative",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Initiative Percent",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "achieved",
+   "fieldtype": "Int",
+   "label": "Achieved",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-03 10:34:45.320825",
+ "modified": "2020-06-09 12:36:08.035402",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative",

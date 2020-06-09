@@ -21,10 +21,10 @@ class BSCInitiative(Document):
 		conditions = ""
 		conditions += " where docstatus < 2 and department = '%s'" % self.department
 		conditions += " and bsc_indicator = '%s'" % self.bsc_indicator
-		if frappe.db.exists(self.doctype, self.name):
-			conditions += " and name <> '%s'" % self.name
+		conditions += " and initiative_name = '%s'" % self.initiative_name
+
 		sum_name = frappe.db.sql("""select count(name) from `tabBSC Initiative` %s"""% conditions)[0][0]
-		if sum_name > 0:
+		if sum_name > 1:
 			frappe.throw(_("Already exists with same Department and Indicator"))
 
 	def on_submit(self):
@@ -86,3 +86,17 @@ def create_initiative_log(month , target, args, publish_progress=True):
 	bsc_initiative= frappe.get_doc("BSC Initiative", args.bsc_initiative)
 	bsc_initiative.db_set("initiative_logs_created", 1)
 	bsc_initiative.notify_update()
+
+@frappe.whitelist()
+def get_graph_data(title, test):
+    	chart = {
+        	'data': {
+			'labels': ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+			'datasets': [
+				{ 'name': "Dataset 1", 'values': [18, 40, 30, 35, 8, 52, 17, -4] },
+				{ 'name': "Dataset 2", 'values': [30, 50, -10, 15, 18, 32, 27, 14] }
+			]
+		}
+   	}
+
+	return chart

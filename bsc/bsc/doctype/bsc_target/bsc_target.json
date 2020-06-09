@@ -6,13 +6,20 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "department",
-  "bsc_indicator",
   "indicator_name",
-  "fiscal_year",
   "uom",
   "cumulative_target",
   "target",
+  "achieved",
+  "per_target",
+  "column_break_6",
+  "department",
+  "bsc_indicator",
+  "fiscal_year",
+  "responsible_section_section",
+  "employee",
+  "employee_name",
+  "user_id",
   "section_break_9",
   "jan__",
   "jan_",
@@ -72,7 +79,6 @@
    "default": "0",
    "fieldname": "target",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "Target Total",
    "precision": "1",
    "reqd": 1
@@ -90,7 +96,8 @@
    "in_standard_filter": 1,
    "label": "Indicator",
    "options": "BSC Indicator",
-   "reqd": 1
+   "reqd": 1,
+   "set_only_once": 1
   },
   {
    "fetch_from": "bsc_indicator.full_name",
@@ -205,7 +212,8 @@
   {
    "default": "0",
    "fieldname": "section_break_9",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Months"
   },
   {
    "fieldname": "column_break_11",
@@ -323,73 +331,73 @@
    "default": "0",
    "fieldname": "feb__",
    "fieldtype": "Check",
-   "label": "feb__"
+   "label": "Is Feb?"
   },
   {
    "default": "0",
    "fieldname": "mar__",
    "fieldtype": "Check",
-   "label": "mar__"
+   "label": "Is Mar?"
   },
   {
    "default": "0",
    "fieldname": "apr__",
    "fieldtype": "Check",
-   "label": "apr__"
+   "label": "Is Apr?"
   },
   {
    "default": "0",
    "fieldname": "may__",
    "fieldtype": "Check",
-   "label": "may__"
+   "label": "Is May?"
   },
   {
    "default": "0",
    "fieldname": "jun__",
    "fieldtype": "Check",
-   "label": "jun__"
+   "label": "Is Jun?"
   },
   {
    "default": "0",
    "fieldname": "jul__",
    "fieldtype": "Check",
-   "label": "jul__"
+   "label": "Is Jul?"
   },
   {
    "default": "0",
    "fieldname": "aug__",
    "fieldtype": "Check",
-   "label": "aug__"
+   "label": "Is Aug?"
   },
   {
    "default": "0",
    "fieldname": "sep__",
    "fieldtype": "Check",
-   "label": "sep__"
+   "label": "Is Sep?"
   },
   {
    "default": "0",
    "fieldname": "oct__",
    "fieldtype": "Check",
-   "label": "oct__"
+   "label": "Is Oct?"
   },
   {
    "default": "0",
    "fieldname": "nov__",
    "fieldtype": "Check",
-   "label": "nov__"
+   "label": "Is Nov?"
   },
   {
    "default": "0",
    "fieldname": "dec__",
    "fieldtype": "Check",
-   "label": "dec__"
+   "label": "Is Dec?"
   },
   {
    "default": "0",
    "fieldname": "jan__",
    "fieldtype": "Check",
-   "label": "jan__"
+   "label": "Is Jan?"
   },
   {
    "fieldname": "amended_from",
@@ -409,12 +417,64 @@
    "default": "0",
    "fieldname": "target_logs_created",
    "fieldtype": "Check",
-   "label": "target_logs_created",
+   "label": "Target Logs Created",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "responsible_section_section",
+   "fieldtype": "Section Break",
+   "label": "Responsible Section"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Responsible",
+   "options": "Employee"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Responsible Name",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "employee.user_id",
+   "fieldname": "user_id",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Responsible Email",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "achieved",
+   "fieldtype": "Float",
+   "label": "Achieved Total",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "per_target",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Target Percent",
    "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-09 00:41:24.540778",
+ "modified": "2020-06-09 12:37:11.352087",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Target",

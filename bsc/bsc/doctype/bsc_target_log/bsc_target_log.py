@@ -57,3 +57,15 @@ class BSCTargetLog(Document):
 				self.start_date=getdate(self.fiscal_year+'-12-01')
 			self.last_date=get_last_day(self.start_date)
 
+	def on_submit(self):
+		self.update_master(True)
+
+	def on_cancel(self):
+		self.update_master(False)
+
+	def update_master(self, increase = True):
+		master = frappe.get_doc("BSC Target", self.bsc_target)
+		new_achieved = (master.achieved + self.achieved) if increase == True else (master.achieved - self.achieved)
+		master.db_set("achieved", new_achieved)
+		master.db_set("per_target", ( flt(new_achieved) / flt(master.target) * 100.0 ) )
+
