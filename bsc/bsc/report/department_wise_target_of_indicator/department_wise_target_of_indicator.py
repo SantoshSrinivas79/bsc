@@ -33,7 +33,6 @@ def execute(filters=None):
 			ach_det = ach_map.get(ach)
 			if not ach_det:
 				continue
-			#total=0.0,jan=0.0,feb=0.0,mar=0.0,apr=0.0,may=0.0,jun=0.0,jul=0.0,aug=0.0,sep=0.0,oct=0.0,nov=0.0,dec=0.0
 		        if ach_det.month == "Jan":
 				jan=flt(ach_det.achieved)
 			elif ach_det.month == "Feb":

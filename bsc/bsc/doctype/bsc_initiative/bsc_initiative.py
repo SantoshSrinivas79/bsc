@@ -87,13 +87,12 @@ def create_initiative_log(month , target, args, publish_progress=True):
 
 @frappe.whitelist()
 def get_graph_data(title, test):
-    	chart = {
+    	return {
         	'data': {
 			'labels': ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 			'datasets': [
-				{ 'name': "Dataset 1", 'values': [18, 40, 30, 35, 8, 52, 17, -4] },
-				{ 'name': "Dataset 2", 'values': [30, 50, -10, 15, 18, 32, 27, 14] }
+				{'name': "Dataset 1", 'values': [18, 40, 30, 35, 8, 52, 17, -4]},
+				{'name': "Dataset 2", 'values': [30, 50, -10, 15, 18, 32, 27, 14]}
 			]
 		}
-   	}
-	return chart
+	}
