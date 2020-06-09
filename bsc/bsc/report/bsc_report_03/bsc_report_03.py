@@ -6,7 +6,6 @@ import frappe
 from frappe.utils import (flt,cstr)
 from frappe import _, throw
 
-
 def execute(filters=None):
 	if not filters: filters = {}
 	month= {}
@@ -68,70 +67,24 @@ def execute(filters=None):
 	months = filters.get("bsc_month")
 	if not months:
 		months=[]
-	if 'Jan' in months or months == []:
-		datasets.append({
-			'name':'Jan','values':month["jan"]
-		})
-	if 'Feb' in months or months == []:
-		datasets.append({
-			'name':'Feb','values':month["feb"]
-		})
-	if 'Mar' in months or months == []:
-		datasets.append({
-			'name':'Mar','values':month["mar"]
-		})
-	if 'Apr' in months or months == []:
-		datasets.append({
-			'name':'Apr','values':month["apr"]
-		})
-	if 'May' in months or months == []:
-		datasets.append({
-			'name':'May','values':month["may"]
-		})
-	if 'Jun' in months or months == []:
-		datasets.append({
-			'name':'Jun','values':month["jun"]
-		})
-	if 'Jul' in months or months == []:
-		datasets.append({
-			'name':'Jul','values':month["jul"]
-		})
-	if 'Aug' in months or months == []:
-		datasets.append({
-			'name':'Aug','values':month["aug"]
-		})
-	if 'Sep' in months or months == []:
-		datasets.append({
-			'name':'Sep','values':month["sep"]
-		})
-	if 'Oct' in months or months == []:
-		datasets.append({
-			'name':'Oct','values':month["oct"]
-		})
-	if 'Nov' in months or months == []:
-		datasets.append({
-			'name':'Nov','values':month["nov"]
-		})
-	if 'Dec' in months or months == []:
-		datasets.append({
-			'name':'Dec','values':month["dec"]
-		})
-    	chart = {
-        	"data": {
-            		'labels': labels,
-            		'datasets': datasets
-        	}
-   	}
-  	chart["type"] = "bar" if filters.get('chart_type')=='bar' else 'line'
-    	##chart["height"] = "140"
-    	#chart["colors"] = ['red']
-	#frappe.throw(_("chart = {0}").format(chart))
+	if 'Jan' in months or months == []: datasets.append({'name':'Jan','values':month["jan"]})
+	if 'Feb' in months or months == []: datasets.append({'name':'Feb','values':month["feb"]})
+	if 'Mar' in months or months == []: datasets.append({'name':'Mar','values':month["mar"]})
+	if 'Apr' in months or months == []: datasets.append({'name':'Apr','values':month["apr"]})
+	if 'May' in months or months == []: datasets.append({'name':'May','values':month["may"]})
+	if 'Jun' in months or months == []: datasets.append({'name':'Jun','values':month["jun"]})
+	if 'Jul' in months or months == []: datasets.append({'name':'Jul','values':month["jul"]})
+	if 'Aug' in months or months == []: datasets.append({'name':'Aug','values':month["aug"]})
+	if 'Sep' in months or months == []: datasets.append({'name':'Sep','values':month["sep"]})
+	if 'Oct' in months or months == []: datasets.append({'name':'Oct','values':month["oct"]})
+	if 'Nov' in months or months == []: datasets.append({'name':'Nov','values':month["nov"]})
+	if 'Dec' in months or months == []: datasets.append({'name':'Dec','values':month["dec"]})
+	chart = {"data": {'labels': labels,'datasets': datasets}}
+	chart["type"] = "bar" if filters.get('chart_type')=='bar' else 'line'
 	return columns, data, None, chart
 
 def get_columns(filters):
-	columns = [
-		_("Department") + ":Link/Department:200"
-	]
+	columns = [_("Department") + ":Link/Department:200"]
 	months = filters.get("bsc_month")
 	if months:
 		months = []
@@ -152,13 +105,10 @@ def get_columns(filters):
 
 def get_conditions(filters):
 	conditions = []
-	#if filters.get("department"): conditions.append("dep.name in (select t.department from `tabBSC Initiative` t where t.docstatus=1 group by t.department)")
 	if filters.get("department"): 
 		conditions.append("dep.name in %(department)s")
 	else:
 		conditions.append(" dep.name in (select t.department from `tabBSC Initiative` t where t.docstatus=1 group by t.department)")
-	#if filters.get("department"): conditions.append("dep.name in %(department)s")
-	#if filters.get("fiscal_year"): conditions.append("tar.fiscal_year = %(fiscal_year)s")
 	return "where {}".format(" and ".join(conditions)) if conditions else ""
 
 def get_indicators(filters):
@@ -188,11 +138,7 @@ def get_indicators(filters):
 		ifnull((select count(tar.target) from `tabBSC Initiative Log` tar where tar.is_achieved='Yes' and tar.month='Oct' and tar.department=dep.name and tar.fiscal_year=%(fiscal_year)s and tar.docstatus=1),0.0) as oct_, \
 		ifnull((select count(tar.target) from `tabBSC Initiative Log` tar where tar.is_achieved='Yes' and tar.month='Nov' and tar.department=dep.name and tar.fiscal_year=%(fiscal_year)s and tar.docstatus=1),0.0) as nov_, \
 		ifnull((select count(tar.target) from `tabBSC Initiative Log` tar where tar.is_achieved='Yes' and tar.month='Dec' and tar.department=dep.name and tar.fiscal_year=%(fiscal_year)s and tar.docstatus=1),0.0) as dec_ \
-		FROM `tabDepartment` dep {conditions} 
-		""".format(
-			conditions=get_conditions(filters),
-		),
-		filters, as_dict=1)
+		FROM `tabDepartment` dep {conditions} """.format(conditions=get_conditions(filters)),filters, as_dict=1)
 	for ind in ind_list:
 		if ind:
 			ind_map.setdefault(ind.department, ind)
