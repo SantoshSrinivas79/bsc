@@ -35,8 +35,6 @@ def execute(filters=None):
 	month_achieved["oct"] = 0.0
 	month_achieved["nov"] = 0.0
 	month_achieved["dec"] = 0.0
-
-
 	if filters.get('department'):
 		filters.department= frappe.parse_json(filters.get("department"))
 	if filters.get('bsc_indicator'):
@@ -54,8 +52,6 @@ def execute(filters=None):
 	datasets = []
 	chart_values_target = []			
 	chart_values_achieved= []
-
-
 	for ind in sorted(ind_map):
 		ind_det = ind_map.get(ind)
 		if not ind_det:
@@ -194,7 +190,6 @@ def execute(filters=None):
 		month_achieved["nov"] += ind_det.nov_ if ind_det.nov_>0.0 else 0.0
 		month_target["dec"] += ind_det.jan if ind_det.dec>0.0 else 0.0
 		month_achieved["dec"] += ind_det.jan_ if ind_det.dec_>0.0 else 0.0		
-
 			#labels=["Jan","Feb","Mar","Apr","May","Jun","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 			#datasets.append({
 			#	'name':ind_det.name,'values':[flt(ind_det.jan_/ind_det.jan*100.0,2) if ind_det.jan>0.0 else 0.0,
@@ -210,8 +205,6 @@ def execute(filters=None):
 			#		flt(ind_det.nov_/ind_det.nov*100.0,2) if ind_det.nov>0.0 else 0.0,
 			#		flt(ind_det.dec_/ind_det.dec*100.0,2) if ind_det.dec>0.0 else 0.0]
 			#})
-
-		
 		row.extend([flt(total,2)])
 		row.extend([flt(total_target,2)])
 		if total==0:
@@ -279,7 +272,6 @@ def execute(filters=None):
 		datasets.append({
 			'name':'Achieved','values':chart_values_target_achieved
 		})
-
 	else:
 		labels=["Jan","Feb","Mar","Apr","May","Jun","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 		datasets.append({

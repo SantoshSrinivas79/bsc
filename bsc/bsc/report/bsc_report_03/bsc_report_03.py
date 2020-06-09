@@ -10,7 +10,6 @@ from frappe import _, throw
 def execute(filters=None):
 	if not filters: filters = {}
 	month= {}
-
 	month["jan"] = []
 	month["feb"] = []
 	month["mar"] = []
@@ -23,22 +22,16 @@ def execute(filters=None):
 	month["oct"] = []
 	month["nov"] = []
 	month["dec"] = []
-
-
 	if filters.get('department'):
 		filters.department= frappe.parse_json(filters.get("department"))
 	if filters.get('bsc_month'):
 		filters.bsc_month= frappe.parse_json(filters.get("bsc_month"))
-
 	columns = get_columns(filters)
-
 	data = []
 	ind_map = get_indicators(filters)
 	#frappe.throw(_("ind_map = {0}").format(ind_map))
-
 	labels = []
 	datasets = []
-
 	for ind in sorted(ind_map):
 		ind_det = ind_map.get(ind)
 		if not ind_det:
@@ -59,9 +52,7 @@ def execute(filters=None):
 			cstr(flt(ind_det.dec_/ind_det.dec*100.0,2))+"%" if ind_det.dec>0 else "",
 			filters.get("fiscal_year")])
 		data.append(row)
-
 		labels+=[ind_det.department]
-
 		month["jan"].append(flt(ind_det.jan_/ind_det.jan*100.0,2) if ind_det.jan>0 else "")
 		month["feb"].append(flt(ind_det.feb_/ind_det.feb*100.0,2) if ind_det.feb>0 else "")
 		month["mar"].append(flt(ind_det.mar_/ind_det.mar*100.0,2) if ind_det.mar>0 else "")
@@ -74,7 +65,6 @@ def execute(filters=None):
 		month["oct"].append(flt(ind_det.oct_/ind_det.oct*100.0,2) if ind_det.oct>0 else "")
 		month["nov"].append(flt(ind_det.nov_/ind_det.nov*100.0,2) if ind_det.nov>0 else "")
 		month["dec"].append(flt(ind_det.dec_/ind_det.dec*100.0,2) if ind_det.dec>0 else "")
-
 	months = filters.get("bsc_month")
 	if not months:
 		months=[]
@@ -126,7 +116,6 @@ def execute(filters=None):
 		datasets.append({
 			'name':'Dec','values':month["dec"]
 		})
-
     	chart = {
         	"data": {
             		'labels': labels,
@@ -137,9 +126,7 @@ def execute(filters=None):
     	##chart["height"] = "140"
     	#chart["colors"] = ['red']
 	#frappe.throw(_("chart = {0}").format(chart))
-
 	return columns, data, None, chart
-
 
 def get_columns(filters):
 	columns = [
@@ -163,8 +150,6 @@ def get_columns(filters):
 	columns+=[_("Year") + ":Link/Fiscal Year:70"]
 	return columns
 
-
-
 def get_conditions(filters):
 	conditions = []
 	#if filters.get("department"): conditions.append("dep.name in (select t.department from `tabBSC Initiative` t where t.docstatus=1 group by t.department)")
@@ -172,7 +157,6 @@ def get_conditions(filters):
 		conditions.append("dep.name in %(department)s")
 	else:
 		conditions.append(" dep.name in (select t.department from `tabBSC Initiative` t where t.docstatus=1 group by t.department)")
-
 	#if filters.get("department"): conditions.append("dep.name in %(department)s")
 	#if filters.get("fiscal_year"): conditions.append("tar.fiscal_year = %(fiscal_year)s")
 	return "where {}".format(" and ".join(conditions)) if conditions else ""
@@ -204,7 +188,6 @@ def get_indicators(filters):
 		ifnull((select count(tar.target) from `tabBSC Initiative Log` tar where tar.is_achieved='Yes' and tar.month='Oct' and tar.department=dep.name and tar.fiscal_year=%(fiscal_year)s and tar.docstatus=1),0.0) as oct_, \
 		ifnull((select count(tar.target) from `tabBSC Initiative Log` tar where tar.is_achieved='Yes' and tar.month='Nov' and tar.department=dep.name and tar.fiscal_year=%(fiscal_year)s and tar.docstatus=1),0.0) as nov_, \
 		ifnull((select count(tar.target) from `tabBSC Initiative Log` tar where tar.is_achieved='Yes' and tar.month='Dec' and tar.department=dep.name and tar.fiscal_year=%(fiscal_year)s and tar.docstatus=1),0.0) as dec_ \
-
 		FROM `tabDepartment` dep {conditions} 
 		""".format(
 			conditions=get_conditions(filters),
@@ -213,5 +196,4 @@ def get_indicators(filters):
 	for ind in ind_list:
 		if ind:
 			ind_map.setdefault(ind.department, ind)
-
 	return ind_map

@@ -6,16 +6,13 @@ import frappe
 from frappe.utils import (flt)
 from frappe import _, throw
 
-
 def execute(filters=None):
 	if not filters: filters = {}
 	columns = get_columns()
 	data = []
 	ind_map = get_indicators(filters)
-
 	for ind in sorted(ind_map):
 		ind_det = ind_map.get(ind)
-
 		if not ind_det:
 			continue
 		row = [ind_det.bsc_perspective, ind_det.bsc_objective, ind_det.bsc_indicator, ind_det.full_name]
@@ -32,12 +29,10 @@ def execute(filters=None):
 		oct=0
 		nov=0
 		dec=0
-
 		for ach in sorted(ach_map):
 			ach_det = ach_map.get(ach)
 			if not ach_det:
 				continue
-
 			#total=0.0,jan=0.0,feb=0.0,mar=0.0,apr=0.0,may=0.0,jun=0.0,jul=0.0,aug=0.0,sep=0.0,oct=0.0,nov=0.0,dec=0.0
 		        if ach_det.month == "Jan":
 				jan=flt(ach_det.achieved)
@@ -63,7 +58,6 @@ def execute(filters=None):
 				nov=ach_det.achieved
 			elif ach_det.month == "Dec":
 				dec=ach_det.achieved
-		
 		total=get_if_not(jan)+get_if_not(feb)+get_if_not(mar)+get_if_not(apr)+get_if_not(may)+get_if_not(jun)+get_if_not(jul)+get_if_not(aug)+get_if_not(sep)+get_if_not(oct)+get_if_not(nov)+get_if_not(dec)
 		row.extend([total])
 		row.extend([ind_det.target_total])
@@ -84,9 +78,7 @@ def execute(filters=None):
 		row.extend([nov])
 		row.extend([dec])
 		row.extend([ind_det.fiscal_year])
-
 		data.append(row)
-
 	return columns, data
 
 
@@ -119,13 +111,10 @@ def get_conditions(filters):
 	conditions = ""
 	if filters.get("department"): conditions += " and tar.department = '%s'" % \
 		filters["department"]
-
 	if filters.get("fiscal_year"): conditions += " and tar.fiscal_year = '%s'" % \
 		filters["fiscal_year"]
-
 	if filters.get("bsc_indicator"): conditions += "  and tar.bsc_indicator= '%s'" % \
 		filters["bsc_indicator"].replace("'", "\\'")
-		
 	return conditions
 
 def get_indicators(filters):
@@ -137,7 +126,6 @@ def get_indicators(filters):
 	for ind in ind_list:
 		if ind:
 			ind_map.setdefault(ind.name, ind)
-
 	return ind_map
 
 def get_targeted(bsc_target):
@@ -148,7 +136,6 @@ def get_targeted(bsc_target):
 	for tar in tar_list:
 		if tar :
 			tar_map.setdefault(tar.name, tar)
-
 	return tar_map
 
 def get_achieved(bsc_target):
@@ -159,7 +146,6 @@ def get_achieved(bsc_target):
 	for tar in tar_list:
 		if tar :
 			tar_map.setdefault(tar.name, tar)
-
 	return tar_map
 
 def get_if_not(mon):
@@ -167,4 +153,3 @@ def get_if_not(mon):
 		return flt(0)
 	else:
 		return mon
-

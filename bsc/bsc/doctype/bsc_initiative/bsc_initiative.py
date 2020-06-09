@@ -22,7 +22,6 @@ class BSCInitiative(Document):
 		conditions += " where docstatus < 2 and department = '%s'" % self.department
 		conditions += " and bsc_indicator = '%s'" % self.bsc_indicator
 		conditions += " and initiative_name = '%s'" % self.initiative_name
-
 		sum_name = frappe.db.sql("""select count(name) from `tabBSC Initiative` %s"""% conditions)[0][0]
 		if sum_name > 1:
 			frappe.throw(_("Already exists with same Department and Indicator"))
@@ -82,7 +81,6 @@ def create_initiative_log(month , target, args, publish_progress=True):
 		ss.insert()
 		if publish_progress:
 			frappe.publish_progress(100,title = _("Creating BSC Initiative Log for {0}...").format(month))
-
 	bsc_initiative= frappe.get_doc("BSC Initiative", args.bsc_initiative)
 	bsc_initiative.db_set("initiative_logs_created", 1)
 	bsc_initiative.notify_update()
