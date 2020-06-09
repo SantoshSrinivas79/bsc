@@ -72,7 +72,7 @@ frappe.ui.form.on('BSC Initiative', {
 	},
 	calc_time_total: function(frm){
 		console.log("in calc")
-		frm.set_value("time_total",frm.doc.jan+frm.doc.feb+frm.doc.mar+frm.doc.apr+frm.doc.may+frm.doc.aug+frm.doc.jun+frm.doc.jul+frm.doc.sep+frm.doc.oct+frm.doc.nov+frm.doc.dec);
+		frm.set_value("time_total",frm.doc.jan+frm.doc.feb+frm.doc.mar+frm.doc.apr+frm.doc.may+frm.doc.jun+frm.doc.jul+frm.doc.aug+frm.doc.sep+frm.doc.oct+frm.doc.nov+frm.doc.dec);
 	}
 
 });

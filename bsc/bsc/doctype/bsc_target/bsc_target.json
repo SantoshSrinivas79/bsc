@@ -9,12 +9,13 @@
   "indicator_name",
   "uom",
   "cumulative_target",
+  "column_break_4",
   "target",
   "achieved",
   "per_target",
   "column_break_6",
-  "department",
   "bsc_indicator",
+  "department",
   "fiscal_year",
   "responsible_section_section",
   "employee",
@@ -73,7 +74,8 @@
    "in_standard_filter": 1,
    "label": "Fiscal Year",
    "options": "Fiscal Year",
-   "reqd": 1
+   "reqd": 1,
+   "set_only_once": 1
   },
   {
    "default": "0",
@@ -119,7 +121,9 @@
    "in_standard_filter": 1,
    "label": "Department",
    "options": "Department",
-   "reqd": 1
+   "read_only": 1,
+   "reqd": 1,
+   "set_only_once": 1
   },
   {
    "default": "0",
@@ -127,7 +131,8 @@
    "fieldtype": "Float",
    "label": "Jan",
    "precision": "1",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "default": "0",
@@ -135,7 +140,8 @@
    "fieldtype": "Float",
    "label": "Feb",
    "precision": "1",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "default": "0",
@@ -143,7 +149,8 @@
    "fieldtype": "Float",
    "label": "Mar",
    "precision": "1",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "default": "0",
@@ -151,63 +158,72 @@
    "fieldtype": "Float",
    "label": "Apr",
    "precision": "1",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "may",
    "fieldtype": "Float",
    "label": "May",
-   "precision": "1"
+   "precision": "1",
+   "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "jun",
    "fieldtype": "Float",
    "label": "Jun",
-   "precision": "1"
+   "precision": "1",
+   "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "jul",
    "fieldtype": "Float",
    "label": "Jul",
-   "precision": "1"
+   "precision": "1",
+   "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "aug",
    "fieldtype": "Float",
    "label": "Aug",
-   "precision": "1"
+   "precision": "1",
+   "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "sep",
    "fieldtype": "Float",
    "label": "Sep",
-   "precision": "1"
+   "precision": "1",
+   "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "oct",
    "fieldtype": "Float",
    "label": "Oct",
-   "precision": "1"
+   "precision": "1",
+   "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "nov",
    "fieldtype": "Float",
    "label": "Nov",
-   "precision": "1"
+   "precision": "1",
+   "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "dec",
    "fieldtype": "Float",
    "label": "Dec",
-   "precision": "1"
+   "precision": "1",
+   "reqd": 1
   },
   {
    "default": "0",
@@ -428,7 +444,7 @@
    "collapsible": 1,
    "fieldname": "responsible_section_section",
    "fieldtype": "Section Break",
-   "label": "Responsible Section"
+   "label": "Responsible Details"
   },
   {
    "fieldname": "employee",
@@ -471,10 +487,14 @@
    "in_list_view": 1,
    "label": "Target Percent",
    "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-09 12:37:11.352087",
+ "modified": "2020-06-09 20:44:58.704851",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Target",
@@ -493,7 +513,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "search_fields": "bsc_indicator,indicator_name,department,fiscal_year",
  "sort_field": "modified",
  "sort_order": "DESC",

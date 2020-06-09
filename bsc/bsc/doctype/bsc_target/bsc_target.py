@@ -49,8 +49,8 @@ class BSCTarget(Document):
 
 
 def create_target_log(month , target, args, publish_progress=True):
-	if frappe.db.sql("""select count(name) from `tabBSC Target Log` where department = %s 
-		and bsc_indicator = %s and month = %s""", (args.department,args.bsc_indicator,month))[0][0]==0:		
+	if frappe.db.sql("""select count(name) from `tabBSC Target Log` where  
+		bsc_target = %s and month = %s""", (args.bsc_target,month))[0][0]==0:		
 		args.update({
 			"doctype": "BSC Target Log",
 			"month": month,

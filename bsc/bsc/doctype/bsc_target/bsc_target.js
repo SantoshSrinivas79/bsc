@@ -47,13 +47,14 @@ frappe.ui.form.on('BSC Target', {
 		}*/
 	 },
 	department: function(frm) {
-		frm.set_value("bsc_indicator", "");
-		frm.set_value("indicator_name", "");
+		/*frm.set_value("bsc_indicator", "");
+		frm.set_value("indicator_name", "");*/
 	},
 	uom: function(frm) {
 		frm.trigger("change_properties");
 	},
 	change_properties: function(frm) {
+		console.log('in change')
 		frm.set_df_property('cumulative_target','req',  frm.doc.uom!=='Numerical'? 1 : 0);
 		frm.set_df_property('target','read_only',  frm.doc.uom!=='Percent'? 1 : 0);
 		frm.set_df_property('jan','read_only',  frm.doc.uom!=='Numerical'? 1 : 0);
@@ -68,18 +69,18 @@ frappe.ui.form.on('BSC Target', {
 		frm.set_df_property('oct','read_only',  frm.doc.uom!=='Numerical'? 1 : 0);
 		frm.set_df_property('nov','read_only',  frm.doc.uom!=='Numerical'? 1 : 0);
 		frm.set_df_property('dec','read_only',  frm.doc.uom!=='Numerical'? 1 : 0);
-		frm.set_df_property('jan_','req',  frm.doc.uom=='Percent'? 1 : 0);
-		frm.set_df_property('feb_','req',  frm.doc.uom=='Percent'? 1 : 0);
-		frm.set_df_property('mar_','req',  frm.doc.uom=='Percent'? 1 : 0);
-		frm.set_df_property('apr_','req',  frm.doc.uom=='Percent'? 1 : 0);
-		frm.set_df_property('may_','req',  frm.doc.uom=='Percent'? 1 : 0);
-		frm.set_df_property('jun_','req',  frm.doc.uom=='Percent'? 1 : 0);
-		frm.set_df_property('jul_','req',  frm.doc.uom=='Percent'? 1 : 0);
-		frm.set_df_property('aug_','req',  frm.doc.uom=='Percent'? 1 : 0);
-		frm.set_df_property('sep_','req',  frm.doc.uom=='Percent'? 1 : 0);
-		frm.set_df_property('oct_','req',  frm.doc.uom=='Percent'? 1 : 0);
-		frm.set_df_property('nov_','req',  frm.doc.uom=='Percent'? 1 : 0);
-		frm.set_df_property('dec_','req',  frm.doc.uom=='Percent'? 1 : 0);
+		frm.set_df_property('jan_','reqd',  frm.doc.uom=='Percent'? 1 : 0);
+		frm.set_df_property('feb_','reqd',  frm.doc.uom=='Percent'? 1 : 0);
+		frm.set_df_property('mar_','reqd',  frm.doc.uom=='Percent'? 1 : 0);
+		frm.set_df_property('apr_','reqd',  frm.doc.uom=='Percent'? 1 : 0);
+		frm.set_df_property('may_','reqd',  frm.doc.uom=='Percent'? 1 : 0);
+		frm.set_df_property('jun_','reqd',  frm.doc.uom=='Percent'? 1 : 0);
+		frm.set_df_property('jul_','reqd',  frm.doc.uom=='Percent'? 1 : 0);
+		frm.set_df_property('aug_','reqd',  frm.doc.uom=='Percent'? 1 : 0);
+		frm.set_df_property('sep_','reqd',  frm.doc.uom=='Percent'? 1 : 0);
+		frm.set_df_property('oct_','reqd',  frm.doc.uom=='Percent'? 1 : 0);
+		frm.set_df_property('nov_','reqd',  frm.doc.uom=='Percent'? 1 : 0);
+		frm.set_df_property('dec_','reqd',  frm.doc.uom=='Percent'? 1 : 0);
 		frm.set_df_property('jan__','hidden',  frm.doc.uom!=='Cumulative'? 1 : 0);
 		frm.set_df_property('feb__','hidden',  frm.doc.uom!=='Cumulative'? 1 : 0);
 		frm.set_df_property('mar__','hidden',  frm.doc.uom!=='Cumulative'? 1 : 0);
@@ -126,24 +127,26 @@ frappe.ui.form.on('BSC Target', {
 
 		}
 		else if(frm.doc.uom=='Percent'){
+			console.log(frm.doc.jan_+frm.doc.feb_+frm.doc.mar_+frm.doc.apr_+frm.doc.may_+frm.doc.jun_+
+				frm.doc.jul_+frm.doc.aug_+frm.doc.sep_+frm.doc.oct_+frm.doc.nov_+frm.doc.dec_)
 			if(frm.doc.jan_+frm.doc.feb_+frm.doc.mar_+frm.doc.apr_+frm.doc.may_+frm.doc.jun_+
-				frm.doc.jul_+frm.doc.aug_+frm.doc.sep_+frm.doc.nov_+frm.doc.dec_!==1){
+				frm.doc.jul_+frm.doc.aug_+frm.doc.sep_+frm.doc.oct_+frm.doc.nov_+frm.doc.dec_!==100){
 				        msgprint('Total of Percents of Months must to be 100%');
             				validated = false;
 					return;
 			}
-			frm.set_value("jan", frm.doc.target*frm.doc.jan_);
-			frm.set_value("feb", frm.doc.target*frm.doc.feb_);
-			frm.set_value("mar", frm.doc.target*frm.doc.mar_);
-			frm.set_value("apr", frm.doc.target*frm.doc.apr_);
-			frm.set_value("may", frm.doc.target*frm.doc.may_);
-			frm.set_value("jun", frm.doc.target*frm.doc.jun_);
-			frm.set_value("jul", frm.doc.target*frm.doc.jul_);
-			frm.set_value("aug", frm.doc.target*frm.doc.aug_);
-			frm.set_value("sep", frm.doc.target*frm.doc.sep_);
-			frm.set_value("oct", frm.doc.target*frm.doc.oct_);
-			frm.set_value("nov", frm.doc.target*frm.doc.nov_);
-			frm.set_value("dec", frm.doc.target*frm.doc.dec_);
+			frm.set_value("jan", frm.doc.target*frm.doc.jan_/100);
+			frm.set_value("feb", frm.doc.target*frm.doc.feb_/100);
+			frm.set_value("mar", frm.doc.target*frm.doc.mar_/100);
+			frm.set_value("apr", frm.doc.target*frm.doc.apr_/100);
+			frm.set_value("may", frm.doc.target*frm.doc.may_/100);
+			frm.set_value("jun", frm.doc.target*frm.doc.jun_/100);
+			frm.set_value("jul", frm.doc.target*frm.doc.jul_/100);
+			frm.set_value("aug", frm.doc.target*frm.doc.aug_/100);
+			frm.set_value("sep", frm.doc.target*frm.doc.sep_/100);
+			frm.set_value("oct", frm.doc.target*frm.doc.oct_/100);
+			frm.set_value("nov", frm.doc.target*frm.doc.nov_/100);
+			frm.set_value("dec", frm.doc.target*frm.doc.dec_/100);
 			/*$.each(frm.doc.target_months || [], function(i, d) {
 				total +=d.target;
 			});
@@ -154,7 +157,7 @@ frappe.ui.form.on('BSC Target', {
 			}*/
 		}
 		frm.set_value("target", frm.doc.jan+frm.doc.feb+frm.doc.mar+frm.doc.apr+frm.doc.may+frm.doc.jun+
-			frm.doc.jul+frm.doc.aug+frm.doc.sep+frm.doc.nov+frm.doc.dec);
+			frm.doc.jul+frm.doc.aug+frm.doc.sep+frm.doc.oct+frm.doc.nov+frm.doc.dec);
 
 	}
 });

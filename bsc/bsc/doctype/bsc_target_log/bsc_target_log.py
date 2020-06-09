@@ -20,7 +20,7 @@ class BSCTargetLog(Document):
 
 	def validate_duplicate(self):
 		conditions = ""
-		conditions += " where department = '%s'" % self.department
+		conditions += " where docstatus<2 "
 		conditions += " and bsc_target = '%s'" % self.bsc_target
 		conditions += " and month = '%s'" % self.month
 		if frappe.db.exists(self.doctype, self.name):

@@ -88,6 +88,7 @@
    "reqd": 1
   },
   {
+   "default": "No",
    "fieldname": "is_achieved",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -201,7 +202,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-09 11:24:56.410712",
+ "modified": "2020-06-09 20:48:23.689382",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative Log",

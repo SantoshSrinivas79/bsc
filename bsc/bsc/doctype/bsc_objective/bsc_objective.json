@@ -8,9 +8,10 @@
   "naming_series",
   "full_name",
   "objective_percentage",
+  "column_break_4",
   "bsc_perspective",
   "perspective_name",
-  "column_break_6",
+  "section_break_7",
   "details_section",
   "description"
  ],
@@ -43,10 +44,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "column_break_6",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "bsc_perspective",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -66,9 +63,17 @@
    "fieldname": "description",
    "fieldtype": "Small Text",
    "label": "Description"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
   }
  ],
- "modified": "2020-06-03 01:59:00.128648",
+ "modified": "2020-06-09 20:09:59.836192",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Objective",

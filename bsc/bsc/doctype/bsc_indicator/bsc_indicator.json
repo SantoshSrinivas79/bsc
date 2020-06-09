@@ -8,9 +8,10 @@
   "naming_series",
   "full_name",
   "indicator_percentage",
+  "column_break_6",
   "bsc_objective",
   "objective_name",
-  "column_break_6",
+  "column_break_7",
   "bsc_perspective",
   "perspective_name",
   "details_section",
@@ -104,9 +105,13 @@
   {
    "fieldname": "deps_section",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-06-03 01:58:27.232499",
+ "modified": "2020-06-09 20:11:34.288343",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Indicator",

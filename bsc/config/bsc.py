@@ -102,6 +102,12 @@ def get_data():
 					"name": "Department-wise Initiative Achievement Report",
 					"doctype": "BSC Initiative Log",
 					"is_query_report": True
+				},
+				{
+					"type": "report",
+					"name": "BSC Performance Report",
+					"doctype": "BSC Perspective",
+					"is_query_report": True
 				}
 			]
 		},

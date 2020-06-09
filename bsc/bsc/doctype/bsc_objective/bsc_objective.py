@@ -13,8 +13,8 @@ class BSCObjective(Document):
 		self.validate_percentage()
 
 	def validate_percentage(self):
-		if flt(self.objective_percentage) <= 0.0 :
-			frappe.throw(_("The percentage % must to be > {0}").format(frappe.bold("0.0")))
+		#if flt(self.objective_percentage) <= 0.0 :
+		#	frappe.throw(_("The percentage % must to be > {0}").format(frappe.bold("0.0")))
 
 		if not frappe.db.exists(self.doctype, self.name):
 			sum_percentage = frappe.db.sql("""select sum(objective_percentage) from `tabBSC Objective` where bsc_perspective = %s""",self.bsc_perspective)[0][0]

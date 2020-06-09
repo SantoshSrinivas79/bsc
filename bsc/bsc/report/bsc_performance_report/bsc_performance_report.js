@@ -34,11 +34,43 @@ frappe.query_reports["BSC Performance Report"] = {
 		}
 
 	],
-	"formatter": erpnext.financial_statements.formatter,
+	"formatter": function(value, row, column, data, default_formatter) {
+
+		if (column.fieldname=="bsc") {
+			value = data.bsc_name;
+
+			column.link_onclick =
+				"erpnext.financial_statements.open_general_ledger(" + JSON.stringify(data) + ")";
+			column.is_tree = true;
+		}
+
+		value = default_formatter(value, row, column, data);
+
+		if (!data.parent_bsc) {
+			value = $(`<span>${value}</span>`);
+
+			var $value = $(value).css("font-weight", "bold");
+			if (data.warn_if_negative && data[column.fieldname] < 0) {
+				$value.addClass("text-danger");
+			}
+
+			value = $value.wrap("<p></p>").parent().html();
+		}
+       		if (column.fieldname == "perc") {
+			console.log('in perc')
+            		value = "<span style='text-align:center'>" + value + "</span>";
+			var $value = $(value).css("text-align", "left");
+
+			value = $value.wrap("<p></p>").parent().html();
+
+        	}
+		return value;
+	},
+
 	"tree": true,
-	"name_field": "account",
-	"parent_field": "parent_account",
-	"initial_depth": 3
+	"name_field": "bsc",
+	"parent_field": "parent_bsc",
+	"initial_depth": 0
 
 }
 });

@@ -52,7 +52,7 @@ class BSCInitiative(Document):
 			"bsc_indicator": self.bsc_indicator,
 			"bsc_initiative": self.name,
 			"initiative_name": self.initiative_name,
-			"is_achieved": 0,
+			"is_achieved": 'No',
 		})
 		# since this method is called via frm.call this doc needs to be updated manually
 		if self.jan>0: create_initiative_log("Jan", self.jan, args, publish_progress=True)
@@ -71,8 +71,8 @@ class BSCInitiative(Document):
 
 
 def create_initiative_log(month , target, args, publish_progress=True):
-	if frappe.db.sql("""select count(name) from `tabBSC Initiative Log` where docstatus < 2 and department = %s 
-		and bsc_indicator = %s and month = %s and bsc_initiative = %s""", (args.department,args.bsc_indicator,month,args.bsc_initiative))[0][0]==0:		
+	if frappe.db.sql("""select count(name) from `tabBSC Initiative Log` where docstatus < 2  
+		and month = %s and bsc_initiative = %s""", (month,args.bsc_initiative))[0][0]==0:		
 		args.update({
 			"doctype": "BSC Initiative Log",
 			"month": month,

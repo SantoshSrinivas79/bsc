@@ -16,7 +16,7 @@ class BSCInitiativeLog(Document):
 
 	def validate_duplicate(self):
 		conditions = ""
-		conditions += " where docstatus < 2 and department = '%s'" % self.department
+		conditions += " where docstatus < 2 "
 		conditions += " and bsc_initiative = '%s'" % self.bsc_initiative 
 		conditions += " and month = '%s'" % self.month
 		if frappe.db.exists(self.doctype, self.name):
