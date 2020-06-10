@@ -33,30 +33,18 @@ def execute(filters=None):
 			ach_det = ach_map.get(ach)
 			if not ach_det:
 				continue
-		        if ach_det.month == "Jan":
-				jan=flt(ach_det.achieved)
-			elif ach_det.month == "Feb":
-				feb=flt(ach_det.achieved)
-			elif ach_det.month == "Mar":
-				mar=ach_det.achieved
-			elif ach_det.month == "Apr":
-				apr=ach_det.achieved
-			elif ach_det.month == "May":
-				may=ach_det.achieved
-			elif ach_det.month == "Jun":
-				jun=ach_det.achieved
-			elif ach_det.month == "Jul":
-				jul=ach_det.achieved
-			elif ach_det.month == "Aug":
-				aug=ach_det.achieved
-			elif ach_det.month == "Sep":
-				sep=ach_det.achieved
-			elif ach_det.month == "Oct":
-				oct=ach_det.achieved
-			elif ach_det.month == "Nov":
-				nov=ach_det.achieved
-			elif ach_det.month == "Dec":
-				dec=ach_det.achieved
+		        if ach_det.month == "Jan": jan=flt(ach_det.achieved)
+			elif ach_det.month == "Feb": feb=flt(ach_det.achieved)
+			elif ach_det.month == "Mar": mar=ach_det.achieved
+			elif ach_det.month == "Apr": apr=ach_det.achieved
+			elif ach_det.month == "May": may=ach_det.achieved
+			elif ach_det.month == "Jun": jun=ach_det.achieved
+			elif ach_det.month == "Jul": jul=ach_det.achieved
+			elif ach_det.month == "Aug": aug=ach_det.achieved
+			elif ach_det.month == "Sep": sep=ach_det.achieved
+			elif ach_det.month == "Oct": oct=ach_det.achieved
+			elif ach_det.month == "Nov": nov=ach_det.achieved
+			elif ach_det.month == "Dec": dec=ach_det.achieved
 		total=get_if_not(jan)+get_if_not(feb)+get_if_not(mar)+get_if_not(apr)+get_if_not(may)+get_if_not(jun)+get_if_not(jul)+get_if_not(aug)+get_if_not(sep)+get_if_not(oct)+get_if_not(nov)+get_if_not(dec)
 		row.extend([total])
 		row.extend([ind_det.target_total])
