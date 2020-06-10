@@ -266,12 +266,8 @@ def execute(filters=None):
 				chart_values_target.append(month_target["dec"])
 				chart_values_achieved.append(month_achieved["dec"])
 				labels.append('Dec')
-		datasets.append({
-			'name':'Target','values':chart_values_target
-		})
-		datasets.append({
-			'name':'Achieved','values':chart_values_target_achieved
-		})
+		datasets.append({'name':'Target','values':chart_values_target})
+		datasets.append({'name':'Achieved','values':chart_values_target_achieved})
 	else:
 		labels=["Jan","Feb","Mar","Apr","May","Jun","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 		datasets.append({
@@ -302,15 +298,9 @@ def execute(filters=None):
 				month_achieved["nov"],
 				month_achieved["dec"]]
 		})
-    	chart = {
-        	"data": {
-            		'labels': labels,
-            		'datasets': datasets
-        	}
-   	}
-    	chart["type"] = "bar"
-    	##chart["height"] = "140"
-    	chart["colors"] = ['green','red']
+	chart = {"data": {'labels': labels,'datasets': datasets}}
+	chart["type"] = "bar"
+	chart["colors"] = ['green','red']
 	return columns, data, None, chart
 
 def get_columns(filters):
@@ -368,10 +358,7 @@ def get_indicators(filters):
 		ifnull((select achieved from `tabBSC Target Log` where month='Dec' and bsc_target=tar.name and docstatus=1),0.0) as dec_  \
 		FROM `tabBSC Target` tar, `tabBSC Indicator` ind , `tabBSC Objective` obj \
 		where tar.bsc_indicator=ind.name {conditions} \
-		""".format(
-			conditions=get_conditions(filters),
-		),
-		filters, as_dict=1)
+		""".format(conditions=get_conditions(filters)),filters, as_dict=1)
 	for ind in ind_list:
 		if ind:
 			ind_map.setdefault(ind.name, ind)
@@ -395,10 +382,7 @@ def get_chart(filters):
 		ifnull((select sum(achieved) from `tabBSC Target Log` where month='Dec' and bsc_target=tar.name),0.0) as dec_  \
 		FROM `tabBSC Target` tar, `tabBSC Indicator` ind , `tabBSC Objective` obj \
 		where tar.bsc_indicator=ind.name {conditions} \
-		""".format(
-			conditions=get_conditions(filters),
-		),
-		filters, as_dict=1)
+		""".format(conditions=get_conditions(filters)),filters, as_dict=1)
 	labels = []
 	datasets = []
 	for ind in ind_list:
@@ -486,11 +470,6 @@ def get_chart(filters):
 						flt(ind.dec_,2) if ind.dec_>0.0 else 0.0,]
 				})
 			ind_map.setdefault(ind.name, ind)
-    	chart = {
-        	"data": {
-            		'labels': labels,
-            		'datasets': datasets
-        	}
-   	}
-    	chart["type"] = "bar"
+	chart = {"data": {'labels': labels,'datasets': datasets}}
+	chart["type"] = "bar"
 	return chart
