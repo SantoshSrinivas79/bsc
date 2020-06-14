@@ -20,19 +20,19 @@ def get_columns():
 	return [
 		{
 			"fieldname": "bsc",
-			"label": _("indicator"),
+			"label": _("BSC Key Name"),
 			"fieldtype": "Data",
 			"width": 600
 		},
 		{
 			"fieldname": "perc",
-			"label": _("perc"),
+			"label": _("BSC Key Percentage"),
 			"fieldtype": "Percent",
 			"width": 100
 		},
 		{
 			"fieldname": "width",
-			"label": _("width"),
+			"label": _("BSC Key Width"),
 			"fieldtype": "Data",
 			"width": 100
 		}
@@ -75,11 +75,17 @@ def get_obj(per):
 def get_ind(obj):
 	return frappe.db.sql("""SELECT name, full_name, indicator_percentage as per FROM `tabBSC Indicator` WHERE bsc_objective=%s order by name ASC""",obj, as_dict=True)
 
-def get_tar(ind):
-	return frappe.db.sql("""SELECT (IFNULL(sum(per_target),0)/IFNULL(count(name),0)) as total FROM `tabBSC Target` WHERE docstatus=1 and bsc_indicator=%s """,ind)
+def get_tar(ind,filters):
+	conditions = "  and bsc_indicator= '%s'" % ind.replace("'", "\\'")
+	if filters.get("department"): conditions += "  and department= '%s'" % filters["department"].replace("'", "\\'")
+	if filters.get("fiscal_year"): conditions += "  and fiscal_year= '%s'" % filters["fiscal_year"].replace("'", "\\'")
+	return frappe.db.sql("""SELECT (IFNULL(sum(per_target),0)/IFNULL(count(name),0)) as total FROM `tabBSC Target` WHERE docstatus=1 %s""" % conditions)
 
-def get_ini(ind):
-	return frappe.db.sql("""SELECT (IFNULL(sum(per_initiative),0)/IFNULL(count(name),0)) as total FROM `tabBSC Initiative` WHERE docstatus=1 and bsc_indicator=%s """,ind)
+def get_ini(ind,filters):
+	conditions = "  and bsc_indicator= '%s'" % ind.replace("'", "\\'")
+	if filters.get("department"): conditions += "  and department= '%s'" % filters["department"].replace("'", "\\'")
+	if filters.get("fiscal_year"): conditions += "  and fiscal_year= '%s'" % filters["fiscal_year"].replace("'", "\\'")
+	return frappe.db.sql("""SELECT (IFNULL(sum(per_initiative),0)/IFNULL(count(name),0)) as total FROM `tabBSC Initiative` WHERE docstatus=1 %s""" % conditions)
 
 def get_data_(filters):
 	alltree = {}
@@ -123,11 +129,11 @@ def get_data_(filters):
 				alltree[count]['parent_bsc']=obj.name
 				alltree[count]['indent']=2
 				alltree[count]['per']=ind.per
-				total=flt(get_tar(ind.name)[0][0],2)+flt(get_ini(ind.name)[0][0],2)
+				total=flt(get_tar(ind.name,filters)[0][0])+flt(get_ini(ind.name,filters)[0][0])
 				total=flt(total,2)/2 if total>0 else 0
 				#frappe.msgprint("total== {0} ".format(total))
 				alltree[count]['total']=total
-				alltree[count]['total_per']=total
+				alltree[count]['total_per']=total/(100/ind.per)
 				objtotal += total/(100/ind.per)
 			alltree[objcount]['total']=objtotal
 			alltree[objcount]['total_per']=objtotal/(100/obj.per)
@@ -135,13 +141,6 @@ def get_data_(filters):
 		alltree[percount]['total']=pertotal
 		alltree[percount]['total_per']=pertotal/(100/per.per)
 		totalcount+=pertotal/(100/per.per)
-
-
-
-
-
-
-
 
 	data = []
 	for t in sorted(alltree):
@@ -152,15 +151,15 @@ def get_data_(filters):
 			"bsc_name": tree.get('bsc_name',''),
 			"parent_bsc": tree.get('parent_bsc',''),
 			"indent": tree.get('indent',''),
-			"width": cstr(flt(tree.get('total_per',0),2))+'/'+cstr(tree.get('per',0)),
-			"perc": flt(tree.get('total',0),2)
+			"width": cstr(flt(tree.get('total_per',0),1))+'/'+cstr(tree.get('per',0)),
+			"perc": flt(tree.get('total',0),1)
 		}
 		data.append(row)
+	data.extend([{}])
 	row = {
-		"perc": flt(totalcount,2),
+		"perc": flt(totalcount,1),
 		"width": 100
 	}
-	data.extend([{}])
 	data.append(row)
 
 	return data

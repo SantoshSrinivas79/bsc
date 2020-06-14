@@ -11,14 +11,14 @@ def get_data():
 					"name": "BSC Initiative Log",
 					"description":_("BSC Initiative Log"),
 					"onboard": 1,
-					"dependencies": ["BSC Perspective","BSC Objective","BSC Indicator","BSC Indicator Department","BSC Initiative"],
+					"dependencies": ["BSC Initiative"],
 				},
 				{
 					"type": "doctype",
 					"name": "BSC Initiative",
 					"description":_("BSC Initiative"),
 					"onboard": 1,
-					"dependencies": ["BSC Perspective","BSC Objective","BSC Indicator","BSC Indicator Department","BSC Initiative Assignment"],
+					"dependencies": ["BSC Initiative Assignment"],
 
 				},
 				{
@@ -26,7 +26,7 @@ def get_data():
 					"name": "BSC Initiative Assignment",
 					"description":_("BSC Initiative Assignment"),
 					"onboard": 1,
-					"dependencies": ["BSC Perspective","BSC Objective","BSC Indicator","BSC Indicator Department"],
+					"dependencies": ["BSC Indicator"],
 
 				}
 			]
@@ -39,14 +39,14 @@ def get_data():
 					"name": "BSC Target Log",
 					"description":_("BSC Target Log"),
 					"onboard": 1,
-					"dependencies": ["BSC Perspective","BSC Objective","BSC Indicator","BSC Indicator Department","BSC Target"],
+					"dependencies": ["BSC Target"],
 				},
 				{
 					"type": "doctype",
 					"name": "BSC Target",
 					"description":_("BSC Target"),
 					"onboard": 1,
-					"dependencies": ["BSC Perspective","BSC Objective","BSC Indicator","BSC Indicator Department"],
+					"dependencies": ["BSC Indicator"],
 
 				}
 			]
@@ -132,14 +132,7 @@ def get_data():
 					"name": "BSC Indicator",
 					"description":_("BSC Indicator"),
 					"onboard": 1,
-					"dependencies": ["BSC Perspective","BSC Objective"],
-				},
-				{
-					"type": "doctype",
-					"name": "BSC Indicator Department",
-					"description":_("BSC Indicator Department"),
-					"onboard": 1,
-					"dependencies": ["BSC Perspective","BSC Objective","BSC Indicator"],
+					"dependencies": ["BSC Objective"],
 				},
 				{
 					"type": "doctype",
