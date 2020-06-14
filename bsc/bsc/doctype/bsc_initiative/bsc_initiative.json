@@ -12,7 +12,6 @@
   "time_total",
   "achieved",
   "per_initiative",
-  "total_amount",
   "column_break_9",
   "bsc_initiative_assignment",
   "bsc_indicator",
@@ -24,6 +23,7 @@
   "employee",
   "employee_name",
   "user_id",
+  "total_amount",
   "months_section",
   "jan",
   "feb",
@@ -72,10 +72,9 @@
   },
   {
    "fieldname": "target_group",
-   "fieldtype": "Link",
+   "fieldtype": "Table MultiSelect",
    "label": "Target Group",
-   "options": "BSC Target Group",
-   "reqd": 1
+   "options": "BSC Initiative TG"
   },
   {
    "fieldname": "target_total",
@@ -336,7 +335,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-09 12:36:08.035402",
+ "modified": "2020-06-14 19:28:59.049804",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative",

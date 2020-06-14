@@ -16,14 +16,14 @@ frappe.ui.form.on('BSC Target', {
 
 		frm.set_df_property('target',  'read_only',  frm.doc.uom=='Cumulative'? 1 : 0);
 
-		frm.set_query("bsc_indicator", function() {
+		/*frm.set_query("bsc_indicator", function() {
 			return {
 				query: "bsc.bsc.doctype.bsc_indicator.bsc_indicator.get_indicator_by_department",
 				filters: {
 					department: frm.doc.department
 				}
 			};
-		});
+		});/*
 	},
 	refresh: function(frm) {
 		if (frm.doc.docstatus == 0) {

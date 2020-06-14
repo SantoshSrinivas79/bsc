@@ -44,7 +44,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "BSC Indicator Name",
+   "label": "Indicator Name",
    "read_only": 1
   },
   {
@@ -68,7 +68,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-03 02:02:44.174648",
+ "modified": "2020-06-14 18:57:12.378252",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative Assignment",
