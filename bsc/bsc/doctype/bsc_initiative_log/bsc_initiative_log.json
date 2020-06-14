@@ -58,7 +58,7 @@
    "fetch_from": "bsc_indicator.full_name",
    "fieldname": "indicator_name",
    "fieldtype": "Data",
-   "label": "BSC Indicator Name",
+   "label": "Indicator Name",
    "read_only": 1
   },
   {
@@ -202,7 +202,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-09 20:48:23.689382",
+ "modified": "2020-06-14 20:04:08.122202",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative Log",

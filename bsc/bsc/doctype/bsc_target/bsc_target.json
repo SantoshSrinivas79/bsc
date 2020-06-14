@@ -64,8 +64,9 @@
   "dec_",
   "dec",
   "section_break_52",
-  "amended_from",
-  "target_logs_created"
+  "target_logs_created",
+  "month_count",
+  "amended_from"
  ],
  "fields": [
   {
@@ -491,10 +492,19 @@
   {
    "fieldname": "column_break_4",
    "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "month_count",
+   "fieldtype": "Int",
+   "label": "Month Count",
+   "no_copy": 1,
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-09 20:44:58.704851",
+ "modified": "2020-06-14 21:16:14.293786",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Target",

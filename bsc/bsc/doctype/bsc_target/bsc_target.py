@@ -11,6 +11,7 @@ class BSCTarget(Document):
 
 	def validate(self):
 		self.validate_duplicate()
+		self.validate_month_count()
 
 	def validate_duplicate(self):
 		conditions = ""
@@ -21,6 +22,21 @@ class BSCTarget(Document):
 		sum_name = frappe.db.sql("""select count(name) from `tabBSC Target` %s"""% conditions)[0][0]
 		if sum_name > 0:
 			frappe.throw(_("Already exists with same Department and Indicator"))
+
+	def validate_month_count(self):
+		self.month_count=0
+		if self.jan>0: self.month_count+=1
+		if self.feb>0: self.month_count+=1
+		if self.mar>0: self.month_count+=1
+		if self.apr>0: self.month_count+=1
+		if self.may>0: self.month_count+=1
+		if self.jun>0: self.month_count+=1
+		if self.jul>0: self.month_count+=1
+		if self.aug>0: self.month_count+=1
+		if self.sep>0: self.month_count+=1
+		if self.oct>0: self.month_count+=1
+		if self.nov>0: self.month_count+=1
+		if self.dec>0: self.month_count+=1
 
 	def on_submit(self):
 		self.create_target_log()
