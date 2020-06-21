@@ -18,15 +18,17 @@ class BSCIndicator(Document):
 		#	frappe.throw(_("The percentage % must to be > {0}").format(frappe.bold("0.0")))
 		bsc_settings = frappe.db.get_single_value('BSC Settings', 'allow_more_ind')
 		if bsc_settings:
-			if bsc_settings == 1:
+			if bsc_settings == 0:
+				bsc_settings == 0
+			else:
 				bsc_settings == 1
 		else:
-			bsc_settings == 0
+			bsc_settings == 1
 
 		if not frappe.db.exists(self.doctype, self.name):
 			sum_percentage = frappe.db.sql("""select sum(indicator_percentage) from `tabBSC Indicator` where bsc_objective = %s""",self.bsc_objective)[0][0]
 			if sum_percentage == 100:
-				if bsc_settings == 1:
+				if bsc_settings == 0:
 					frappe.throw(_("You can't add this indicator, the total percentage % of others is 100%"))
 				else:
 					frappe.msgprint(_("You can't add this indicator, the total percentage % of others is 100%"))
@@ -34,7 +36,7 @@ class BSCIndicator(Document):
 			sum_percentage = frappe.db.sql("""select sum(indicator_percentage) from `tabBSC Indicator` where bsc_objective = %s and name <> %s""",(self.bsc_objective, self.name))[0][0]
 
 			if (flt(flt(sum_percentage) + self.indicator_percentage)) > 100.0 :
-				if bsc_settings == 1:
+				if bsc_settings == 0:
 					frappe.throw(_("The percentage % must to be < {0}, total of others is {1}").format(frappe.bold(str(100 - flt(sum_percentage))), \
 						frappe.bold(str(flt(sum_percentage))) ))
 				else:
