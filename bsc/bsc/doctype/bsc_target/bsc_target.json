@@ -448,6 +448,7 @@
    "label": "Responsible Details"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "employee",
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
@@ -504,7 +505,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-14 21:16:14.293786",
+ "modified": "2020-06-22 01:43:04.949082",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Target",
