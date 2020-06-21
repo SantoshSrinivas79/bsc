@@ -5,6 +5,7 @@
 from __future__ import unicode_literals
 import frappe
 from frappe import _, throw
+from frappe.utils import flt, cint
 from frappe.model.document import Document
 
 class BSCInitiative(Document):
@@ -31,18 +32,18 @@ class BSCInitiative(Document):
 
 	def validate_month_count(self):
 		self.month_count=0
-		if self.jan>0: self.month_count+=1
-		if self.feb>0: self.month_count+=1
-		if self.mar>0: self.month_count+=1
-		if self.apr>0: self.month_count+=1
-		if self.may>0: self.month_count+=1
-		if self.jun>0: self.month_count+=1
-		if self.jul>0: self.month_count+=1
-		if self.aug>0: self.month_count+=1
-		if self.sep>0: self.month_count+=1
-		if self.oct>0: self.month_count+=1
-		if self.nov>0: self.month_count+=1
-		if self.dec>0: self.month_count+=1		
+		if cint(self.jan)>0: self.month_count+=1
+		if cint(self.feb)>0: self.month_count+=1
+		if cint(self.mar)>0: self.month_count+=1
+		if cint(self.apr)>0: self.month_count+=1
+		if cint(self.may)>0: self.month_count+=1
+		if cint(self.jun)>0: self.month_count+=1
+		if cint(self.jul)>0: self.month_count+=1
+		if cint(self.aug)>0: self.month_count+=1
+		if cint(self.sep)>0: self.month_count+=1
+		if cint(self.oct)>0: self.month_count+=1
+		if cint(self.nov)>0: self.month_count+=1
+		if cint(self.dec)>0: self.month_count+=1		
 
 	def create_initiative_log(self):
 		self.check_permission('write')
