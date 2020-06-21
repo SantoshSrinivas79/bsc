@@ -6,7 +6,8 @@
  "field_order": [
   "evidence_mandatory",
   "weakness_mandatory",
-  "suggested_mandatory"
+  "suggested_mandatory",
+  "allow_more_ind"
  ],
  "fields": [
   {
@@ -26,10 +27,16 @@
    "fieldname": "suggested_mandatory",
    "fieldtype": "Check",
    "label": "Suggested Mandatory in Initiative Log"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_more_ind",
+   "fieldtype": "Check",
+   "label": "Allow More than 100 in Indicator"
   }
  ],
  "issingle": 1,
- "modified": "2020-05-16 22:28:03.773823",
+ "modified": "2020-06-21 17:48:40.244703",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Settings",
