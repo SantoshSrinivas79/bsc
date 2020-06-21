@@ -3,11 +3,11 @@ from frappe import _
 
 def get_data():
 	return {
-		'fieldname': 'bsc_indicator',
+		'fieldname': 'bsc_indicator_assignment',
 		'transactions': [
 			{
 				'label': '',
-				'items': ['BSC Target','BSC Initiative','BSC Indicator Assignment']
+				'items': ['BSC Initiative', 'BSC Target']
 			}
 		]
 	}

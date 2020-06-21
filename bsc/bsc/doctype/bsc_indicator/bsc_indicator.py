@@ -64,6 +64,20 @@ class BSCIndicator(Document):
 		# since this method is called via frm.call this doc needs to be updated manually
 		self.reload()
 
+	def create_indicator_assignments(self):
+		
+		self.check_permission('write')
+		dep_list = [d.department for d in get_departments_by_indicator(self.name)]
+		if dep_list:
+			args = frappe._dict({
+				"fiscal_year": frappe.defaults.get_user_default("fiscal_year"),
+				"bsc_indicator": self.name,
+				"indicator_name": self.full_name,
+			})
+			create_indicator_assignments_for_departments(dep_list, args, publish_progress=True)
+		# since this method is called via frm.call this doc needs to be updated manually
+		self.reload()
+
 
 def create_targets_for_departments(dep_list, args, publish_progress=True):
 	targets_exists_for = get_existing_targets(dep_list,args)
@@ -105,6 +119,26 @@ def create_initiatives_assignments_for_departments(dep_list, args, publish_progr
 	bsc_indicator.db_set("create_count", bsc_indicator.create_count+1)
 	bsc_indicator.notify_update()
 
+def create_indicator_assignments_for_departments(dep_list, args, publish_progress=True):
+	indicator_assignments_exists_for = get_existing_indicator_assignments(dep_list,args)
+	count=0
+	for dep in dep_list:
+		if dep not in indicator_assignments_exists_for:
+			args.update({
+				"doctype": "BSC Indicator Assignment",
+				"department": dep
+			})
+			ss = frappe.get_doc(args)
+			ss.insert()
+			count+=1
+			if publish_progress:
+				frappe.publish_progress(count*100/len(set(dep_list) - set(indicator_assignments_exists_for)),
+					title = _("Creating BSC Indicator Assignments for {0} Department...").format(dep))
+
+	bsc_indicator= frappe.get_doc("BSC Indicator", args.bsc_indicator)
+	bsc_indicator.db_set("create_count", bsc_indicator.create_count+1)
+	bsc_indicator.notify_update()
+
 
 def get_existing_targets(dep_list, args):
 	return frappe.db.sql_list("""
@@ -116,6 +150,13 @@ def get_existing_targets(dep_list, args):
 def get_existing_initiatives_assignments(dep_list, args):
 	return frappe.db.sql_list("""
 		select distinct department from `tabBSC Initiative Assignment`
+		where docstatus!= 2 and bsc_indicator=%s and fiscal_year=%s and department in (%s)
+	""" % ('%s', '%s', ', '.join(['%s']*len(dep_list))),
+		[args.bsc_indicator, args.fiscal_year] + dep_list)
+
+def get_existing_indicator_assignments(dep_list, args):
+	return frappe.db.sql_list("""
+		select distinct department from `tabBSC Indicator Assignment`
 		where docstatus!= 2 and bsc_indicator=%s and fiscal_year=%s and department in (%s)
 	""" % ('%s', '%s', ', '.join(['%s']*len(dep_list))),
 		[args.bsc_indicator, args.fiscal_year] + dep_list)

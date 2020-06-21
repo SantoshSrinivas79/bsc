@@ -32,6 +32,19 @@ class BSCInitiative(Document):
 
 	def validate_month_count(self):
 		self.month_count=0
+		if not self.jan: self.jan=0
+		if not self.feb: self.feb=0
+		if not self.mar: self.mar=0
+		if not self.apr: self.apr=0
+		if not self.may: self.may=0
+		if not self.jun: self.jun=0
+		if not self.jul: self.jul=0
+		if not self.aug: self.aug=0
+		if not self.sep: self.sep=0
+		if not self.oct: self.oct=0
+		if not self.nov: self.nov=0
+		if not self.dec: self.dec=0
+
 		if cint(self.jan)>0: self.month_count+=1
 		if cint(self.feb)>0: self.month_count+=1
 		if cint(self.mar)>0: self.month_count+=1
@@ -43,7 +56,9 @@ class BSCInitiative(Document):
 		if cint(self.sep)>0: self.month_count+=1
 		if cint(self.oct)>0: self.month_count+=1
 		if cint(self.nov)>0: self.month_count+=1
-		if cint(self.dec)>0: self.month_count+=1		
+		if cint(self.dec)>0: self.month_count+=1
+
+		self.time_total=self.jan+self.feb+self.mar+self.apr+self.may+self.jun+self.jul+self.aug+self.sep+self.oct+self.nov+self.dec
 
 	def create_initiative_log(self):
 		self.check_permission('write')

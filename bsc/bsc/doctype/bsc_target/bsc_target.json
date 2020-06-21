@@ -14,6 +14,7 @@
   "achieved",
   "per_target",
   "column_break_6",
+  "bsc_indicator_assignment",
   "bsc_indicator",
   "department",
   "fiscal_year",
@@ -70,11 +71,13 @@
  ],
  "fields": [
   {
+   "fetch_from": "bsc_indicator_assignment.fiscal_year",
    "fieldname": "fiscal_year",
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Fiscal Year",
    "options": "Fiscal Year",
+   "read_only": 1,
    "reqd": 1,
    "set_only_once": 1
   },
@@ -94,11 +97,13 @@
    "reqd": 1
   },
   {
+   "fetch_from": "bsc_indicator_assignment.bsc_indicator",
    "fieldname": "bsc_indicator",
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Indicator",
    "options": "BSC Indicator",
+   "read_only": 1,
    "reqd": 1,
    "set_only_once": 1
   },
@@ -116,6 +121,7 @@
    "label": "Naming Series"
   },
   {
+   "fetch_from": "bsc_indicator_assignment.department",
    "fieldname": "department",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -502,10 +508,19 @@
    "label": "Month Count",
    "no_copy": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "bsc_indicator_assignment",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "BSC Indicator Assignment",
+   "options": "BSC Indicator Assignment",
+   "reqd": 1,
+   "set_only_once": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-22 01:43:04.949082",
+ "modified": "2020-06-22 01:07:25.381686",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Target",

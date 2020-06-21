@@ -14,6 +14,7 @@
   "per_initiative",
   "column_break_9",
   "bsc_initiative_assignment",
+  "bsc_indicator_assignment",
   "bsc_indicator",
   "indicator_name",
   "department",
@@ -59,8 +60,7 @@
    "fieldname": "description",
    "fieldtype": "Small Text",
    "in_list_view": 1,
-   "label": "Description",
-   "reqd": 1
+   "label": "Description"
   },
   {
    "allow_on_submit": 1,
@@ -72,6 +72,7 @@
    "options": "Employee"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "target_group",
    "fieldtype": "Table MultiSelect",
    "label": "Target Group",
@@ -89,7 +90,7 @@
    "label": "Amount"
   },
   {
-   "fetch_from": "bsc_initiative_assignment.fiscal_year",
+   "fetch_from": "bsc_indicator_assignment.fiscal_year",
    "fieldname": "fiscal_year",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -121,7 +122,7 @@
    "reqd": 1
   },
   {
-   "fetch_from": "bsc_initiative_assignment.department",
+   "fetch_from": "bsc_indicator_assignment.department",
    "fieldname": "department",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -144,10 +145,10 @@
   {
    "fieldname": "bsc_initiative_assignment",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_standard_filter": 1,
    "label": "BSC Initiative Assignment",
    "options": "BSC Initiative Assignment",
-   "reqd": 1,
    "set_only_once": 1
   },
   {
@@ -270,7 +271,7 @@
    "read_only": 1
   },
   {
-   "fetch_from": "bsc_initiative_assignment.bsc_indicator",
+   "fetch_from": "bsc_indicator_assignment.bsc_indicator",
    "fieldname": "bsc_indicator",
    "fieldtype": "Link",
    "in_standard_filter": 1,
@@ -333,10 +334,19 @@
    "fieldtype": "Int",
    "label": "Achieved",
    "read_only": 1
+  },
+  {
+   "fieldname": "bsc_indicator_assignment",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "BSC Indicator Assignment",
+   "options": "BSC Indicator Assignment",
+   "reqd": 1,
+   "set_only_once": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-22 01:42:50.465952",
+ "modified": "2020-06-22 01:06:11.835800",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative",

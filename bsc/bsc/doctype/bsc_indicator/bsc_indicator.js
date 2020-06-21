@@ -6,19 +6,19 @@ frappe.ui.form.on('BSC Indicator', {
 
 		if (frm.doc.docstatus == 0 && !frm.is_new()) {
 			if ((frm.doc.departments || []).length) {
-				frm.add_custom_button(__("Create Targets and Initiative Assignments"),
+				frm.add_custom_button(__("Create Indicator Assignments"),
 					function() {
-						frm.events.create_targets_and_initiatives_assignments(frm);
+						frm.events.create_indicator_assignments(frm);
 					}
 				).toggleClass('btn-primary', !(frm.doc.departments || []).length);
 			}
 		}
 
 	},
-	create_targets_and_initiatives_assignments: function (frm) {
+	create_indicator_assignments: function (frm) {
 		return frappe.call({
 			doc: frm.doc,
-			method: 'create_targets_and_initiatives_assignments',
+			method: 'create_indicator_assignments',
 			callback: function(r) {
 				if (r.docs[0].departments){
 					frm.save();
