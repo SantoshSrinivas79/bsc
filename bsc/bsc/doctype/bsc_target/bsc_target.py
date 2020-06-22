@@ -5,6 +5,7 @@
 from __future__ import unicode_literals
 import frappe
 from frappe import _, throw
+from frappe.utils import (flt)
 from frappe.model.document import Document
 
 class BSCTarget(Document):
@@ -17,6 +18,7 @@ class BSCTarget(Document):
 		conditions = ""
 		conditions += " where docstatus < 2 and department = '%s'" % self.department
 		conditions += " and bsc_indicator = '%s'" % self.bsc_indicator
+		conditions += " and fiscal_year = '%s'" % self.fiscal_year
 		if frappe.db.exists(self.doctype, self.name):
 			conditions += " and name <> '%s'" % self.name
 		sum_name = frappe.db.sql("""select count(name) from `tabBSC Target` %s"""% conditions)[0][0]
@@ -24,6 +26,19 @@ class BSCTarget(Document):
 			frappe.throw(_("Already exists with same Department and Indicator"))
 
 	def validate_month_count(self):
+		if not self.jan: self.jan=0
+		if not self.feb: self.feb=0
+		if not self.mar: self.mar=0
+		if not self.apr: self.apr=0
+		if not self.may: self.may=0
+		if not self.jun: self.jun=0
+		if not self.jul: self.jul=0
+		if not self.aug: self.aug=0
+		if not self.sep: self.sep=0
+		if not self.oct: self.oct=0
+		if not self.nov: self.nov=0
+		if not self.dec: self.dec=0
+
 		self.month_count=0
 		if self.jan>0: self.month_count+=1
 		if self.feb>0: self.month_count+=1
@@ -37,6 +52,10 @@ class BSCTarget(Document):
 		if self.oct>0: self.month_count+=1
 		if self.nov>0: self.month_count+=1
 		if self.dec>0: self.month_count+=1
+
+		self.target=self.jan+self.feb+self.mar+self.apr+self.may+self.jun+self.jul+self.aug+self.sep+self.oct+self.nov+self.dec
+		if not self.achieved: self.achieved=0
+		self.per_target=flt(self.achieved)/flt(self.target)*100
 
 	def on_submit(self):
 		self.create_target_log()

@@ -133,14 +133,14 @@ def get_data_(filters):
 				total=flt(total,2)/2 if total>0 else 0
 				#frappe.msgprint("total== {0} ".format(total))
 				alltree[count]['total']=total
-				alltree[count]['total_per']=total/(100/ind.per)
-				objtotal += total/(100/ind.per)
+				alltree[count]['total_per']=total/(100/ind.per) if ind.per!=0 else 0
+				objtotal += total/(100/ind.per) if ind.per!=0 else 0
 			alltree[objcount]['total']=objtotal
-			alltree[objcount]['total_per']=objtotal/(100/obj.per)
-			pertotal += objtotal/(100/obj.per)
+			alltree[objcount]['total_per']=objtotal/(100/obj.per) if obj.per!=0 else 0
+			pertotal += objtotal/(100/obj.per) if obj.per!=0 else 0
 		alltree[percount]['total']=pertotal
-		alltree[percount]['total_per']=pertotal/(100/per.per)
-		totalcount+=pertotal/(100/per.per)
+		alltree[percount]['total_per']=pertotal/(100/per.per) if per.per!=0 else 0
+		totalcount+=pertotal/(100/per.per) if per.per!=0 else 0
 
 	data = []
 	for t in sorted(alltree):
