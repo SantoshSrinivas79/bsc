@@ -55,7 +55,7 @@ class BSCTarget(Document):
 
 		self.target=self.jan+self.feb+self.mar+self.apr+self.may+self.jun+self.jul+self.aug+self.sep+self.oct+self.nov+self.dec
 		if not self.achieved: self.achieved=0
-		self.per_target=flt(self.achieved)/flt(self.target)*100
+		self.per_target=flt(self.achieved)/flt(self.target)*100 if self.target!=0 else 0
 
 	def on_submit(self):
 		self.create_target_log()

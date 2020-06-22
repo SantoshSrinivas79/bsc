@@ -151,7 +151,7 @@ def get_data_(filters):
 			"bsc_name": tree.get('bsc_name',''),
 			"parent_bsc": tree.get('parent_bsc',''),
 			"indent": tree.get('indent',''),
-			"width": cstr(flt(tree.get('total_per',0),1))+'/'+cstr(tree.get('per',0)),
+			"width": cstr(flt(tree.get('total_per',0),1))+'/'+cstr(flt(tree.get('per',0),1)),
 			"perc": flt(tree.get('total',0),1)
 		}
 		data.append(row)
