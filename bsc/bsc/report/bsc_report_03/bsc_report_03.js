@@ -33,8 +33,8 @@ frappe.query_reports["BSC Report 03"] = {
             		fieldname: 'chart_type',
             		label: __('Chart Type'),
             		fieldtype: 'Select',
-			"options": ["line", "bar"],
-			"default": "bar"
+			"options": ["Line", "Bar"],
+			"default": "Bar"
 
 		}
 

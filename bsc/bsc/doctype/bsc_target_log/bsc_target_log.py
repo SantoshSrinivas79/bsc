@@ -16,7 +16,17 @@ class BSCTargetLog(Document):
 			self.target_log_percent = flt(flt(self.achieved) / flt(self.target) * 100)
 			#frappe.throw(_("ach {0} tar {1} per {2} real {3} withoutlt {4}").format(self.achieved,self.target,self.target_log_percent,flt(self.achieved / self.target),self.achieved / self.target))
 		self.validate_dates()
+		self.validate_month()
 
+	def validate_month(self):
+		res = frappe.db.sql("""SELECT count(entry_number) FROM `tabBSC Ledger Entry` 
+			WHERE party_type='BSC Target' and entry_type='Targeted' and party_name = %s and month = %s""", (self.bsc_target,self.month))
+		if res[0][0]==0:
+			allow_create= frappe.db.get_single_value('BSC Settings', 'allow_without_target')
+			if allow_create==1:
+				frappe.msgprint(_("There is no Target for current month {0}".format(self.month)))
+			else:
+				frappe.throw(_("There is no Target for current month {0}".format(self.month)))
 
 	def validate_duplicate(self):
 		conditions = ""

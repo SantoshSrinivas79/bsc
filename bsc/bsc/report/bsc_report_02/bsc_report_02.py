@@ -80,7 +80,7 @@ def execute(filters=None):
 	if 'Nov' in months or months == []: datasets.append({'name':'Nov','values':month["nov"]})
 	if 'Dec' in months or months == []: datasets.append({'name':'Dec','values':month["dec"]})
 	chart = {"data": {'labels': labels,'datasets': datasets}}
-	chart["type"] = "line"
+	chart["type"] = "bar" if filters.get('chart_type')=='Bar' else 'line'
 	return columns, data, None, chart
 
 def get_columns(filters):

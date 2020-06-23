@@ -33,12 +33,14 @@
    "label": "Naming Series"
   },
   {
+   "fetch_from": "bsc_target.department",
    "fieldname": "department",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Department",
    "options": "Department",
+   "read_only": 1,
    "reqd": 1,
    "set_only_once": 1
   },
@@ -71,6 +73,7 @@
    "set_only_once": 1
   },
   {
+   "default": "0",
    "fieldname": "achieved",
    "fieldtype": "Float",
    "label": "Achieved",
@@ -106,6 +109,7 @@
    "reqd": 1
   },
   {
+   "default": "0",
    "fieldname": "target",
    "fieldtype": "Float",
    "label": "Target",
@@ -178,7 +182,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-23 00:38:52.155734",
+ "modified": "2020-06-23 18:07:28.997832",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Target Log",

@@ -73,6 +73,18 @@ def get_data():
 			"items": [
 				{
 					"type": "report",
+					"name": "Department-wise Indicator Performance",
+					"doctype": "BSC Indicator",
+					"is_query_report": True
+				},
+				{
+					"type": "report",
+					"name": "Department-wise Initiative Performance",
+					"doctype": "BSC Initiative",
+					"is_query_report": True
+				},
+				{
+					"type": "report",
 					"name": "BSC Initiative Analysis",
 					"doctype": "BSC Initiative Log",
 					"is_query_report": True

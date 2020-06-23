@@ -68,6 +68,7 @@ class BSCInitiative(Document):
 			"bsc_initiative": self.name,
 			"initiative_name": self.initiative_name,
 			"is_achieved": 'No',
+			"employee": self.employee
 		})
 		# since this method is called via frm.call this doc needs to be updated manually
 		if self.jan>0: create_initiative_log("Jan", self.jan, args, publish_progress=True)

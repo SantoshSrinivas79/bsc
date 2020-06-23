@@ -29,7 +29,16 @@ frappe.query_reports["BSC Report 02"] = {
 				return frappe.db.get_link_options('BSC Month', txt);
 			},
        
+		},
+		{
+            		fieldname: 'chart_type',
+            		label: __('Chart Type'),
+            		fieldtype: 'Select',
+			"options": ["Line", "Bar"],
+			"default": "Bar"
+
 		}
+
 
 	]
 };

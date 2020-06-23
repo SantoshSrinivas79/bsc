@@ -8,7 +8,8 @@
   "weakness_mandatory",
   "suggested_mandatory",
   "allow_more_ind",
-  "divide_indicator"
+  "divide_indicator",
+  "allow_without_target"
  ],
  "fields": [
   {
@@ -40,10 +41,16 @@
    "fieldname": "divide_indicator",
    "fieldtype": "Check",
    "label": "Divide the Indicator between Target & Initiative"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_without_target",
+   "fieldtype": "Check",
+   "label": "Allow Create Log without Target"
   }
  ],
  "issingle": 1,
- "modified": "2020-06-22 23:50:03.869547",
+ "modified": "2020-06-23 18:00:15.641348",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Settings",
