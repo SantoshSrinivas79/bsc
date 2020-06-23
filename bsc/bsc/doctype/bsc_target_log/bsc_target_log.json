@@ -102,7 +102,8 @@
    "in_standard_filter": 1,
    "label": "Fiscal Year",
    "options": "Fiscal Year",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "target",
@@ -177,7 +178,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-22 01:43:19.744223",
+ "modified": "2020-06-23 00:38:52.155734",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Target Log",

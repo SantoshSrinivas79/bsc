@@ -2,6 +2,16 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('BSC Target', {
+	refresh: function(frm) {
+		if (frm.doc.docstatus == 0) {
+			if(!frm.is_new()) {
+				frm.page.clear_primary_action();
+				frm.page.set_primary_action(__('Create Target Logs'), () => {
+					frm.save('Submit');
+				})
+			}
+		}
+	 },
 	onload: function(frm){
 		frm.trigger("change_properties");		
 	},
@@ -25,27 +35,6 @@ frappe.ui.form.on('BSC Target', {
 			};
 		});/*
 	},
-	refresh: function(frm) {
-		if (frm.doc.docstatus == 0) {
-			if(!frm.is_new()) {
-				frm.page.clear_primary_action();
-				frm.page.set_primary_action(__('Create Target Logs'), () => {
-					frm.save('Submit');
-				})
-			}
-		}
-
-		/*if(frm.is_new() && frm.doc.target_months.length<12){
-			frm.clear_table("target_months");
-			var months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec";
-			var att_list = months.split(",");
-                        att_list.forEach(function(month){
-                            var child=cur_frm.add_child("target_months");
-                            frappe.model.set_value(child.doctype,child.name,"month",month);
-                            frm.refresh_field("target_months");
-                        });
-		}*/
-	 },
 	department: function(frm) {
 		/*frm.set_value("bsc_indicator", "");
 		frm.set_value("indicator_name", "");*/

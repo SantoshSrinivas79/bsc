@@ -55,9 +55,25 @@ class BSCInitiativeLog(Document):
 
 	def on_submit(self):
 		self.update_master(True)
+		# create the BSC Ledger Entry #
+		ble = frappe.get_doc(frappe._dict({
+			"party_type": "BSC Initiative",
+			"party_name": self.bsc_initiative,
+			"entry_type": "Achieved",
+			"month": self.month,
+			"entry_number": 1 if self.is_achieved=='Yes' else 0,
+			"department": self.department,
+			"doctype": "BSC Ledger Entry"
+		}))
+		ble.insert()
+		#
+
 
 	def on_cancel(self):
 		self.update_master(False)
+		frappe.db.sql("""delete from `tabBSC Ledger Entry`
+			where party_type= 'BSC Initiative' and party_name = %s and month = %s and entry_type='Achieved'""", (self.bsc_initiative,self.month))
+
 
 	def update_master(self, increase = True):
 		if self.is_achieved == 'Yes':

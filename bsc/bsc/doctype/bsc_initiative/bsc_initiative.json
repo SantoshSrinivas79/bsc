@@ -8,6 +8,7 @@
   "naming_series",
   "initiative_name",
   "target_group",
+  "initiative_group",
   "target_total",
   "time_total",
   "achieved",
@@ -76,6 +77,7 @@
    "allow_on_submit": 1,
    "fieldname": "target_group",
    "fieldtype": "Table MultiSelect",
+   "hidden": 1,
    "label": "Target Group",
    "options": "BSC Initiative TG"
   },
@@ -348,10 +350,16 @@
   {
    "fieldname": "column_amount",
    "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "initiative_group",
+   "fieldtype": "Data",
+   "label": "Target Group"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-22 22:11:20.406109",
+ "modified": "2020-06-23 00:11:03.664689",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative",

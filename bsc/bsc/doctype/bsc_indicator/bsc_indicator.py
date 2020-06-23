@@ -17,13 +17,7 @@ class BSCIndicator(Document):
 		#if flt(self.indicator_percentage) <= 0.0 :
 		#	frappe.throw(_("The percentage % must to be > {0}").format(frappe.bold("0.0")))
 		bsc_settings = frappe.db.get_single_value('BSC Settings', 'allow_more_ind')
-		if bsc_settings:
-			if bsc_settings == 0:
-				bsc_settings == 0
-			else:
-				bsc_settings == 1
-		else:
-			bsc_settings == 1
+		if not bsc_settings: bsc_settings == 0
 
 		if not frappe.db.exists(self.doctype, self.name):
 			sum_percentage = frappe.db.sql("""select sum(indicator_percentage) from `tabBSC Indicator` where bsc_objective = %s""",self.bsc_objective)[0][0]
@@ -78,6 +72,18 @@ class BSCIndicator(Document):
 		# since this method is called via frm.call this doc needs to be updated manually
 		self.reload()
 
+	def assign_department(self, department=None, fiscal_year=None):
+		self.check_permission('write')
+		dep_list = [department]
+		if dep_list:
+			args = frappe._dict({
+				"fiscal_year": fiscal_year,
+				"bsc_indicator": self.name,
+				"indicator_name": self.full_name,
+			})
+			create_indicator_assignments_for_departments(dep_list, args, publish_progress=True)
+		# since this method is called via frm.call this doc needs to be updated manually
+		self.reload()
 
 def create_targets_for_departments(dep_list, args, publish_progress=True):
 	targets_exists_for = get_existing_targets(dep_list,args)

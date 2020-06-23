@@ -84,6 +84,9 @@ class BSCInitiative(Document):
 		if self.dec>0: create_initiative_log("Dec", self.dec, args, publish_progress=True)		
 		self.reload()
 
+	def on_cancel(self):
+		frappe.db.sql("""delete from `tabBSC Ledger Entry`
+			where party_type= 'BSC Initiative' and party_name = %s """, self.name)
 
 def create_initiative_log(month , target, args, publish_progress=True):
 	if frappe.db.sql("""select count(name) from `tabBSC Initiative Log` where docstatus < 2  
@@ -95,6 +98,20 @@ def create_initiative_log(month , target, args, publish_progress=True):
 		})
 		ss = frappe.get_doc(args)
 		ss.insert()
+		# create the BSC Ledger Entry #
+		ble = frappe.get_doc(frappe._dict({
+			"party_type": "BSC Initiative",
+			"party_name": args.bsc_initiative,
+			"entry_type": "Targeted",
+			"month": args.month,
+			"entry_number": args.target,
+			"bsc_indicator": args.bsc_indicator,
+			"department": args.department,
+			"doctype": "BSC Ledger Entry"
+		}))
+		ble.insert()
+		#
+
 		if publish_progress:
 			frappe.publish_progress(100,title = _("Creating BSC Initiative Log for {0}...").format(month))
 	bsc_initiative= frappe.get_doc("BSC Initiative", args.bsc_initiative)

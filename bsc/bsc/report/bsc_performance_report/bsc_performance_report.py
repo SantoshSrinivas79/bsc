@@ -129,8 +129,13 @@ def get_data_(filters):
 				alltree[count]['parent_bsc']=obj.name
 				alltree[count]['indent']=2
 				alltree[count]['per']=ind.per
-				total=flt(get_tar(ind.name,filters)[0][0])+flt(get_ini(ind.name,filters)[0][0])
-				total=flt(total,2)/2 if total>0 else 0
+				divide_indicator = frappe.db.get_single_value('BSC Settings', 'divide_indicator')
+				if not divide_indicator: divide_indicator=0
+				if divide_indicator==1:
+					total=flt(get_tar(ind.name,filters)[0][0])+flt(get_ini(ind.name,filters)[0][0])
+					total=flt(total,2)/2 if total>0 else 0
+				else:
+					total=flt(get_tar(ind.name,filters)[0][0])
 				#frappe.msgprint("total== {0} ".format(total))
 				alltree[count]['total']=total
 				alltree[count]['total_per']=total/(100/ind.per) if ind.per!=0 else 0

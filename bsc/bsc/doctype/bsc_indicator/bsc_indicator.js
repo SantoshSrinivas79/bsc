@@ -2,7 +2,12 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('BSC Indicator', {
-	refresh: function(frm) {
+	refresh: (frm)=>{
+		if(!frm.is_new()) {
+			frm.add_custom_button(__('Assign Department'), function () {
+				frm.trigger("assign_department");
+			});
+		}
 
 		if (frm.doc.docstatus == 0 && !frm.is_new()) {
 			if ((frm.doc.departments || []).length) {
@@ -53,6 +58,46 @@ frappe.ui.form.on('BSC Indicator', {
 				return false;
 			}
 		});
+	},
+	assign_department: function(frm) {
+		var d = new frappe.ui.Dialog({
+			title: __('Assign Department'),
+			fields: [
+				{
+					"label": __("Department"),
+					"fieldname": "department",
+					"fieldtype": "Select",
+					"options": frm.doc.departments.map(d => d.department),
+					"reqd": 1
+				},
+				{
+					"label": __("Fiscal Year"),
+					"fieldname": "fiscal_year",
+					"fieldtype": "Link",
+					"options": "Fiscal Year",
+					"reqd": 1,
+					"default": frappe.defaults.get_user_default("fiscal_year"),
+				}
+			],
+			primary_action: function() {
+				var data = d.get_values();
+
+				frappe.call({
+					doc: frm.doc,
+					method: "assign_department",
+					args: data,
+					callback: function(r) {
+						if(!r.exc) {
+							d.hide();
+							frm.reload_doc();
+						}
+					}
+				});
+			},
+			primary_action_label: __('Assign')
+		});
+		d.show();
 	}
+
 
 });

@@ -82,6 +82,10 @@ class BSCTarget(Document):
 		if self.dec>0: create_target_log("Dec", self.dec, args, publish_progress=True)		
 		self.reload()
 
+	def on_cancel(self):
+		frappe.db.sql("""delete from `tabBSC Ledger Entry`
+			where party_type= 'BSC Target' and party_name = %s """, self.name)
+
 
 def create_target_log(month , target, args, publish_progress=True):
 	if frappe.db.sql("""select count(name) from `tabBSC Target Log` where  
@@ -94,6 +98,19 @@ def create_target_log(month , target, args, publish_progress=True):
 		})
 		ss = frappe.get_doc(args)
 		ss.insert()
+		# create the BSC Ledger Entry #
+		ble = frappe.get_doc(frappe._dict({
+			"party_type": "BSC Target",
+			"party_name": args.bsc_target,
+			"entry_type": "Targeted",
+			"month": args.month,
+			"entry_number": args.target,
+			"bsc_indicator": args.bsc_indicator,
+			"department": args.department,
+			"doctype": "BSC Ledger Entry"
+		}))
+		ble.insert()
+		#
 		if publish_progress:
 			frappe.publish_progress(100,title = _("Creating BSC Target Log for {0}...").format(month))
 
