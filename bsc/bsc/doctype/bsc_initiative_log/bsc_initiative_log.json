@@ -27,6 +27,7 @@
   "start_date",
   "last_date",
   "section_break_21",
+  "notes",
   "amended_from"
  ],
  "fields": [
@@ -202,10 +203,15 @@
   {
    "fieldname": "column_break_19",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "Notes"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-23 00:38:36.069704",
+ "modified": "2020-06-23 18:18:45.732399",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative Log",
