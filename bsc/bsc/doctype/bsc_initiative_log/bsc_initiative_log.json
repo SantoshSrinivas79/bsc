@@ -123,6 +123,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "target",
    "fieldtype": "Int",
    "label": "Target",
@@ -211,7 +212,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-23 18:18:45.732399",
+ "modified": "2020-06-24 23:30:24.180491",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative Log",

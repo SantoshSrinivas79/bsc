@@ -5,6 +5,14 @@
 frappe.query_reports["BSC Initiative Analysis"] = {
 	"filters": [
 		{
+            		fieldname: 'fiscal_year',
+            		label: __('Fiscal Year'),
+            		fieldtype: 'Link',
+            		options: 'Fiscal Year',
+			"default": frappe.defaults.get_user_default("fiscal_year"),
+			"reqd": 1
+		},
+		{
             		fieldname: 'department',
             		label: __('Department'),
             		fieldtype: 'Link',
@@ -35,13 +43,26 @@ frappe.query_reports["BSC Initiative Analysis"] = {
             		options: 'BSC Month'
 		},
 		{
-            		fieldname: 'fiscal_year',
-            		label: __('Fiscal Year'),
-            		fieldtype: 'Link',
-            		options: 'Fiscal Year',
-			"default": frappe.defaults.get_user_default("fiscal_year"),
-			"reqd": 1
-		},
+            		fieldname: 'docstatus',
+            		label: __('Doc Status'),
+            		fieldtype: 'Select',
+            		options: "\nDraft\nSubmitted"
+		}
 
-	]
+	],
+	"formatter": function(value, row, column, data, default_formatter) {
+		value = default_formatter(value, row, column, data);
+		value = $(`<span style='font-weight:bold'>${value}</span>`);
+		var $value = $(value).css({"color":"black"});
+		if (data.is_achieved=='Yes') {
+			$value = $(value).css({"color":"green"});
+		}
+		else {
+			$value = $(value).css({"color":"red"});
+		}
+
+		value = $value.wrap("<p></p>").parent().html();
+		return value;
+	},
+
 };

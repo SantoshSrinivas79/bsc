@@ -21,7 +21,8 @@ def get_columns():
 		{
 			"fieldname": "bsc",
 			"label": _("BSC Key Name"),
-			"fieldtype": "Data",
+			"fieldtype": "Link",
+			"options": "BSC Indicator",
 			"width": 600
 		},
 		{

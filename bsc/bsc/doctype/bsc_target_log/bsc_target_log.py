@@ -19,14 +19,15 @@ class BSCTargetLog(Document):
 		self.validate_month()
 
 	def validate_month(self):
-		res = frappe.db.sql("""SELECT count(entry_number) FROM `tabBSC Ledger Entry` 
-			WHERE party_type='BSC Target' and entry_type='Targeted' and party_name = %s and month = %s""", (self.bsc_target,self.month))
-		if res[0][0]==0:
-			allow_create= frappe.db.get_single_value('BSC Settings', 'allow_without_target')
-			if allow_create==1:
-				frappe.msgprint(_("There is no Target for current month {0}".format(self.month)))
-			else:
-				frappe.throw(_("There is no Target for current month {0}".format(self.month)))
+		if self.target==0:
+			res = frappe.db.sql("""SELECT count(entry_number) FROM `tabBSC Ledger Entry` 
+				WHERE party_type='BSC Target' and entry_type='Targeted' and party_name = %s and month = %s""", (self.bsc_target,self.month))
+			if res[0][0]==0:
+				allow_create= frappe.db.get_single_value('BSC Settings', 'allow_without_target')
+				if allow_create==1:
+					frappe.msgprint(_("There is no Target for current month {0}".format(self.month)))
+				else:
+					frappe.throw(_("There is no Target for current month {0}".format(self.month)))
 
 	def validate_duplicate(self):
 		conditions = ""

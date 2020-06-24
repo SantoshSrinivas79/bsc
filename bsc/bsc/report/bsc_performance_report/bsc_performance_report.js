@@ -2,7 +2,7 @@
 // Copyright (c) 2016, Ahmed Mohammed Alkuhlani and contributors
 // For license information, please see license.txt
 /* eslint-disable */
-
+frappe.require("assets/bsc/js/kpi.js", function() {
 frappe.query_reports["BSC Performance Report"] = {
 	"filters": [
 		{
@@ -18,7 +18,7 @@ frappe.query_reports["BSC Performance Report"] = {
             		options: 'Fiscal Year',
 			"default": frappe.defaults.get_user_default("fiscal_year"),
 			"reqd": 1
-		}
+		},
 
 	],
 	"formatter": function(value, row, column, data, default_formatter) {
@@ -26,6 +26,9 @@ frappe.query_reports["BSC Performance Report"] = {
 		if (column.fieldname=="bsc") {
 			value = data.bsc_name;
 			column.is_tree = true;
+			if (data.indent==2) {
+				column.link_onclick ="bsc.kpi.open_indicator(" + JSON.stringify(data) + ")";
+			}
 		}
 
 		value = default_formatter(value, row, column, data);
@@ -45,10 +48,10 @@ frappe.query_reports["BSC Performance Report"] = {
 
 		return value;
 	},
-
 	"tree": true,
 	"name_field": "bsc",
 	"parent_field": "parent_bsc",
 	"initial_depth": 0
 
 }
+});
