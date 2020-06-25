@@ -26,6 +26,7 @@
   "employee_name",
   "user_id",
   "column_amount",
+  "funding_status",
   "total_amount",
   "months_section",
   "jan",
@@ -356,10 +357,16 @@
    "fieldname": "initiative_group",
    "fieldtype": "Data",
    "label": "Target Group"
+  },
+  {
+   "fieldname": "funding_status",
+   "fieldtype": "Select",
+   "label": "Funding Status",
+   "options": "\nSupport\nFees\nWithout Financing\nMarketing"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-23 00:11:03.664689",
+ "modified": "2020-06-25 04:44:14.554140",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative",

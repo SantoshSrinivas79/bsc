@@ -21,33 +21,7 @@ frappe.query_reports["BSC Performance Report"] = {
 		},
 
 	],
-	"formatter": function(value, row, column, data, default_formatter) {
-
-		if (column.fieldname=="bsc") {
-			value = data.bsc_name;
-			column.is_tree = true;
-			if (data.indent==2) {
-				column.link_onclick ="bsc.kpi.open_indicator(" + JSON.stringify(data) + ")";
-			}
-		}
-
-		value = default_formatter(value, row, column, data);
-		if (!data.parent_bsc) {
-			value = $(`<span>${value}</span>`);
-
-			var $value = $(value).css("font-weight", "bold");
-			if (data.warn_if_negative && data[column.fieldname] < 0) {
-				$value.addClass("text-danger");
-			}
-
-			value = $value.wrap("<p></p>").parent().html();
-		}
-		if (!data.width) {
-			return '';
-		}
-
-		return value;
-	},
+	"formatter": bsc.kpi.formatter,
 	"tree": true,
 	"name_field": "bsc",
 	"parent_field": "parent_bsc",

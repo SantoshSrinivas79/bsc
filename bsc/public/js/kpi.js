@@ -7,11 +7,8 @@ bsc.kpi = {
 		if (column.fieldname=="bsc") {
 			value = data.bsc_name;
 			column.is_tree = true;
-			if (data.indent==2) {
-				column.link_onclick =
-					"bsc.kpi.open_indicator(" + JSON.stringify(data) + ")";
+				column.link_onclick ="bsc.kpi.open_indicator(" + JSON.stringify(data) + ")";
 			}
-		}
 
 		value = default_formatter(value, row, column, data);
 		if (!data.parent_bsc) {
@@ -31,8 +28,10 @@ bsc.kpi = {
 		return value;
 	},
 	"open_indicator": function(data) {
+		console.log(data)
 		if (!data.bsc) return;
 		var bsc_indicator= $.grep(frappe.query_report.filters, function(e){ return e.df.fieldname == 'bsc_indicator'; })
+		console.log(data.bsc)
 
 		frappe.route_options = {
 			"bsc_indicator": data.bsc,
