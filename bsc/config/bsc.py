@@ -151,9 +151,11 @@ def get_data():
 					"description":_("BSC Target Group"),
 					"onboard": 1
 				},
-
-
-
+				{
+					"type": "doctype",
+					"name": "BSC Settings",
+					"description":_("BSC Settings"),
+				}
 			]
 		},
 	]

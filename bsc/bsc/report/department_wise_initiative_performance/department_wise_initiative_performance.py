@@ -25,22 +25,23 @@ def get_data(filters):
 	for ind in get_indicator(filters):
 		#frappe.msgprint("indicator=== {0} ".format(ind.bsc_perspective))
 		row = [ind.bsc_perspective, ind.bsc_objective, ind.bsc_indicator, ind.indicator_name, ind.department]
-		tar, ach, per = get_tar(ind.bsc_indicator,filters.get("fiscal_year"),ind.department,filters)
+		tar, ach, per = get_tar(ind.bsc_indicator,filters.get("fiscal_year"),ind.department,0,filters)
+		tar_, ach_, per_ = get_tar(ind.bsc_indicator,filters.get("fiscal_year"),ind.department,1,filters)
 		tar_, ach_, per_ = get_tar_total(ind.bsc_indicator,filters.get("fiscal_year"),ind.department)
 		if (filters.get("greater") == 1 and tar < ach) or (not filters.get("greater") or filters.get("greater")==0):
 			data.append({
 				"bsc_perspective": ind.bsc_perspective,
 				"bsc_objective": ind.bsc_objective,
 				"bsc_indicator": ind.bsc_indicator,
-				"bsc_target": ind.name,
-				"indicator_name": ind.indicator_name,
+				"bsc_target": "",
+				"indicator_name": ind.full_name,
 				"department": ind.department,
 				"target": tar,
 				"achieved": ach,
 				"percent": per,
 				"target_year": tar_,
 				"achieved_year": ach_,
-				"percent_year": per
+				"percent_year": per_
 			})
 			if not chartdata.get(ind.department):
 				chartdata[ind.department] = {}
@@ -61,34 +62,35 @@ def get_data(filters):
 
 def get_conditions(filters):
 	conditions = []
+	if filters.get("month"): conditions.append("tar.month in %(month)s")
 	if filters.get("department"): conditions.append("tar.department in %(department)s")
 	if filters.get("fiscal_year"): conditions.append("tar.fiscal_year = %(fiscal_year)s")
 	if filters.get("bsc_indicator"): conditions.append("tar.bsc_indicator = %(bsc_indicator)s")
 	if filters.get("bsc_objective"): conditions.append("ind.bsc_objective= %(bsc_objective)s")
 	if filters.get("bsc_perspective"): conditions.append("ind.bsc_perspective= %(bsc_perspective)s")
-	return "and {}".format(" and ".join(conditions)) if conditions else ""
+	return "where {}".format(" and ".join(conditions)) if conditions else ""
 
 
 def get_indicator(filters):
 	ind_map = frappe._dict()
-	ind_list = frappe.db.sql("""SELECT tar.name, tar.bsc_indicator, tar.indicator_name, 
-		ind.bsc_objective, ind.bsc_perspective, tar.department, tar.target, tar.achieved, tar.per_target
-		FROM `tabBSC Target` tar 
+	ind_list = frappe.db.sql("""SELECT tar.bsc_indicator, ind.full_name, 
+		ind.bsc_objective, ind.bsc_perspective, tar.department
+		FROM `tabBSC Ledger Entry` tar 
 		INNER JOIN `tabDepartment` dep ON dep.name = tar.department
 		INNER JOIN `tabBSC Indicator` ind ON ind.name = tar.bsc_indicator
-		INNER JOIN `tabBSC Indicator Assignment` indas ON indas.name = tar.bsc_indicator_assignment
-		where tar.docstatus=1 {conditions} order by dep.parent_department ASC
+		{conditions} group by tar.bsc_indicator, tar.department order by dep.parent_department 
 		""".format(
 			conditions=get_conditions(filters),
 		),
 		filters, as_dict=True)
 	return ind_list
 
-def get_tar(ind,year,dep,filters):
+def get_tar(ind,year,dep,total,filters):
 	conditions = "  and bsc_indicator= '%s'" % ind.replace("'", "\\'")
 	conditions += "  and fiscal_year= '%s'" % year.replace("'", "\\'")
 	conditions += "  and department= '%s'" % dep.replace("'", "\\'")
-	if filters.get("month"): conditions += "  and month in %(month)s"
+	if total == 0:
+		if filters.get("month"): conditions += "  and month in %(month)s"
 	tar = frappe.db.sql("""SELECT count(entry_number) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Initiative' and entry_type='Targeted' %s""" % conditions,filters)
 	ach = frappe.db.sql("""SELECT sum(entry_number) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Initiative' and entry_type='Achieved' and entry_number=1 %s""" % conditions,filters)
 	per = flt(((flt(ach[0][0])/flt(tar[0][0]))*100),2) if tar[0][0]>0.0 else 0.0
