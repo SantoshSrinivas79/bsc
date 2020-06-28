@@ -140,7 +140,8 @@ def get_columns():
 		{
 			"fieldname": "department",
 			"label": _("Department"),
-			"fieldtype": "Data",
+			"fieldtype": "Link",
+			"options": "Department",
 			"width": 150
 		},
 		{
