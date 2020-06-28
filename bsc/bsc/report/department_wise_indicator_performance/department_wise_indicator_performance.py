@@ -90,8 +90,8 @@ def get_tar(ind,dep,year,total,filters):
 	conditions += "  and department= '%s'" % dep.replace("'", "\\'")
 	if total == 0:
 		if filters.get("month"): conditions += "  and month in %(month)s"
-	tar = frappe.db.sql("""SELECT sum(entry_number) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Target' and entry_type='Targeted' %s""" % conditions,filters)
-	ach = frappe.db.sql("""SELECT sum(entry_number) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Target' and entry_type='Achieved' %s""" % conditions,filters)
+	tar = frappe.db.sql("""SELECT IFNULL(sum(entry_number),0) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Target' and entry_type='Targeted' %s""" % conditions,filters)
+	ach = frappe.db.sql("""SELECT IFNULL(sum(entry_number),0) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Target' and entry_type='Achieved' %s""" % conditions,filters)
 	per = flt(((flt(ach[0][0])/flt(tar[0][0]))*100),2) if tar[0][0]>0 else 0
 	return tar[0][0] if tar[0][0] else 0, ach[0][0] if ach[0][0] else 0, per if per else 0
 
