@@ -28,27 +28,28 @@ def get_data(filters):
 		tar, ach, per = get_tar(ind.bsc_indicator,filters.get("fiscal_year"),ind.department,0,filters)
 		tar_, ach_, per_ = get_tar(ind.bsc_indicator,filters.get("fiscal_year"),ind.department,1,filters)
 		tar_, ach_, per_ = get_tar_total(ind.bsc_indicator,filters.get("fiscal_year"),ind.department)
-		if (filters.get("greater") == 1 and tar < ach) or (not filters.get("greater") or filters.get("greater")==0):
-			data.append({
-				"bsc_perspective": ind.bsc_perspective,
-				"bsc_objective": ind.bsc_objective,
-				"bsc_indicator": ind.bsc_indicator,
-				"bsc_target": "",
-				"indicator_name": ind.full_name,
-				"department": ind.department,
-				"target": tar,
-				"achieved": ach,
-				"percent": per,
-				"target_year": tar_,
-				"achieved_year": ach_,
-				"percent_year": per_
-			})
-			if not chartdata.get(ind.department):
-				chartdata[ind.department] = {}
-				chartdata[ind.department].setdefault(ind.department)
-				chartdata[ind.department]['name'] = ind.department
-			chartdata[ind.department]['perc'] = chartdata[ind.department].get('perc',0) + per
-			chartdata[ind.department]['total'] = chartdata[ind.department].get('total',0) + 1
+		if flt(tar)>0.0:
+			if (filters.get("greater") == 1 and tar < ach) or (not filters.get("greater") or filters.get("greater")==0):
+				data.append({
+					"bsc_perspective": ind.bsc_perspective,
+					"bsc_objective": ind.bsc_objective,
+					"bsc_indicator": ind.bsc_indicator,
+					"bsc_target": "",
+					"indicator_name": ind.full_name,
+					"department": ind.department,
+					"target": tar,
+					"achieved": ach,
+					"percent": per,
+					"target_year": tar_,
+					"achieved_year": ach_,
+					"percent_year": per_
+				})
+				if not chartdata.get(ind.department):
+					chartdata[ind.department] = {}
+						chartdata[ind.department].setdefault(ind.department)
+					chartdata[ind.department]['name'] = ind.department
+				chartdata[ind.department]['perc'] = chartdata[ind.department].get('perc',0) + per
+				chartdata[ind.department]['total'] = chartdata[ind.department].get('total',0) + 1
 	data.extend([{}])
 	labels=[]
 	values=[]
