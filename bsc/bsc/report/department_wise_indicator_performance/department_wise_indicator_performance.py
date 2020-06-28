@@ -55,7 +55,7 @@ def get_data(filters):
 	for child in chartdata:
 		d=chartdata.get(child)
 		labels+=[d.get('name','')]
-		values+=[d.get('perc',0.0)/d.get('total',0.0) if d.get('total',0.0)>0 else 0]
+		values+=[flt(d.get('perc',0.0)/d.get('total',0.0),2) if d.get('total',0.0)>0 else 0]
 	chart = {"data": {'labels': labels,'datasets': [{ 'values':values }],'yRegions': [{'label': _("Safe Line"),'start': 50,'end': 100,'options': { 'labelPos': 'right' }}]}}
 	chart["type"] = "bar" if filters.get('chart_type')=='Bar' else 'line'
 	return data, chart
