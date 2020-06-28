@@ -98,7 +98,7 @@ def get_tar(ind,dep,year,total,filters):
 		#frappe.msgprint("indicator=== {0} ".format(tar[0][0]))
 		if flt(tar[0][0])>0.0:
 			per = flt(((flt(ach[0][0])/flt(tar[0][0]))*100),2)
-	return tar[0][0] if tar[0][0] else 0, ach[0][0] if ach[0][0] else 0, per if per else 0
+	return flt(tar[0][0],2) if tar[0][0] else 0, flt(ach[0][0],2) if ach[0][0] else 0, flt(per,2) if per else 0
 
 
 def get_columns():

@@ -95,7 +95,7 @@ def get_tar(ind,year,dep,total,filters):
 	tar = frappe.db.sql("""SELECT count(entry_number) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Initiative' and entry_type='Targeted' %s""" % conditions,filters)
 	ach = frappe.db.sql("""SELECT sum(entry_number) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Initiative' and entry_type='Achieved' and entry_number=1 %s""" % conditions,filters)
 	per = flt(((flt(ach[0][0])/flt(tar[0][0]))*100),2) if tar[0][0]>0.0 else 0.0
-	return tar[0][0] if tar[0][0] else 0.0, ach[0][0] if ach[0][0] else 0.0, per if per else 0.0
+	return flt(tar[0][0],2) if tar[0][0] else 0.0, flt(ach[0][0],2) if ach[0][0] else 0.0, flt(per,2) if per else 0.0
 
 def get_tar_total(ind,year,dep):
 	conditions = "  and bsc_indicator= '%s'" % ind.replace("'", "\\'")
@@ -104,7 +104,7 @@ def get_tar_total(ind,year,dep):
 	tar = frappe.db.sql("""SELECT count(entry_number) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Initiative' and entry_type='Targeted' %s""" % conditions)
 	ach = frappe.db.sql("""SELECT sum(entry_number) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Initiative' and entry_type='Achieved' and entry_number=1 %s""" % conditions)
 	per = flt(((flt(ach[0][0])/flt(tar[0][0]))*100),2) if tar[0][0]>0.0 else 0.0
-	return tar[0][0] if tar[0][0] else 0.0, ach[0][0] if ach[0][0] else 0.0, per if per else 0.0
+	return tar[0][0] if tar[0][0] else 0.0, ach[0][0] if ach[0][0] else 0.0, flt(per,2) if per else 0.0
 
 
 def get_columns():
