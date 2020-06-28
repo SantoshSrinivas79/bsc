@@ -46,7 +46,7 @@ def get_data(filters):
 				})
 				if not chartdata.get(ind.department):
 					chartdata[ind.department] = {}
-						chartdata[ind.department].setdefault(ind.department)
+					chartdata[ind.department].setdefault(ind.department)
 					chartdata[ind.department]['name'] = ind.department
 				chartdata[ind.department]['perc'] = chartdata[ind.department].get('perc',0) + per
 				chartdata[ind.department]['total'] = chartdata[ind.department].get('total',0) + 1
