@@ -28,6 +28,7 @@
    "in_list_view": 1,
    "label": "Party Type",
    "options": "BSC Target\nBSC Initiative",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -36,6 +37,7 @@
    "in_list_view": 1,
    "label": "Party Name",
    "options": "party_type",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -44,6 +46,7 @@
    "in_list_view": 1,
    "label": "Entry Type",
    "options": "Targeted\nAchieved",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -51,6 +54,7 @@
    "fieldtype": "Select",
    "label": "Month",
    "options": "\nJan\nFeb\nMar\nApr\nMay\nJun\nJul\nAug\nSep\nOct\nNov\nDec",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -58,11 +62,13 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Entry Number",
+   "read_only": 1,
    "reqd": 1
   },
   {
    "fieldname": "column_break_5",
-   "fieldtype": "Column Break"
+   "fieldtype": "Column Break",
+   "read_only": 1
   },
   {
    "fetch_from": "party_name.bsc_indicator",
@@ -127,11 +133,12 @@
    "default": "0",
    "fieldname": "is_achieved",
    "fieldtype": "Check",
-   "label": "Is Achieved"
+   "label": "Is Achieved",
+   "read_only": 1
   }
  ],
  "in_create": 1,
- "modified": "2020-06-23 08:30:48.044038",
+ "modified": "2020-07-07 00:28:13.302573",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Ledger Entry",
