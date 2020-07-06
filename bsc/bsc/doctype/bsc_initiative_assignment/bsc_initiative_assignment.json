@@ -16,7 +16,8 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "label": "Naming Series "
+   "label": "Naming Series ",
+   "options": "INV-ASN-.#"
   },
   {
    "fieldname": "department",
@@ -68,7 +69,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-14 18:57:12.378252",
+ "modified": "2020-07-06 05:44:37.864121",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative Assignment",

@@ -19,7 +19,8 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "label": "Naming Series"
+   "label": "Naming Series",
+   "options": "OBJ-.#"
   },
   {
    "fieldname": "full_name",
@@ -73,7 +74,7 @@
    "fieldtype": "Section Break"
   }
  ],
- "modified": "2020-06-09 20:09:59.836192",
+ "modified": "2020-07-06 05:45:51.903627",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Objective",

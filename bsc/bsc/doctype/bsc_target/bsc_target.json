@@ -118,7 +118,8 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "label": "Naming Series"
+   "label": "Naming Series",
+   "options": "TGT-.#"
   },
   {
    "fetch_from": "bsc_indicator_assignment.department",
@@ -520,7 +521,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-22 01:07:25.381686",
+ "modified": "2020-07-06 05:46:20.964959",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Target",

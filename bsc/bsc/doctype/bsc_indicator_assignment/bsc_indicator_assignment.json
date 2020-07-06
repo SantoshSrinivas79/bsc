@@ -16,7 +16,8 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "label": "Naming Series "
+   "label": "Naming Series ",
+   "options": "INR-ASN-.#"
   },
   {
    "fieldname": "bsc_indicator",
@@ -64,7 +65,7 @@
    "label": "Disable"
   }
  ],
- "modified": "2020-06-22 00:47:13.062796",
+ "modified": "2020-07-06 05:44:01.045279",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Indicator Assignment",

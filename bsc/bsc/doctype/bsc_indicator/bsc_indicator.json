@@ -24,7 +24,8 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "label": "Naming Series"
+   "label": "Naming Series",
+   "options": "INR-.#"
   },
   {
    "fieldname": "full_name",
@@ -111,7 +112,7 @@
    "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-06-09 20:11:34.288343",
+ "modified": "2020-07-06 05:43:11.138318",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Indicator",

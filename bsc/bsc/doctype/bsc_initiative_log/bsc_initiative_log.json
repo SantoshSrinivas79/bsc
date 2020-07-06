@@ -34,7 +34,8 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "label": "Naming Series"
+   "label": "Naming Series",
+   "options": "INV-LOG-.#"
   },
   {
    "fetch_from": "bsc_initiative.department",
@@ -212,7 +213,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-24 23:30:24.180491",
+ "modified": "2020-07-06 05:41:40.112334",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative Log",
