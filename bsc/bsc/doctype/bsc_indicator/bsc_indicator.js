@@ -4,26 +4,26 @@
 frappe.ui.form.on('BSC Indicator', {
 	refresh: (frm)=>{
 		if(!frm.is_new()) {
-			frm.add_custom_button(__('Assign Department'), function () {
-				frm.trigger("assign_department");
+			frm.add_custom_button(__('Create Target By Year'), function () {
+				frm.trigger("create_target");
 			});
 		}
 
 		if (frm.doc.docstatus == 0 && !frm.is_new()) {
 			if ((frm.doc.departments || []).length) {
-				frm.add_custom_button(__("Create Indicator Assignments"),
+				frm.add_custom_button(__("Create Targets"),
 					function() {
-						frm.events.create_indicator_assignments(frm);
+						frm.events.create_targets(frm);
 					}
 				).toggleClass('btn-primary', !(frm.doc.departments || []).length);
 			}
 		}
 
 	},
-	create_indicator_assignments: function (frm) {
+	create_targets: function (frm) {
 		return frappe.call({
 			doc: frm.doc,
-			method: 'create_indicator_assignments',
+			method: 'create_targets',
 			callback: function(r) {
 				if (r.docs[0].departments){
 					frm.save();
@@ -59,7 +59,7 @@ frappe.ui.form.on('BSC Indicator', {
 			}
 		});
 	},
-	assign_department: function(frm) {
+	create_target: function(frm) {
 		var d = new frappe.ui.Dialog({
 			title: __('Assign Department'),
 			fields: [
@@ -94,7 +94,7 @@ frappe.ui.form.on('BSC Indicator', {
 					}
 				});
 			},
-			primary_action_label: __('Assign')
+			primary_action_label: __('Create')
 		});
 		d.show();
 	}

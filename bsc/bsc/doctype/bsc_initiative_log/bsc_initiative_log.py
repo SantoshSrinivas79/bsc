@@ -17,15 +17,19 @@ class BSCInitiativeLog(Document):
 		self.validate_mandatories()
 
 	def validate_month(self):
-		if self.target==0:
+		if self.log_target==0:
 			res = frappe.db.sql("""SELECT count(entry_number) FROM `tabBSC Ledger Entry` 
 				WHERE party_type='BSC Initiative' and entry_type='Targeted' and party_name = %s and month = %s""", (self.bsc_initiative,self.month))
 			if res[0][0]==0:
 				allow_create= frappe.db.get_single_value('BSC Settings', 'allow_without_target')
 				if allow_create==1:
+					self.target_progress=0
 					frappe.msgprint(_("There is no Target for current month {0}".format(self.month)))
 				else:
 					frappe.throw(_("There is no Target for current month {0}".format(self.month)))
+		else:
+			self.target_progress=flt(self.target_achieved)/flt(self.log_target)*100
+
 
 	def validate_mandatories(self):
 		if self.is_achieved=='No':
@@ -77,20 +81,23 @@ class BSCInitiativeLog(Document):
 			self.last_date=get_last_day(self.start_date)
 
 	def on_submit(self):
+		bsc_target_master=frappe.get_doc("BSC Target", self.bsc_target)
 		self.update_master(True)
 		# create the BSC Ledger Entry #
 		ble = frappe.get_doc(frappe._dict({
-			"party_type": "BSC Initiative",
-			"party_name": self.bsc_initiative,
+			"bsc_indicator" : bsc_target_master.bsc_indicator,
+			"bsc_target": self.bsc_target,
+			"bsc_initiative": self.bsc_initiative,
+			"bsc_initiative_log": self.name,
 			"entry_type": "Achieved",
-			"month": self.month,
-			"entry_number": 1 if self.is_achieved=='Yes' else 0,
+			"entry_number": self.target_achieved,
+			"entry_count": self.log_count if self.is_achieved=='Yes' else 0,
 			"department": self.department,
-			"doctype": "BSC Ledger Entry"
+			"fiscal_year": self.fiscal_year,
+			"month": self.month,
+			"doctype": "BSC Ledger Entry",
 		}))
 		ble.insert()
-		#
-
 
 	def on_cancel(self):
 		self.update_master(False)
@@ -99,8 +106,19 @@ class BSCInitiativeLog(Document):
 
 
 	def update_master(self, increase = True):
-		if self.is_achieved == 'Yes':
-			master = frappe.get_doc("BSC Initiative", self.bsc_initiative)
-			new_achieved = (master.achieved + self.target) if increase == True else (master.achieved - self.target)
-			master.db_set("achieved", new_achieved)
-			master.db_set("per_initiative", ( flt(new_achieved) / flt(master.time_total) * 100.0 ) )
+		master = frappe.get_doc("BSC Initiative", self.bsc_initiative)
+		new_target_achieved = (self.target_achieved + master.target_achieved) if increase == True else (master.target_achieved - self.target_achieved)
+		master.db_set("target_achieved", new_target_achieved)
+		master.db_set("target_progress", ( flt(new_target_achieved) / flt(master.initiative_target) * 100.0 )) if master.initiative_target else 0
+		new_count_achieved = (self.log_count if self.is_achieved=='Yes' else 0 + master.count_achieved) if increase == True else (self.log_count if self.is_achieved=='Yes' else 0 + master.count_achieved)
+		master.db_set("count_achieved", new_count_achieved)
+		master.db_set("count_progress", ( flt(new_count_achieved) / flt(master.initiative_count) * 100.0 )) if master.initiative_count else 0
+		master_target = frappe.get_doc("BSC Target", self.bsc_target)
+		new_achieved= (self.target_achieved + master_target.achieved) if increase == True else (master_target.achieved - self.target_achieved)
+		master_target.db_set("achieved", new_achieved)
+		master_target.db_set("progress", ( flt(new_achieved) / flt(master_target.target) * 100.0 )) if master_target.target else 0
+
+
+
+
+

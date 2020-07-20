@@ -9,7 +9,8 @@
   "suggested_mandatory",
   "allow_more_ind",
   "divide_indicator",
-  "allow_without_target"
+  "allow_without_target",
+  "allow_initiative_more_than_target"
  ],
  "fields": [
   {
@@ -47,10 +48,16 @@
    "fieldname": "allow_without_target",
    "fieldtype": "Check",
    "label": "Allow Create Log without Target"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_initiative_more_than_target",
+   "fieldtype": "Check",
+   "label": "Allow Initiative more than Target"
   }
  ],
  "issingle": 1,
- "modified": "2020-06-23 18:00:15.641348",
+ "modified": "2020-07-20 15:15:09.514980",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Settings",

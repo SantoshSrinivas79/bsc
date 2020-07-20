@@ -10,15 +10,22 @@
   "month",
   "target",
   "is_achieved",
-  "evidence_attachment",
-  "weakness_reasons",
-  "suggested_solutions",
+  "log_target",
+  "target_achieved",
+  "target_progress",
+  "log_count",
   "column_break_6",
   "bsc_initiative",
+  "bsc_target",
   "bsc_indicator",
+  "bsc_indicator_assignment",
   "indicator_name",
   "department",
   "fiscal_year",
+  "section_break_13",
+  "evidence_attachment",
+  "weakness_reasons",
+  "suggested_solutions",
   "desc_section",
   "employee",
   "employee_name",
@@ -51,13 +58,13 @@
    "fetch_from": "bsc_initiative.bsc_indicator",
    "fieldname": "bsc_indicator",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "BSC Indicator",
    "options": "BSC Indicator",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
-   "fetch_from": "bsc_indicator.full_name",
+   "fetch_from": "bsc_target.indicator_name",
    "fieldname": "indicator_name",
    "fieldtype": "Data",
    "label": "Indicator Name",
@@ -127,6 +134,7 @@
    "default": "0",
    "fieldname": "target",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Target",
    "read_only": 1
   },
@@ -210,10 +218,63 @@
    "fieldname": "notes",
    "fieldtype": "Text",
    "label": "Notes"
+  },
+  {
+   "fetch_from": "bsc_initiative.bsc_indicator_assignment",
+   "fieldname": "bsc_indicator_assignment",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "BSC Indicator Assignment",
+   "options": "BSC Indicator Assignment"
+  },
+  {
+   "fetch_from": "bsc_initiative.bsc_target",
+   "fieldname": "bsc_target",
+   "fieldtype": "Link",
+   "label": "BSC Target",
+   "options": "BSC Target",
+   "read_only": 1,
+   "set_only_once": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "log_target",
+   "fieldtype": "Float",
+   "label": "Log Target",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "target_achieved",
+   "fieldtype": "Float",
+   "label": "Target Achieved",
+   "no_copy": 1
+  },
+  {
+   "bold": 1,
+   "default": "0",
+   "fieldname": "target_progress",
+   "fieldtype": "Percent",
+   "label": "Target Progress",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "log_count",
+   "fieldtype": "Int",
+   "label": "Log Count",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-06 05:41:40.112334",
+ "modified": "2020-07-20 17:17:19.787576",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative Log",

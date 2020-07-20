@@ -10,41 +10,64 @@
   "target_group",
   "initiative_group",
   "target_total",
+  "achieved_total",
+  "per_indicator",
   "time_total",
   "achieved",
   "per_initiative",
+  "funding_status",
+  "total_amount",
   "column_break_9",
+  "bsc_target",
+  "indicator_name",
   "bsc_initiative_assignment",
   "bsc_indicator_assignment",
   "bsc_indicator",
-  "indicator_name",
   "department",
   "fiscal_year",
+  "section_break_21",
+  "initiative_target",
+  "target_achieved",
+  "target_progress",
+  "column_break_25",
+  "initiative_count",
+  "count_achieved",
+  "count_progress",
   "desc_section_section",
   "description",
+  "column_break_99",
   "employee",
   "employee_name",
   "user_id",
-  "column_amount",
-  "funding_status",
-  "total_amount",
   "months_section",
+  "jan_target",
   "jan",
+  "feb_target",
   "feb",
   "column_break_20",
+  "mar_target",
   "mar",
+  "apr_target",
   "apr",
   "column_break_23",
+  "may_target",
   "may",
+  "jun_target",
   "jun",
   "column_break_26",
+  "jul_target",
   "jul",
+  "aug_target",
   "aug",
   "column_break_29",
+  "sep_target",
   "sep",
+  "oct_target",
   "oct",
   "column_break_32",
+  "nov_target",
   "nov",
+  "dec_target",
   "dec",
   "section_break_37",
   "amended_from",
@@ -61,12 +84,14 @@
   },
   {
    "fieldname": "description",
-   "fieldtype": "Small Text",
+   "fieldtype": "Text",
    "in_list_view": 1,
    "label": "Description"
   },
   {
    "allow_on_submit": 1,
+   "fetch_from": "bsc_indicator_assignment.employee",
+   "fetch_if_empty": 1,
    "fieldname": "employee",
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
@@ -83,10 +108,11 @@
    "options": "BSC Initiative TG"
   },
   {
-   "default": "0",
+   "default": "0.0",
    "fieldname": "target_total",
-   "fieldtype": "Int",
-   "label": "Target"
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Indicator Target"
   },
   {
    "fieldname": "total_amount",
@@ -94,7 +120,7 @@
    "label": "Amount"
   },
   {
-   "fetch_from": "bsc_indicator_assignment.fiscal_year",
+   "fetch_from": "indicator_name.fiscal_year",
    "fieldname": "fiscal_year",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -105,7 +131,7 @@
    "reqd": 1
   },
   {
-   "fetch_from": "bsc_indicator.full_name",
+   "fetch_from": "bsc_target.indicator_name",
    "fieldname": "indicator_name",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -122,12 +148,12 @@
    "default": "0",
    "fieldname": "time_total",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Times",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
-   "fetch_from": "bsc_indicator_assignment.department",
+   "fetch_from": "bsc_target.department",
    "fieldname": "department",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -160,14 +186,14 @@
    "default": "0",
    "fieldname": "jan",
    "fieldtype": "Int",
-   "label": "Jan",
+   "label": "Jan Count",
    "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "feb",
    "fieldtype": "Int",
-   "label": "Feb",
+   "label": "Feb Count",
    "reqd": 1
   },
   {
@@ -178,14 +204,14 @@
    "default": "0",
    "fieldname": "mar",
    "fieldtype": "Int",
-   "label": "Mar",
+   "label": "Mar Count",
    "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "apr",
    "fieldtype": "Int",
-   "label": "Apr",
+   "label": "Apr Count",
    "reqd": 1
   },
   {
@@ -197,14 +223,14 @@
    "default": "0",
    "fieldname": "may",
    "fieldtype": "Int",
-   "label": "May",
+   "label": "May Count",
    "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "jun",
    "fieldtype": "Int",
-   "label": "Jun",
+   "label": "Jun Count",
    "reqd": 1
   },
   {
@@ -215,14 +241,14 @@
    "default": "0",
    "fieldname": "jul",
    "fieldtype": "Int",
-   "label": "Jul",
+   "label": "Jul Count",
    "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "aug",
    "fieldtype": "Int",
-   "label": "Aug",
+   "label": "Aug Count",
    "reqd": 1
   },
   {
@@ -233,14 +259,14 @@
    "default": "0",
    "fieldname": "sep",
    "fieldtype": "Int",
-   "label": "Sep",
+   "label": "Sep Count",
    "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "oct",
    "fieldtype": "Int",
-   "label": "Oct",
+   "label": "Oct Count",
    "reqd": 1
   },
   {
@@ -251,14 +277,14 @@
    "default": "0",
    "fieldname": "nov",
    "fieldtype": "Int",
-   "label": "Nov",
+   "label": "Nov Count",
    "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "dec",
    "fieldtype": "Int",
-   "label": "Dec",
+   "label": "Dec Count",
    "reqd": 1
   },
   {
@@ -279,11 +305,11 @@
    "fetch_from": "bsc_indicator_assignment.bsc_indicator",
    "fieldname": "bsc_indicator",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_standard_filter": 1,
    "label": "BSC Indicator",
    "options": "BSC Indicator",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "amended_from",
@@ -328,6 +354,7 @@
    "default": "0",
    "fieldname": "per_initiative",
    "fieldtype": "Percent",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Initiative Percent",
    "read_only": 1
@@ -337,21 +364,18 @@
    "default": "0",
    "fieldname": "achieved",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Achieved",
    "read_only": 1
   },
   {
    "fieldname": "bsc_indicator_assignment",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_standard_filter": 1,
    "label": "BSC Indicator Assignment",
    "options": "BSC Indicator Assignment",
-   "reqd": 1,
    "set_only_once": 1
-  },
-  {
-   "fieldname": "column_amount",
-   "fieldtype": "Column Break"
   },
   {
    "allow_on_submit": 1,
@@ -364,10 +388,170 @@
    "fieldtype": "Select",
    "label": "Funding Status",
    "options": "\nSupport\nFees\nWithout Financing\nMarketing"
+  },
+  {
+   "default": "0.0",
+   "fieldname": "achieved_total",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Indicator Achieved",
+   "read_only": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "per_indicator",
+   "fieldtype": "Percent",
+   "hidden": 1,
+   "label": "Indicator Percent",
+   "read_only": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "jan_target",
+   "fieldtype": "Float",
+   "label": "Jan Target",
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "feb_target",
+   "fieldtype": "Float",
+   "label": "Feb Target",
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "mar_target",
+   "fieldtype": "Float",
+   "label": "Mar Target",
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "apr_target",
+   "fieldtype": "Float",
+   "label": "Apr Target",
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "may_target",
+   "fieldtype": "Float",
+   "label": "May Target",
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "jun_target",
+   "fieldtype": "Float",
+   "label": "Jun Target",
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "jul_target",
+   "fieldtype": "Float",
+   "label": "Jul Target",
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "aug_target",
+   "fieldtype": "Float",
+   "label": "Aug Target",
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "sep_target",
+   "fieldtype": "Float",
+   "label": "Sep Target",
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "oct_target",
+   "fieldtype": "Float",
+   "label": "Oct Target",
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "nov_target",
+   "fieldtype": "Float",
+   "label": "Nov Target",
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "dec_target",
+   "fieldtype": "Float",
+   "label": "Dec Target",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bsc_target",
+   "fieldtype": "Link",
+   "label": "BSC Target",
+   "options": "BSC Target"
+  },
+  {
+   "default": "0",
+   "fieldname": "initiative_target",
+   "fieldtype": "Float",
+   "label": "Initiative Target",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "target_progress",
+   "fieldtype": "Percent",
+   "label": "Target Progress",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "target_achieved",
+   "fieldtype": "Float",
+   "label": "Target Achieved",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "count_achieved",
+   "fieldtype": "Int",
+   "label": "Count Achieved",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "count_progress",
+   "fieldtype": "Percent",
+   "label": "Count Progress",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "initiative_count",
+   "fieldtype": "Int",
+   "label": "Initiative Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_99",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_21",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_25",
+   "fieldtype": "Column Break"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-06 05:40:51.120054",
+ "modified": "2020-07-20 17:15:37.753904",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative",

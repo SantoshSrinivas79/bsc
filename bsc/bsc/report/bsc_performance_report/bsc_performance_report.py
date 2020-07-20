@@ -80,7 +80,7 @@ def get_tar(ind,filters):
 	conditions = "  and bsc_indicator= '%s'" % ind.replace("'", "\\'")
 	if filters.get("department"): conditions += "  and department= '%s'" % filters["department"].replace("'", "\\'")
 	if filters.get("fiscal_year"): conditions += "  and fiscal_year= '%s'" % filters["fiscal_year"].replace("'", "\\'")
-	return frappe.db.sql("""SELECT (IFNULL(sum(per_target),0)/IFNULL(count(name),0)) as total FROM `tabBSC Target` WHERE docstatus=1 %s""" % conditions)
+	return frappe.db.sql("""SELECT (IFNULL(sum(progress),0)/IFNULL(count(name),0)) as total FROM `tabBSC Target` WHERE docstatus=1 %s""" % conditions)
 
 def get_ini(ind,filters):
 	conditions = "  and bsc_indicator= '%s'" % ind.replace("'", "\\'")

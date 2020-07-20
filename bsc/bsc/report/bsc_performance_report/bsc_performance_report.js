@@ -6,12 +6,6 @@ frappe.require("assets/bsc/js/kpi.js", function() {
 frappe.query_reports["BSC Performance Report"] = {
 	"filters": [
 		{
-            		fieldname: 'department',
-            		label: __('Department'),
-            		fieldtype: 'Link',
-			options: 'Department'
-		},
-		{
             		fieldname: 'fiscal_year',
             		label: __('Fiscal Year'),
             		fieldtype: 'Link',

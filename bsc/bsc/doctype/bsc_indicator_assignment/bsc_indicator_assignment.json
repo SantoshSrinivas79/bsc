@@ -10,14 +10,42 @@
   "indicator_name",
   "department",
   "fiscal_year",
-  "disable"
+  "disable",
+  "column_break_7",
+  "target",
+  "achieved",
+  "per_target",
+  "section_break_8",
+  "jan",
+  "feb",
+  "column_break_11",
+  "mar",
+  "apr",
+  "column_break_14",
+  "may",
+  "jun",
+  "column_break_17",
+  "jul",
+  "aug",
+  "column_break_20",
+  "sep",
+  "oct",
+  "column_break_23",
+  "nov",
+  "dec",
+  "section_break_28",
+  "amended_from",
+  "responsible_details_section",
+  "employee",
+  "employee_name",
+  "user_id"
  ],
  "fields": [
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "label": "Naming Series ",
-   "options": "INR-ASN-.#"
+   "label": "Naming Series",
+   "options": "INR-.fiscal_year.-.#"
   },
   {
    "fieldname": "bsc_indicator",
@@ -63,9 +91,185 @@
    "fieldname": "disable",
    "fieldtype": "Check",
    "label": "Disable"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "BSC Indicator Assignment",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break",
+   "label": "Months"
+  },
+  {
+   "default": "0",
+   "fieldname": "jan",
+   "fieldtype": "Float",
+   "label": "Jan",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "feb",
+   "fieldtype": "Float",
+   "label": "Feb",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "mar",
+   "fieldtype": "Float",
+   "label": "Mar",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "apr",
+   "fieldtype": "Float",
+   "label": "Apr",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "may",
+   "fieldtype": "Float",
+   "label": "May",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "jun",
+   "fieldtype": "Float",
+   "label": "Jun",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "jul",
+   "fieldtype": "Float",
+   "label": "Jul",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "aug",
+   "fieldtype": "Float",
+   "label": "Aug",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "sep",
+   "fieldtype": "Float",
+   "label": "Sep",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "oct",
+   "fieldtype": "Float",
+   "label": "Oct",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "nov",
+   "fieldtype": "Float",
+   "label": "Nov",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "dec",
+   "fieldtype": "Float",
+   "label": "Dec",
+   "reqd": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "label": "Target Total",
+   "read_only": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "achieved",
+   "fieldtype": "Float",
+   "label": "Achieved Total",
+   "read_only": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "per_target",
+   "fieldtype": "Percent",
+   "label": "Target Percent",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_28",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "responsible_details_section",
+   "fieldtype": "Section Break",
+   "label": "Responsible Details"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Responsible",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Responsible Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.user_id",
+   "fieldname": "user_id",
+   "fieldtype": "Link",
+   "label": "Responsible Email",
+   "options": "User",
+   "read_only": 1
   }
  ],
- "modified": "2020-07-06 05:44:01.045279",
+ "is_submittable": 1,
+ "modified": "2020-07-15 06:02:10.658844",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Indicator Assignment",
@@ -84,7 +288,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "search_fields": "bsc_indicator,indicator_name,department,fiscal_year",
  "sort_field": "modified",
  "sort_order": "DESC",

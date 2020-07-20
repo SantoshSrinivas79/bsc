@@ -13,25 +13,44 @@ class BSCInitiative(Document):
 		self.validate_desc()
 		self.validate_duplicate()
 		self.validate_month_count()
+		self.validate_target()
 
 	def validate_desc(self):
 		if not self.description:
 			self.description=self.initiative_name
 
 	def validate_duplicate(self):
-		conditions = ""
-		conditions += " where docstatus < 2 and department = '%s'" % self.department
-		conditions += " and bsc_indicator = '%s'" % self.bsc_indicator
+		conditions = " where docstatus < 2 and department = '%s'" % self.department
+		conditions += " and fiscal_year = '%s'" % self.fiscal_year
+		conditions += " and bsc_target = '%s'" % self.bsc_target
 		conditions += " and initiative_name = '%s'" % self.initiative_name
+		if frappe.db.exists(self.doctype, self.name):
+			conditions += " and name <> '%s'" % self.name
 		sum_name = frappe.db.sql("""select count(name) from `tabBSC Initiative` %s"""% conditions)[0][0]
-		if sum_name > 1:
-			frappe.throw(_("Already exists with same Department and Indicator"))
+		if sum_name > 0:
+			frappe.throw(_("Already exists with same Department and Indicator and Initiative Name"))
+
+	def validate_target(self):
+		conditions = " where bsc_target = '%s'" % self.bsc_target
+		target_total = frappe.db.sql("""select IFNULL(sum(entry_number),0) from `tabBSC Ledger Entry` %s"""% conditions)[0][0]
+		bsc_target_master=frappe.get_doc("BSC Target", self.bsc_target)
+		if bsc_target_master.target-target_total < 0:
+			allow = frappe.db.get_single_value('BSC Settings', 'allow_initiative_more_than_target')
+			if allow==1:
+				frappe.msgprint(_("Targets of the Indicator is {0}, other Initiatives have {1}, currenct Initiative Target can to be {2} or less".format(bsc_target_master.target,target_total,bsc_target_master.target-target_total)))
+			else:
+				frappe.throw(_("Targets of the Indicator is {0}, other Initiatives have {1}, currenct Initiative Target can to be only {2} or less".format(bsc_target_master.target,target_total,bsc_target_master.target-target_total)))
+
 
 	def on_submit(self):
-		self.create_initiative_log()
+		self.create_logs()
 
 	def validate_month_count(self):
 		self.month_count=0
+		'''if (self.jan>0 and self.jan_target<=0) or (self.jan<=0 and self.jan_target>0):
+			frappe.throw(_("Jan Wrong"))
+		if (self.feb>0 and self.feb_target<=0) or (self.feb<=0 and self.feb_target>0):
+			frappe.throw(_("Feb Wrong"))
 		if not self.jan: self.jan=0
 		if not self.feb: self.feb=0
 		if not self.mar: self.mar=0
@@ -43,7 +62,7 @@ class BSCInitiative(Document):
 		if not self.sep: self.sep=0
 		if not self.oct: self.oct=0
 		if not self.nov: self.nov=0
-		if not self.dec: self.dec=0
+		if not self.dec: self.dec=0'''
 
 		if cint(self.jan)>0: self.month_count+=1
 		if cint(self.feb)>0: self.month_count+=1
@@ -58,75 +77,88 @@ class BSCInitiative(Document):
 		if cint(self.nov)>0: self.month_count+=1
 		if cint(self.dec)>0: self.month_count+=1
 
-		self.time_total=self.jan+self.feb+self.mar+self.apr+self.may+self.jun+self.jul+self.aug+self.sep+self.oct+self.nov+self.dec
+		self.initiative_count=self.jan+self.feb+self.mar+self.apr+self.may+self.jun+self.jul+self.aug+self.sep+self.oct+self.nov+self.dec
+		self.initiative_target=self.jan_target+self.feb_target+self.mar_target+self.apr_target+self.may_target+self.jun_target+self.jul_target+self.aug_target+self.sep_target+self.oct_target+self.nov_target+self.dec_target
 
-	def create_initiative_log(self):
+	def create_logs(self):
 		self.check_permission('write')
+		bsc_target_master=frappe.get_doc("BSC Target", self.bsc_target)
 		args = frappe._dict({
-			"department": self.department,
-			"bsc_indicator": self.bsc_indicator,
+			"bsc_indicator": bsc_target_master.bsc_indicator,
 			"bsc_initiative": self.name,
-			"initiative_name": self.initiative_name,
-			"is_achieved": 'No',
-			"employee": self.employee
+			"bsc_target": self.bsc_target,
+			"department": self.department,
+			"fiscal_year": self.fiscal_year,
+			"employee": self.employee,
 		})
 		# since this method is called via frm.call this doc needs to be updated manually
-		if self.jan>0: create_initiative_log("Jan", self.jan, args, publish_progress=True)
-		if self.feb>0: create_initiative_log("Feb", self.feb, args, publish_progress=True)
-		if self.mar>0: create_initiative_log("Mar", self.mar, args, publish_progress=True)
-		if self.apr>0: create_initiative_log("Apr", self.apr, args, publish_progress=True)
-		if self.may>0: create_initiative_log("May", self.may, args, publish_progress=True)
-		if self.jun>0: create_initiative_log("Jun", self.jun, args, publish_progress=True)
-		if self.jul>0: create_initiative_log("Jul", self.jul, args, publish_progress=True)
-		if self.aug>0: create_initiative_log("Aug", self.aug, args, publish_progress=True)
-		if self.sep>0: create_initiative_log("Sep", self.sep, args, publish_progress=True)
-		if self.oct>0: create_initiative_log("Oct", self.oct, args, publish_progress=True)
-		if self.nov>0: create_initiative_log("Nov", self.nov, args, publish_progress=True)
-		if self.dec>0: create_initiative_log("Dec", self.dec, args, publish_progress=True)		
+		if self.jan>0 and self.jan_target>0.0:
+			create_log(self.jan, self.jan_target, "Jan", args, publish_progress=True)
+		if self.feb>0 and self.feb_target>0.0:
+			create_log(self.feb, self.feb_target, "Feb", args, publish_progress=True)
+		if self.mar>0 and self.mar_target>0.0:
+			create_log(self.mar, self.mar_target, "Mar", args, publish_progress=True)
+		if self.apr>0 and self.apr_target>0.0:
+			create_log(self.apr, self.apr_target, "Apr", args, publish_progress=True)
+		if self.may>0 and self.may_target>0.0:
+			create_log(self.may, self.may_target, "May", args, publish_progress=True)
+		if self.jun>0 and self.jun_target>0.0:
+			create_log(self.jun, self.jun_target, "Jun", args, publish_progress=True)
+		if self.jul>0 and self.jul_target>0.0:
+			create_log(self.jul, self.jul_target, "Jul", args, publish_progress=True)
+		if self.aug>0 and self.aug_target>0.0:
+			create_log(self.aug, self.aug_target, "Aug", args, publish_progress=True)
+		if self.sep>0 and self.sep_target>0.0:
+			create_log(self.sep, self.sep_target, "Sep", args, publish_progress=True)
+		if self.oct>0 and self.oct_target>0.0:
+			create_log(self.oct, self.oct_target, "Oct", args, publish_progress=True)
+		if self.nov>0 and self.nov_target>0.0:
+			create_log(self.nov, self.nov_target, "Nov", args, publish_progress=True)
+		if self.dec>0 and self.dec_target>0.0:
+			create_log(self.dec, self.dec_target, "Dec", args, publish_progress=True)
 		self.reload()
 
 	def on_cancel(self):
 		frappe.db.sql("""delete from `tabBSC Ledger Entry`
 			where party_type= 'BSC Initiative' and party_name = %s """, self.name)
+		frappe.db.sql("""delete from `tabBSC Ledger Entry`
+			where party_type= 'BSC Target' and party_name = %s """, self.bsc_target)
 
-def create_initiative_log(month , target, args, publish_progress=True):
+def create_log(initiative_count, initiative_target, month, args, publish_progress=True):
 	if frappe.db.sql("""select count(name) from `tabBSC Initiative Log` where docstatus < 2  
-		and month = %s and bsc_initiative = %s""", (month,args.bsc_initiative))[0][0]==0:		
-		args.update({
+	and month = %s and bsc_initiative = %s""", (month,args.bsc_initiative))[0][0]==0:		
+		log_args = frappe._dict({
 			"doctype": "BSC Initiative Log",
-			"month": month,
-			"target": target
-		})
-		ss = frappe.get_doc(args)
-		ss.insert()
-		# create the BSC Ledger Entry #
-		ble = frappe.get_doc(frappe._dict({
-			"party_type": "BSC Initiative",
-			"party_name": args.bsc_initiative,
-			"entry_type": "Targeted",
-			"month": args.month,
-			"entry_number": args.target,
-			"bsc_indicator": args.bsc_indicator,
+			"bsc_initiative": args.bsc_initiative,
+			"bsc_target": args.bsc_target,
 			"department": args.department,
-			"doctype": "BSC Ledger Entry"
-		}))
-		ble.insert()
-		#
+			"fiscal_year": args.fiscal_year,
+			"month": month,
+			"log_target": initiative_target,
+			"log_count": initiative_count,
+			"employee": args.employee,
+		})
+		il = frappe.get_doc(log_args)
+		il.insert()
 
-		if publish_progress:
-			frappe.publish_progress(100,title = _("Creating BSC Initiative Log for {0}...").format(month))
+	# create the BSC Ledger Entry#
+	ble = frappe.get_doc(frappe._dict({
+		"bsc_indicator": args.bsc_indicator,
+		"bsc_target": args.bsc_target,
+		"bsc_initiative": args.bsc_initiative,
+		"entry_type": "Targeted",
+		"month": month,
+		"entry_number": initiative_target,
+		"entry_count": initiative_count,
+		"department": args.department,
+		"fiscal_year": args.fiscal_year,
+		"doctype": "BSC Ledger Entry"
+	}))
+	ble.insert()
+	#
+
+	if publish_progress:
+		frappe.publish_progress(100,title = _("Creating BSC Initiative Log for {0}...").format(month))
 	bsc_initiative= frappe.get_doc("BSC Initiative", args.bsc_initiative)
 	bsc_initiative.db_set("initiative_logs_created", 1)
 	bsc_initiative.notify_update()
-
-@frappe.whitelist()
-def get_graph_data(title, test):
-    	return {
-        	'data': {
-			'labels': ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-			'datasets': [
-				{'name': "Dataset 1", 'values': [18, 40, 30, 35, 8, 52, 17, -4]},
-				{'name': "Dataset 2", 'values': [30, 50, -10, 15, 18, 32, 27, 14]}
-			]
-		}
-	}

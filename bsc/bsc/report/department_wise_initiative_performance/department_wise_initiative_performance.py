@@ -90,10 +90,13 @@ def get_tar(ind,year,dep,total,filters):
 	conditions = "  and bsc_indicator= '%s'" % ind.replace("'", "\\'")
 	conditions += "  and fiscal_year= '%s'" % year.replace("'", "\\'")
 	conditions += "  and department= '%s'" % dep.replace("'", "\\'")
+	target = frappe.db.sql("""SELECT name FROM `tabBSC Target` WHERE docstatus=1 %s limit 1""" % conditions,filters)
+	if target: conditions += " and bsc_target= '%s' " % target[0][0].replace("'", "\\'")
+
 	if total == 0:
 		if filters.get("month"): conditions += "  and month in %(month)s"
-	tar = frappe.db.sql("""SELECT count(entry_number) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Initiative' and entry_type='Targeted' %s""" % conditions,filters)
-	ach = frappe.db.sql("""SELECT sum(entry_number) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Initiative' and entry_type='Achieved' and entry_number=1 %s""" % conditions,filters)
+	tar = frappe.db.sql("""SELECT sum(entry_count) FROM `tabBSC Ledger Entry` WHERE entry_type='Targeted' %s""" % conditions,filters)
+	ach = frappe.db.sql("""SELECT sum(entry_count) FROM `tabBSC Ledger Entry` WHERE entry_type='Achieved' %s""" % conditions,filters)
 	per = flt(((flt(ach[0][0])/flt(tar[0][0]))*100),2) if tar[0][0]>0.0 else 0.0
 	return flt(tar[0][0],2) if tar[0][0] else 0.0, flt(ach[0][0],2) if ach[0][0] else 0.0, flt(per,2) if per else 0.0
 
@@ -101,8 +104,8 @@ def get_tar_total(ind,year,dep):
 	conditions = "  and bsc_indicator= '%s'" % ind.replace("'", "\\'")
 	conditions += "  and fiscal_year= '%s'" % year.replace("'", "\\'")
 	conditions += "  and department= '%s'" % dep.replace("'", "\\'")
-	tar = frappe.db.sql("""SELECT count(entry_number) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Initiative' and entry_type='Targeted' %s""" % conditions)
-	ach = frappe.db.sql("""SELECT sum(entry_number) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Initiative' and entry_type='Achieved' and entry_number=1 %s""" % conditions)
+	tar = frappe.db.sql("""SELECT sum(entry_count) FROM `tabBSC Ledger Entry` WHERE entry_type='Targeted' %s""" % conditions)
+	ach = frappe.db.sql("""SELECT sum(entry_count) FROM `tabBSC Ledger Entry` WHERE entry_type='Achieved' %s""" % conditions)
 	per = flt(((flt(ach[0][0])/flt(tar[0][0]))*100),2) if tar[0][0]>0.0 else 0.0
 	return tar[0][0] if tar[0][0] else 0.0, ach[0][0] if ach[0][0] else 0.0, flt(per,2) if per else 0.0
 
@@ -131,10 +134,10 @@ def get_columns():
 			"width": 70
 		},
 		{
-			"fieldname": "bsc_indicator_assignment",
-			"label": _("BSC Indicator Assignment"),
+			"fieldname": "bsc_target",
+			"label": _("BSC Target"),
 			"fieldtype": "Link",
-			"options": "BSC Indicator Assignment",
+			"options": "BSC Target",
 			"width": 70
 		},
 		{

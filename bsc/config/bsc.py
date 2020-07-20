@@ -4,7 +4,7 @@ from frappe import _
 def get_data():
 	return [
 		{
-			"label": _("BSC Initiative"),
+			"label": _("BSC Indicator"),
 			"items": [
 				{
 					"type": "doctype",
@@ -18,19 +18,6 @@ def get_data():
 					"name": "BSC Initiative",
 					"description":_("BSC Initiative"),
 					"onboard": 1,
-					"dependencies": ["BSC Indicator Assignment"],
-
-				}
-			]
-		},
-		{
-			"label": _("BSC Target"),
-			"items": [
-				{
-					"type": "doctype",
-					"name": "BSC Target Log",
-					"description":_("BSC Target Log"),
-					"onboard": 1,
 					"dependencies": ["BSC Target"],
 				},
 				{
@@ -38,8 +25,14 @@ def get_data():
 					"name": "BSC Target",
 					"description":_("BSC Target"),
 					"onboard": 1,
-					"dependencies": ["BSC Indicator Assignment"],
-
+					"dependencies": ["BSC Indicator"],
+				},
+				{
+					"type": "doctype",
+					"name": "BSC Indicator",
+					"description":_("BSC Indicator"),
+					"onboard": 1,
+					"dependencies": ["BSC Objective"],
 				}
 			]
 		},
@@ -91,12 +84,6 @@ def get_data():
 				},
 				{
 					"type": "report",
-					"name": "BSC Target Analysis",
-					"doctype": "BSC Target Log",
-					"is_query_report": True
-				},
-				{
-					"type": "report",
 					"name": "Department-wise Operation Plan and Program Budget",
 					"doctype": "BSC Initiative",
 					"is_query_report": True
@@ -130,20 +117,6 @@ def get_data():
 					"description":_("BSC Objective"),
 					"onboard": 1,
 					"dependencies": ["BSC Perspective"],
-				},
-				{
-					"type": "doctype",
-					"name": "BSC Indicator",
-					"description":_("BSC Indicator"),
-					"onboard": 1,
-					"dependencies": ["BSC Objective"],
-				},
-				{
-					"type": "doctype",
-					"name": "BSC Indicator Assignment",
-					"description":_("BSC Indicator Assignment"),
-					"onboard": 1,
-					"dependencies": ["BSC Indicator"],
 				},
 				{
 					"type": "doctype",

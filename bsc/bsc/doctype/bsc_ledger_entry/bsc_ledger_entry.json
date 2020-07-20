@@ -1,25 +1,25 @@
 {
+ "autoname": "naming_series:",
  "creation": "2020-06-23 08:01:28.362987",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
+  "bsc_target",
+  "bsc_initiative",
+  "bsc_initiative_log",
   "party_type",
   "party_name",
   "entry_type",
   "month",
   "entry_number",
+  "entry_count",
   "is_achieved",
   "column_break_5",
   "bsc_indicator",
   "department",
-  "fiscal_year",
-  "section_break_9",
-  "reference_type",
-  "reference_name",
-  "column_break_13",
-  "against_number",
-  "percent"
+  "fiscal_year"
  ],
  "fields": [
   {
@@ -27,9 +27,8 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Party Type",
-   "options": "BSC Target\nBSC Initiative",
-   "read_only": 1,
-   "reqd": 1
+   "options": "BSC Indicator Assignment\nBSC Target\nBSC Initiative",
+   "read_only": 1
   },
   {
    "fieldname": "party_name",
@@ -37,8 +36,7 @@
    "in_list_view": 1,
    "label": "Party Name",
    "options": "party_type",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "entry_type",
@@ -52,6 +50,8 @@
   {
    "fieldname": "month",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Month",
    "options": "\nJan\nFeb\nMar\nApr\nMay\nJun\nJul\nAug\nSep\nOct\nNov\nDec",
    "read_only": 1,
@@ -98,47 +98,50 @@
    "reqd": 1
   },
   {
-   "fieldname": "section_break_9",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "reference_type",
-   "fieldtype": "Select",
-   "label": "Reference Type",
-   "options": "BSC Target\nBSC Initiative"
-  },
-  {
-   "fieldname": "reference_name",
-   "fieldtype": "Dynamic Link",
-   "label": "Reference Name",
-   "options": "reference_type"
-  },
-  {
-   "fieldname": "column_break_13",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "against_number",
-   "fieldtype": "Float",
-   "label": "Against Number",
-   "read_only": 1
-  },
-  {
-   "fieldname": "percent",
-   "fieldtype": "Percent",
-   "label": "Percent",
-   "read_only": 1
-  },
-  {
    "default": "0",
    "fieldname": "is_achieved",
    "fieldtype": "Check",
    "label": "Is Achieved",
    "read_only": 1
+  },
+  {
+   "fieldname": "bsc_target",
+   "fieldtype": "Link",
+   "label": "BSC Target",
+   "options": "BSC Target",
+   "read_only": 1
+  },
+  {
+   "fieldname": "bsc_initiative",
+   "fieldtype": "Link",
+   "label": "BSC Initiative",
+   "options": "BSC Initiative",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "entry_count",
+   "fieldtype": "Int",
+   "label": "Entry Count",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "bsc_initiative_log",
+   "fieldtype": "Link",
+   "label": "BSC Initiative Log",
+   "options": "BSC Initiative Log",
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "BLE-.YYYY.-.#"
   }
  ],
  "in_create": 1,
- "modified": "2020-07-07 00:28:13.302573",
+ "modified": "2020-07-20 14:46:12.014962",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Ledger Entry",

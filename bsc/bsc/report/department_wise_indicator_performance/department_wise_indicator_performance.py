@@ -25,15 +25,15 @@ def get_data(filters):
 	for ind in get_indicator(filters):
 		#frappe.msgprint("indicator=== {0} ".format(ind.bsc_perspective))
 		row = [ind.bsc_perspective, ind.bsc_objective, ind.bsc_indicator, ind.indicator_name, ind.department]
-		tar, ach, per = get_tar(ind.bsc_indicator,ind.department,filters.get('fiscal_year'),0,filters)
-		tar_, ach_, per_ = get_tar(ind.bsc_indicator,ind.department,filters.get('fiscal_year'),1,filters)
+		target, tar, ach, per = get_tar(ind.bsc_indicator,ind.department,filters.get('fiscal_year'),0,filters)
+		target_,tar_, ach_, per_ = get_tar(ind.bsc_indicator,ind.department,filters.get('fiscal_year'),1,filters)
 		if flt(tar)>0.0:
 			if (filters.get("greater") == 1 and tar < ach) or (not filters.get("greater") or filters.get("greater")==0):
 				data.append({
 					"bsc_perspective": ind.bsc_perspective,
 					"bsc_objective": ind.bsc_objective,
 					"bsc_indicator": ind.bsc_indicator,
-					"bsc_target": "",
+					"bsc_target": target,
 					"indicator_name": ind.full_name,
 					"department": ind.department,
 					"target": tar,
@@ -75,7 +75,7 @@ def get_indicator(filters):
 	ind_map = frappe._dict()
 	ind_list = frappe.db.sql("""SELECT tar.bsc_indicator, ind.full_name, 
 		ind.bsc_objective, ind.bsc_perspective, tar.department
-		FROM `tabBSC Ledger Entry` tar 
+		FROM `tabBSC Ledger Entry` tar
 		INNER JOIN `tabDepartment` dep ON dep.name = tar.department
 		INNER JOIN `tabBSC Indicator` ind ON ind.name = tar.bsc_indicator
 		{conditions} group by tar.bsc_indicator, tar.department order by dep.parent_department ASC
@@ -89,16 +89,19 @@ def get_tar(ind,dep,year,total,filters):
 	conditions = "  and bsc_indicator= '%s'" % ind.replace("'", "\\'")
 	conditions += "  and fiscal_year= '%s'" % year.replace("'", "\\'")
 	conditions += "  and department= '%s'" % dep.replace("'", "\\'")
+	target = frappe.db.sql("""SELECT name FROM `tabBSC Target` WHERE docstatus=1 %s limit 1""" % conditions,filters)
+	if target: conditions += " and bsc_target= '%s' " % target[0][0].replace("'", "\\'")
+
 	if total == 0:
 		if filters.get("month"): conditions += "  and month in %(month)s"
-	tar = frappe.db.sql("""SELECT IFNULL(sum(entry_number),0.0) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Target' and entry_type='Targeted' %s""" % conditions,filters)
-	ach = frappe.db.sql("""SELECT IFNULL(sum(entry_number),0.0) FROM `tabBSC Ledger Entry` WHERE party_type='BSC Target' and entry_type='Achieved' %s""" % conditions,filters)
+	tar = frappe.db.sql("""SELECT IFNULL(sum(entry_number),0.0) FROM `tabBSC Ledger Entry` WHERE entry_type='Targeted' %s""" % conditions,filters)
+	ach = frappe.db.sql("""SELECT IFNULL(sum(entry_number),0.0) FROM `tabBSC Ledger Entry` WHERE entry_type='Achieved' %s""" % conditions,filters)
 	per = 0.0
 	if tar:
 		#frappe.msgprint("indicator=== {0} ".format(tar[0][0]))
 		if flt(tar[0][0])>0.0:
 			per = flt(((flt(ach[0][0])/flt(tar[0][0]))*100),2)
-	return flt(tar[0][0],2) if tar[0][0] else 0, flt(ach[0][0],2) if ach[0][0] else 0, flt(per,2) if per else 0
+	return target[0][0] if target else None, flt(tar[0][0],2) if tar[0][0] else 0, flt(ach[0][0],2) if ach[0][0] else 0, flt(per,2) if per else 0
 
 
 def get_columns():

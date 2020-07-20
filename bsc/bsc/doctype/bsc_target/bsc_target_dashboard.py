@@ -12,7 +12,7 @@ def get_data():
 		'transactions': [
 			{
 				'label': '',
-				'items': ['BSC Target Log']
+				'items': ['BSC Initiative', 'BSC Initiative Log']
 			}
 		]
 	}

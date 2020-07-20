@@ -7,7 +7,7 @@ def get_data():
 		'transactions': [
 			{
 				'label': '',
-				'items': ['BSC Target','BSC Initiative','BSC Indicator Assignment']
+				'items': ['BSC Target']
 			}
 		]
 	}

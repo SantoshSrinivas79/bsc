@@ -7,77 +7,28 @@
  "field_order": [
   "naming_series",
   "indicator_name",
-  "uom",
-  "cumulative_target",
-  "column_break_4",
   "target",
   "achieved",
-  "per_target",
+  "progress",
   "column_break_6",
-  "bsc_indicator_assignment",
   "bsc_indicator",
   "department",
   "fiscal_year",
   "responsible_section_section",
+  "description",
+  "column_break_12",
   "employee",
   "employee_name",
   "user_id",
-  "section_break_9",
-  "jan__",
-  "jan_",
-  "jan",
-  "feb__",
-  "feb_",
-  "feb",
-  "column_break_11",
-  "mar__",
-  "mar_",
-  "mar",
-  "apr__",
-  "apr_",
-  "apr",
-  "column_break_13",
-  "may__",
-  "may_",
-  "may",
-  "jun__",
-  "jun_",
-  "jun",
-  "column_break_15",
-  "jul__",
-  "jul_",
-  "jul",
-  "aug__",
-  "aug_",
-  "aug",
-  "column_break_17",
-  "sep__",
-  "sep_",
-  "sep",
-  "oct__",
-  "oct_",
-  "oct",
-  "column_break_19",
-  "nov__",
-  "nov_",
-  "nov",
-  "dec__",
-  "dec_",
-  "dec",
-  "section_break_52",
-  "target_logs_created",
-  "month_count",
   "amended_from"
  ],
  "fields": [
   {
-   "fetch_from": "bsc_indicator_assignment.fiscal_year",
    "fieldname": "fiscal_year",
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Fiscal Year",
    "options": "Fiscal Year",
-   "read_only": 1,
    "reqd": 1,
    "set_only_once": 1
   },
@@ -85,25 +36,16 @@
    "default": "0",
    "fieldname": "target",
    "fieldtype": "Float",
-   "label": "Target Total",
+   "label": "Target",
    "precision": "1",
    "reqd": 1
   },
   {
-   "fieldname": "uom",
-   "fieldtype": "Select",
-   "label": "UOM",
-   "options": "\nNumerical\nCumulative\nPercent",
-   "reqd": 1
-  },
-  {
-   "fetch_from": "bsc_indicator_assignment.bsc_indicator",
    "fieldname": "bsc_indicator",
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Indicator",
    "options": "BSC Indicator",
-   "read_only": 1,
    "reqd": 1,
    "set_only_once": 1
   },
@@ -122,306 +64,14 @@
    "options": "TGT-.#"
   },
   {
-   "fetch_from": "bsc_indicator_assignment.department",
    "fieldname": "department",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Department",
    "options": "Department",
-   "read_only": 1,
    "reqd": 1,
    "set_only_once": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "jan",
-   "fieldtype": "Float",
-   "label": "Jan",
-   "precision": "1",
-   "read_only": 1,
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "feb",
-   "fieldtype": "Float",
-   "label": "Feb",
-   "precision": "1",
-   "read_only": 1,
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "mar",
-   "fieldtype": "Float",
-   "label": "Mar",
-   "precision": "1",
-   "read_only": 1,
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "apr",
-   "fieldtype": "Float",
-   "label": "Apr",
-   "precision": "1",
-   "read_only": 1,
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "may",
-   "fieldtype": "Float",
-   "label": "May",
-   "precision": "1",
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "jun",
-   "fieldtype": "Float",
-   "label": "Jun",
-   "precision": "1",
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "jul",
-   "fieldtype": "Float",
-   "label": "Jul",
-   "precision": "1",
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "aug",
-   "fieldtype": "Float",
-   "label": "Aug",
-   "precision": "1",
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "sep",
-   "fieldtype": "Float",
-   "label": "Sep",
-   "precision": "1",
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "oct",
-   "fieldtype": "Float",
-   "label": "Oct",
-   "precision": "1",
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "nov",
-   "fieldtype": "Float",
-   "label": "Nov",
-   "precision": "1",
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "dec",
-   "fieldtype": "Float",
-   "label": "Dec",
-   "precision": "1",
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "section_break_9",
-   "fieldtype": "Section Break",
-   "label": "Months"
-  },
-  {
-   "fieldname": "column_break_11",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_13",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_15",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_17",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_19",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Percent'",
-   "fieldname": "jan_",
-   "fieldtype": "Percent",
-   "label": "Jan Percent"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Percent'",
-   "fieldname": "feb_",
-   "fieldtype": "Percent",
-   "label": "Feb Percent"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Percent'",
-   "fieldname": "mar_",
-   "fieldtype": "Percent",
-   "label": "Mar Percent"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Percent'",
-   "fieldname": "apr_",
-   "fieldtype": "Percent",
-   "label": "Apr Percent"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Percent'",
-   "fieldname": "may_",
-   "fieldtype": "Percent",
-   "label": "May Percent"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Percent'",
-   "fieldname": "jun_",
-   "fieldtype": "Percent",
-   "label": "Jun Percent"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Percent'",
-   "fieldname": "jul_",
-   "fieldtype": "Percent",
-   "label": "Jul Percent"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Percent'",
-   "fieldname": "aug_",
-   "fieldtype": "Percent",
-   "label": "Aug Percent"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Percent'",
-   "fieldname": "sep_",
-   "fieldtype": "Percent",
-   "label": "Sep Percent"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Percent'",
-   "fieldname": "oct_",
-   "fieldtype": "Percent",
-   "label": "Oct Percent"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Percent'",
-   "fieldname": "nov_",
-   "fieldtype": "Percent",
-   "label": "Nov Percent"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Percent'",
-   "fieldname": "dec_",
-   "fieldtype": "Percent",
-   "label": "Dec Percent"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.uom=='Cumulative'",
-   "fieldname": "cumulative_target",
-   "fieldtype": "Float",
-   "label": "Cumulative Target",
-   "precision": "1"
-  },
-  {
-   "default": "0",
-   "fieldname": "feb__",
-   "fieldtype": "Check",
-   "label": "Is Feb?"
-  },
-  {
-   "default": "0",
-   "fieldname": "mar__",
-   "fieldtype": "Check",
-   "label": "Is Mar?"
-  },
-  {
-   "default": "0",
-   "fieldname": "apr__",
-   "fieldtype": "Check",
-   "label": "Is Apr?"
-  },
-  {
-   "default": "0",
-   "fieldname": "may__",
-   "fieldtype": "Check",
-   "label": "Is May?"
-  },
-  {
-   "default": "0",
-   "fieldname": "jun__",
-   "fieldtype": "Check",
-   "label": "Is Jun?"
-  },
-  {
-   "default": "0",
-   "fieldname": "jul__",
-   "fieldtype": "Check",
-   "label": "Is Jul?"
-  },
-  {
-   "default": "0",
-   "fieldname": "aug__",
-   "fieldtype": "Check",
-   "label": "Is Aug?"
-  },
-  {
-   "default": "0",
-   "fieldname": "sep__",
-   "fieldtype": "Check",
-   "label": "Is Sep?"
-  },
-  {
-   "default": "0",
-   "fieldname": "oct__",
-   "fieldtype": "Check",
-   "label": "Is Oct?"
-  },
-  {
-   "default": "0",
-   "fieldname": "nov__",
-   "fieldtype": "Check",
-   "label": "Is Nov?"
-  },
-  {
-   "default": "0",
-   "fieldname": "dec__",
-   "fieldtype": "Check",
-   "label": "Is Dec?"
-  },
-  {
-   "default": "0",
-   "fieldname": "jan__",
-   "fieldtype": "Check",
-   "label": "Is Jan?"
   },
   {
    "fieldname": "amended_from",
@@ -434,17 +84,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "section_break_52",
-   "fieldtype": "Section Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "target_logs_created",
-   "fieldtype": "Check",
-   "label": "Target Logs Created",
-   "read_only": 1
-  },
-  {
    "fieldname": "column_break_6",
    "fieldtype": "Column Break"
   },
@@ -452,7 +91,7 @@
    "collapsible": 1,
    "fieldname": "responsible_section_section",
    "fieldtype": "Section Break",
-   "label": "Responsible Details"
+   "label": "Details"
   },
   {
    "allow_on_submit": 1,
@@ -485,43 +124,30 @@
    "default": "0",
    "fieldname": "achieved",
    "fieldtype": "Float",
-   "label": "Achieved Total",
-   "read_only": 1
-  },
-  {
-   "allow_on_submit": 1,
-   "default": "0",
-   "fieldname": "per_target",
-   "fieldtype": "Percent",
-   "in_list_view": 1,
-   "label": "Target Percent",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_4",
-   "fieldtype": "Column Break"
-  },
-  {
-   "allow_on_submit": 1,
-   "default": "0",
-   "fieldname": "month_count",
-   "fieldtype": "Int",
-   "label": "Month Count",
+   "label": "Achieved",
    "no_copy": 1,
    "read_only": 1
   },
   {
-   "fieldname": "bsc_indicator_assignment",
-   "fieldtype": "Link",
-   "in_standard_filter": 1,
-   "label": "BSC Indicator Assignment",
-   "options": "BSC Indicator Assignment",
-   "reqd": 1,
-   "set_only_once": 1
+   "fieldname": "description",
+   "fieldtype": "Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "progress",
+   "fieldtype": "Percent",
+   "label": "Progress",
+   "no_copy": 1,
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-06 05:46:20.964959",
+ "modified": "2020-07-20 17:14:02.282871",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Target",
