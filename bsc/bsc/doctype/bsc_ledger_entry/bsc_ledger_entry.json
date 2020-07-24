@@ -9,8 +9,6 @@
   "bsc_target",
   "bsc_initiative",
   "bsc_initiative_log",
-  "party_type",
-  "party_name",
   "entry_type",
   "month",
   "entry_number",
@@ -22,22 +20,6 @@
   "fiscal_year"
  ],
  "fields": [
-  {
-   "fieldname": "party_type",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Party Type",
-   "options": "BSC Indicator Assignment\nBSC Target\nBSC Initiative",
-   "read_only": 1
-  },
-  {
-   "fieldname": "party_name",
-   "fieldtype": "Dynamic Link",
-   "in_list_view": 1,
-   "label": "Party Name",
-   "options": "party_type",
-   "read_only": 1
-  },
   {
    "fieldname": "entry_type",
    "fieldtype": "Select",
@@ -141,7 +123,7 @@
   }
  ],
  "in_create": 1,
- "modified": "2020-07-20 14:46:12.014962",
+ "modified": "2020-07-24 05:54:03.559105",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Ledger Entry",

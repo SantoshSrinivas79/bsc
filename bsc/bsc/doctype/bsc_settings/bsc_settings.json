@@ -10,7 +10,8 @@
   "allow_more_ind",
   "divide_indicator",
   "allow_without_target",
-  "allow_initiative_more_than_target"
+  "allow_initiative_more_than_target",
+  "allow_create_log_for_not_mentioned_month"
  ],
  "fields": [
   {
@@ -54,10 +55,16 @@
    "fieldname": "allow_initiative_more_than_target",
    "fieldtype": "Check",
    "label": "Allow Initiative more than Target"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_create_log_for_not_mentioned_month",
+   "fieldtype": "Check",
+   "label": "Allow Create log for not mentioned month"
   }
  ],
  "issingle": 1,
- "modified": "2020-07-20 15:15:09.514980",
+ "modified": "2020-07-23 21:05:07.863569",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Settings",

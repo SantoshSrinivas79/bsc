@@ -3,13 +3,6 @@
 
 frappe.ui.form.on('BSC Initiative', {
 	setup: function(frm) {
-		frm.fields_dict['bsc_initiative_assignment'].get_query = function () {
-    			return {
-    				filters: {
-    					"docstatus": 2
-    				}
-    		   	}
-		}
 		frm.set_query("bsc_indicator", function() {
 			return {
 				query: "bsc.bsc.doctype.bsc_indicator.bsc_indicator.get_indicator_by_department",
@@ -27,7 +20,6 @@ frappe.ui.form.on('BSC Initiative', {
 		}
 	},
 	refresh: function(frm) {
-		console.log('in refresh')
 		if (frm.doc.docstatus == 0) {
 			if(!frm.is_new()) {
 				frm.page.clear_primary_action();
@@ -57,14 +49,13 @@ frappe.ui.form.on('BSC Initiative', {
 			frm.set_value("employee_name", "");
 	},
 	validate: function(frm){
-		console.log("in validate")
 
-		frm.trigger("calc_time_total");		
+		//frm.trigger("calc_time_total");		
 		/*var total = 0;
 		$.each(frm.doc.initiative_months || [], function(i, d) {
 				total +=d.target;
 		});
-		frm.set_value("time_total", total);*/
+		//frm.set_value("time_total", total);*/
 	},
 	initiative_name: function(frm){
 		if (frm.doc.initiative_name && !frm.doc.description)

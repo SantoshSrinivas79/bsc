@@ -17,7 +17,6 @@
   "column_break_6",
   "bsc_initiative",
   "bsc_target",
-  "bsc_indicator",
   "bsc_indicator_assignment",
   "indicator_name",
   "department",
@@ -53,15 +52,6 @@
    "options": "Department",
    "read_only": 1,
    "reqd": 1
-  },
-  {
-   "fetch_from": "bsc_initiative.bsc_indicator",
-   "fieldname": "bsc_indicator",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "BSC Indicator",
-   "options": "BSC Indicator",
-   "read_only": 1
   },
   {
    "fetch_from": "bsc_target.indicator_name",
@@ -256,6 +246,7 @@
    "default": "0",
    "fieldname": "target_progress",
    "fieldtype": "Percent",
+   "in_list_view": 1,
    "label": "Target Progress",
    "no_copy": 1,
    "read_only": 1
@@ -274,7 +265,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-20 17:17:19.787576",
+ "modified": "2020-07-24 05:11:11.511973",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative Log",
