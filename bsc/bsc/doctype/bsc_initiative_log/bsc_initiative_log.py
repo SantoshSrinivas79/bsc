@@ -111,11 +111,11 @@ class BSCInitiativeLog(Document):
 	def on_cancel(self):
 		self.update_master(False)
 		frappe.db.sql("""delete from `tabBSC Ledger Entry`
-			where party_type= 'BSC Initiative' and party_name = %s and month = %s and entry_type='Achieved'""", (self.bsc_initiative,self.month))
+			where bsc_initiative_log = %s """, self.name)
 
 
 	def update_master(self, increase = True):
-		self.target_progress=flt(self.target_achieved)/flt(self.log_target)*100
+		self.target_progress=(flt(self.target_achieved)/flt(self.log_target)*100) if flt(self.log_target)!=0 else 0
 			
 		master = frappe.get_doc("BSC Initiative", self.bsc_initiative)
 		new_target_achieved = (self.target_achieved + master.target_achieved) if increase == True else (master.target_achieved - self.target_achieved)
@@ -125,10 +125,11 @@ class BSCInitiativeLog(Document):
 		master.db_set("count_achieved", new_count_achieved)
 		master.db_set("count_progress", ( flt(new_count_achieved) / flt(master.initiative_count) * 100.0 )) if master.initiative_count else 0
 
-		master_target = frappe.get_doc("BSC Target", self.bsc_target)
-		if master_target.calculation_method=='Numerical':
-			new_achieved=(flt(master_target.achieved)+flt(self.target_achieved)) if increase == True else (flt(master_target.achieved)-flt(self.target_achieved))
-			master_target.db_set("achieved",new_achieved)
-			master_target.db_set("progress",flt(new_achieved)/flt(master_target.target)*100.0)
-		if master_target.calculation_method=='Percentage':
-			master_target.db_set("progress",(flt(master_target.progress)+flt(self.target_achieved)) if increase == True else (flt(master_target.progress)-flt(self.target_achieved)))
+		if self.bsc_target:
+			master_target = frappe.get_doc("BSC Target", self.bsc_target)
+			if master_target.calculation_method=='Numerical':
+				new_achieved=(flt(master_target.achieved)+flt(self.target_achieved)) if increase == True else (flt(master_target.achieved)-flt(self.target_achieved))
+				master_target.db_set("achieved",new_achieved)
+				master_target.db_set("progress",flt(new_achieved)/flt(master_target.target)*100.0)
+			if master_target.calculation_method=='Percentage':
+				master_target.db_set("progress",(flt(master_target.progress)+flt(self.target_achieved)) if increase == True else (flt(master_target.progress)-flt(self.target_achieved)))

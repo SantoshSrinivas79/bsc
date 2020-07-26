@@ -120,9 +120,7 @@ class BSCInitiative(Document):
 
 	def on_cancel(self):
 		frappe.db.sql("""delete from `tabBSC Ledger Entry`
-			where party_type= 'BSC Initiative' and party_name = %s """, self.name)
-		frappe.db.sql("""delete from `tabBSC Ledger Entry`
-			where party_type= 'BSC Target' and party_name = %s """, self.bsc_target)
+			where entry_type='Targeted' and bsc_initiative = %s """, self.name)
 
 def create_log(initiative_count, initiative_target, month, args, publish_progress=True):
 	if frappe.db.sql("""select count(name) from `tabBSC Initiative Log` where docstatus < 2  

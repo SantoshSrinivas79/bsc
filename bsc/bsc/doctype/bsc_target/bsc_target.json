@@ -157,13 +157,14 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-24 06:38:59.139103",
+ "modified": "2020-07-26 17:37:10.645876",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Target",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -173,6 +174,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

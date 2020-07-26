@@ -245,13 +245,14 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-24 07:07:42.515005",
+ "modified": "2020-07-26 17:28:16.443885",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -261,6 +262,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

@@ -265,13 +265,14 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-24 05:11:11.511973",
+ "modified": "2020-07-26 17:24:41.047297",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative Log",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -281,6 +282,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
