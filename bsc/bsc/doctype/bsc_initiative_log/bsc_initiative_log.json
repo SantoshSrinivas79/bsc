@@ -17,7 +17,6 @@
   "column_break_6",
   "bsc_initiative",
   "bsc_target",
-  "bsc_indicator_assignment",
   "indicator_name",
   "department",
   "fiscal_year",
@@ -41,7 +40,7 @@
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Naming Series",
-   "options": "INV-LOG-.#"
+   "options": "INV-LOG-.fiscal_year.-.#"
   },
   {
    "fetch_from": "bsc_initiative.department",
@@ -210,14 +209,6 @@
    "label": "Notes"
   },
   {
-   "fetch_from": "bsc_initiative.bsc_indicator_assignment",
-   "fieldname": "bsc_indicator_assignment",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "BSC Indicator Assignment",
-   "options": "BSC Indicator Assignment"
-  },
-  {
    "fetch_from": "bsc_initiative.bsc_target",
    "fieldname": "bsc_target",
    "fieldtype": "Link",
@@ -265,7 +256,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-26 17:24:41.047297",
+ "modified": "2020-08-11 16:37:28.610537",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative Log",

@@ -8,16 +8,22 @@
   "naming_series",
   "bsc_meeting_minutes",
   "meeting_minutes_description",
+  "column_break_4",
   "bsc_meeting",
   "meeting_name",
-  "description"
+  "section_break_7",
+  "subject",
+  "description",
+  "section_break_10",
+  "department",
+  "employee"
  ],
  "fields": [
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Naming Series",
-   "options": "bsc_meeting_minutes.-.#"
+   "options": "bsc_meeting_minutes./.#"
   },
   {
    "fieldname": "bsc_meeting_minutes",
@@ -55,11 +61,40 @@
    "fieldname": "description",
    "fieldtype": "Small Text",
    "in_list_view": 1,
-   "label": "Description",
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "label": "Subject",
    "reqd": 1
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
   }
  ],
- "modified": "2020-07-06 05:45:33.578214",
+ "modified": "2020-08-09 10:02:07.596184",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Meeting Recommendation",

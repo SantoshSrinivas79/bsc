@@ -65,14 +65,17 @@ class BSCInitiative(Document):
 		self.month_count=0
 		self.initiative_count=0
 		self.initiative_target=0
+		max_month=[]
 		if self.bsc_target_month:
 			for m in self.get("bsc_target_month"):
 				if m.count<=0:
 					frappe.throw(_("Note: Month {0}'s Count must be greater than 0").format(m.month))
 				self.initiative_count+=m.count
 				self.initiative_target+=m.target
+				max_month.append(m.target)
 				self.month_count+=1
-
+		if self.initiative_target<=0.0:
+			frappe.throw(_("Initiative Target Must to be Greater than ZERO").format(d.month))
 
 	def create_logs(self):
 		self.check_permission('write')
@@ -88,7 +91,6 @@ class BSCInitiative(Document):
 		if self.bsc_target_month:
 			for m in self.get("bsc_target_month"):
 				create_log(m.count, m.target, m.month, args, publish_progress=True)
-
 
 		# since this method is called via frm.call this doc needs to be updated manually
 		'''if self.jan>0 and self.jan_target>0.0:

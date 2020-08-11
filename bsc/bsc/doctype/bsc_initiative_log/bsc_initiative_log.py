@@ -28,7 +28,7 @@ class BSCInitiativeLog(Document):
 
 	def validate_month(self):
 		res = frappe.db.sql("""SELECT count(entry_number) FROM `tabBSC Ledger Entry` 
-			WHERE bsc_initiative=%s and party_name = %s and month = %s""", (self.bsc_initiative,self.bsc_initiative,self.month))
+			WHERE bsc_initiative=%s and month = %s""", (self.bsc_initiative,self.month))
 		if res[0][0]==0:
 			allow_create= frappe.db.get_single_value('BSC Settings', 'allow_create_log_for_not_mentioned_month')
 			if allow_create==0:
@@ -124,12 +124,33 @@ class BSCInitiativeLog(Document):
 		new_count_achieved = (self.log_count if self.is_achieved=='Yes' else 0 + master.count_achieved) if increase == True else (self.log_count if self.is_achieved=='Yes' else 0 + master.count_achieved)
 		master.db_set("count_achieved", new_count_achieved)
 		master.db_set("count_progress", ( flt(new_count_achieved) / flt(master.initiative_count) * 100.0 )) if master.initiative_count else 0
-
+		
 		if self.bsc_target:
 			master_target = frappe.get_doc("BSC Target", self.bsc_target)
 			if master_target.calculation_method=='Numerical':
 				new_achieved=(flt(master_target.achieved)+flt(self.target_achieved)) if increase == True else (flt(master_target.achieved)-flt(self.target_achieved))
 				master_target.db_set("achieved",new_achieved)
 				master_target.db_set("progress",flt(new_achieved)/flt(master_target.target)*100.0)
-			if master_target.calculation_method=='Percentage':
+			elif master_target.calculation_method=='Percentage':
 				master_target.db_set("progress",(flt(master_target.progress)+flt(self.target_achieved)) if increase == True else (flt(master_target.progress)-flt(self.target_achieved)))
+			elif master_target.calculation_method=='Cumulative':
+				conditions = " where name <> '%s'" % self.bsc_initiative 
+				conditions += " and bsc_target = '%s'" % self.bsc_target 
+				sum_initiative = frappe.db.sql("""select IFNULL(sum(initiative_target),0.0), IFNULL(sum(target_achieved),0.0) from `tabBSC Initiative` %s"""% conditions)
+				master_target.db_set("progress",flt((sum_initiative[0][1]+(new_target_achieved))/(sum_initiative[0][0]+(master.initiative_target))*100))
+
+				'''conditions = " where entry_type='Targeted' and bsc_initiative = '%s'" % self.bsc_initiative 
+				max_month = frappe.db.sql("""select IFNULL(max(entry_number),0.0) from `tabBSC Ledger Entry` %s"""% conditions)[0][0]
+				master_target.db_set("progress",\
+					(flt(master_target.progress)+\
+					flt(\
+					(master.target_progress*(max_month/master_target.target*100)/100)\
+					*self.target_progress/100)\
+					) if increase == True else \
+					(flt(master_target.progress)-\
+					flt(\
+					(master.target_progress*(max_month/master_target.target*100)/100)\
+					*self.target_progress/100)\
+					)\
+					)
+				'''
