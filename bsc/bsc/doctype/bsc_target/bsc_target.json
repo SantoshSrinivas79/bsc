@@ -11,6 +11,7 @@
   "achieved",
   "progress",
   "based_last_month",
+  "disable",
   "column_break_6",
   "bsc_indicator",
   "calculation_method",
@@ -38,6 +39,7 @@
    "default": "0",
    "fieldname": "target",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Target",
    "precision": "1",
    "reqd": 1
@@ -166,10 +168,16 @@
    "fieldname": "based_last_month",
    "fieldtype": "Check",
    "label": "Progress Based on Last Month"
+  },
+  {
+   "default": "0",
+   "fieldname": "disable",
+   "fieldtype": "Check",
+   "label": "Disable"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-08-12 01:09:28.463879",
+ "modified": "2020-08-12 03:58:47.030371",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Target",

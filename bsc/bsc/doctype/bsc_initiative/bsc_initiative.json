@@ -11,6 +11,7 @@
   "funding_status",
   "total_amount",
   "based_last_month",
+  "disable",
   "column_break_9",
   "bsc_target",
   "indicator_name",
@@ -248,10 +249,16 @@
    "fieldname": "based_last_month",
    "fieldtype": "Check",
    "label": "Progress Based on Last Month"
+  },
+  {
+   "default": "0",
+   "fieldname": "disable",
+   "fieldtype": "Check",
+   "label": "Disable"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-08-12 01:23:19.136622",
+ "modified": "2020-08-12 03:56:31.288142",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative",

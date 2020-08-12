@@ -9,6 +9,7 @@
   "full_name",
   "objective_percentage",
   "bsc_percentage",
+  "disable",
   "column_break_4",
   "bsc_perspective",
   "perspective_name",
@@ -79,9 +80,15 @@
    "fieldtype": "Percent",
    "label": "BSC Percentage",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disable",
+   "fieldtype": "Check",
+   "label": "Disable"
   }
  ],
- "modified": "2020-08-12 03:28:24.645731",
+ "modified": "2020-08-12 03:55:29.429898",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Objective",

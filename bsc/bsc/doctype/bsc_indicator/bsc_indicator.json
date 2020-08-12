@@ -11,6 +11,7 @@
   "bsc_percentage",
   "calculation_method",
   "based_last_month",
+  "disable",
   "column_break_6",
   "bsc_objective",
   "objective_name",
@@ -132,9 +133,15 @@
    "fieldtype": "Percent",
    "label": "BSC Percentage",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disable",
+   "fieldtype": "Check",
+   "label": "Disable"
   }
  ],
- "modified": "2020-08-12 03:34:48.534778",
+ "modified": "2020-08-12 03:55:49.786894",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Indicator",
