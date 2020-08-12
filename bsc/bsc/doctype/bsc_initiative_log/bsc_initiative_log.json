@@ -40,7 +40,7 @@
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Naming Series",
-   "options": "INV-LOG-.fiscal_year.-.#"
+   "options": "INV-LOG-.fiscal_year.-"
   },
   {
    "fetch_from": "bsc_initiative.department",
@@ -256,7 +256,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-08-11 16:37:28.610537",
+ "modified": "2020-08-11 17:05:46.858630",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative Log",

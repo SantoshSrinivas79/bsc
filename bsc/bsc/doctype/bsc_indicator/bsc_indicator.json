@@ -9,6 +9,7 @@
   "full_name",
   "indicator_percentage",
   "calculation_method",
+  "based_last_month",
   "column_break_6",
   "bsc_objective",
   "objective_name",
@@ -26,7 +27,7 @@
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Naming Series",
-   "options": "INR-.#"
+   "options": "INR-"
   },
   {
    "fieldname": "full_name",
@@ -116,11 +117,17 @@
    "fieldname": "calculation_method",
    "fieldtype": "Select",
    "label": "Calculation Method",
-   "options": "\nNumerical\nCumulative\nPercentage",
+   "options": "\nNumerical\nPercentage",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "based_last_month",
+   "fieldtype": "Check",
+   "label": "Progress Based on Last Month"
   }
  ],
- "modified": "2020-08-10 22:38:21.073242",
+ "modified": "2020-08-11 23:57:45.777080",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Indicator",

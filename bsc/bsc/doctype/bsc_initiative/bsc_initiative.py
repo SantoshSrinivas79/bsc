@@ -5,7 +5,7 @@
 from __future__ import unicode_literals
 import frappe
 from frappe import _, throw
-from frappe.utils import flt, cint
+from frappe.utils import flt, cint, comma_and
 from frappe.model.document import Document
 
 class BSCInitiative(Document):
@@ -14,6 +14,7 @@ class BSCInitiative(Document):
 		self.validate_duplicate()
 		self.validate_for_duplicate_month()
 		#self.validate_month_count()
+		self.check_progress_calc_method()
 		self.calc_target_count()
 		self.validate_target()
 
@@ -39,7 +40,10 @@ class BSCInitiative(Document):
 		conditions = " where docstatus<2 and bsc_target = '%s'" % self.bsc_target
 		target_total = frappe.db.sql("""select IFNULL(sum(initiative_target),0) from `tabBSC Initiative` %s"""% conditions)[0][0]
 		bsc_target_master=frappe.get_doc("BSC Target", self.bsc_target)
+
 		if bsc_target_master.calculation_method=='Percentage':
+			if bsc_target.based_last_month and self.based_last_month:
+				return
 			if (flt(target_total)+self.initiative_target)>100.0:
 				frappe.throw(_("Calculation Method of Target is Percentage and the sum of initiative target should to be 100%, now the sum of other is {0}, which mean you must to make the target total = {1}").format(flt(target_total,2),(100.0-flt(target_total,2))))
 		elif bsc_target_master.target-target_total < 0:
@@ -61,7 +65,17 @@ class BSCInitiative(Document):
 	def on_submit(self):
 		self.create_logs()
 
+	def check_progress_calc_method(self):
+		bsc_target_master=frappe.get_doc("BSC Target", self.bsc_target)
+		if bsc_target_master.based_last_month and self.based_last_month:
+			conditions = " where based_last_month=1 and docstatus < 2 and bsc_target = '%s'" % self.bsc_target
+			conditions += " and name <> '%s'" % self.name
+			names  = frappe.db.sql_list("""select name from `tabBSC Initiative` %s"""% conditions)
+			if names:
+				frappe.throw(_("Progress Based on Last Month must to be unique, already exists for {0}").format(comma_and(names)), frappe.DuplicateEntryError)
+
 	def calc_target_count(self):
+		bsc_target=frappe.get_doc("BSC Target", self.bsc_target)
 		self.month_count=0
 		self.initiative_count=0
 		self.initiative_target=0
@@ -70,12 +84,19 @@ class BSCInitiative(Document):
 			for m in self.get("bsc_target_month"):
 				if m.count<=0:
 					frappe.throw(_("Note: Month {0}'s Count must be greater than 0").format(m.month))
+				if m.target>0.0 and not self.based_last_month:
+					frappe.throw(_("Note: Month {0}'s Target has to be ZERO").format(m.month))
 				self.initiative_count+=m.count
 				self.initiative_target+=m.target
 				max_month.append(m.target)
-				self.month_count+=1
-		if self.initiative_target<=0.0:
-			frappe.throw(_("Initiative Target Must to be Greater than ZERO").format(d.month))
+				self.month_count+=1		
+		if self.initiative_target<=0.0 and self.based_last_month:
+			frappe.throw(_("Initiative Target Must to be Greater than ZERO"))
+		elif self.initiative_target>=0.1 and not self.based_last_month:
+			frappe.throw(_("Initiative Target Must to be ZERO"))
+		if self.initiative_target<0.0:
+			frappe.throw(_("Initiative Target Must to be not Less than ZERO"))
+		if self.based_last_month: self.initiative_target=bsc_target.target
 
 	def create_logs(self):
 		self.check_permission('write')
