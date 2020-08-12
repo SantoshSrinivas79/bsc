@@ -36,6 +36,8 @@ class BSCIndicator(Document):
 				else:
 					frappe.msgprint(_("The percentage % must to be < {0}, total of others is {1}").format(frappe.bold(str(100 - flt(sum_percentage))), \
 						frappe.bold(str(flt(sum_percentage))) ))
+		objective = frappe.get_doc("BSC Objective", self.bsc_objective)
+		self.bsc_percentage=self.indicator_percentage*objective.bsc_percentage/100
 
 
 	def create_targets(self):		

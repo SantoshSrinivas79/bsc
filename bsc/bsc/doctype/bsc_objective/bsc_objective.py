@@ -26,3 +26,5 @@ class BSCObjective(Document):
 		if (flt(flt(sum_percentage) + self.objective_percentage)) > 100.0 :
 			frappe.throw(_("The percentage % must to be < {0}, total of others is {1}").format(frappe.bold(str(100 - flt(sum_percentage))), \
 				frappe.bold(str(flt(sum_percentage))) ))
+		perspective = frappe.get_doc("BSC Perspective", self.bsc_perspective)
+		self.bsc_percentage=self.objective_percentage*perspective.perspective_percentage/100
