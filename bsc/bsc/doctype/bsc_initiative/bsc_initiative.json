@@ -242,7 +242,7 @@
   },
   {
    "fieldname": "column_break_16",
-   "fieldtype": "Column Break"
+   "fieldtype": "Section Break"
   },
   {
    "default": "0",
@@ -258,7 +258,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-08-12 03:56:31.288142",
+ "modified": "2020-08-12 04:01:48.562568",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Initiative",
