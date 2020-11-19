@@ -1,0 +1,71 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-09-20 07:21:15.058560",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "committee_name",
+  "posting_date",
+  "committee_tasks",
+  "members"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "BSC-COM-"
+  },
+  {
+   "fieldname": "committee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Committee Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "committee_tasks",
+   "fieldtype": "Text Editor",
+   "label": "Committee Tasks"
+  },
+  {
+   "fieldname": "members",
+   "fieldtype": "Table",
+   "label": "BSC Committee Member",
+   "options": "BSC Committee Member"
+  }
+ ],
+ "modified": "2020-09-20 08:00:33.384926",
+ "modified_by": "Administrator",
+ "module": "BSC",
+ "name": "BSC Committee",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "committee_name",
+ "track_changes": 1
+}

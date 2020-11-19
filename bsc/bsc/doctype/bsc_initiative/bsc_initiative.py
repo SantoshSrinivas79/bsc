@@ -52,6 +52,8 @@ class BSCInitiative(Document):
 				frappe.msgprint(_("Targets of the Initiative is {0}, other Initiatives have {1}, currenct Initiative Target can to be {2} or less".format(bsc_target_master.target,target_total,bsc_target_master.target-target_total)))
 			else:
 				frappe.throw(_("Targets of the Initiative is {0}, other Initiatives have {1}, currenct Initiative Target can to be only {2} or less".format(bsc_target_master.target,target_total,bsc_target_master.target-target_total)))
+		if not bsc_target.based_last_month and self.based_last_month:
+			frappe.throw(_("If currenct initiative is based on last month, so the target must to be based on last month"))
 
 	def validate_for_duplicate_month(self):
 		check_list = []
@@ -84,15 +86,15 @@ class BSCInitiative(Document):
 			for m in self.get("bsc_target_month"):
 				if m.count<=0:
 					frappe.throw(_("Note: Month {0}'s Count must be greater than 0").format(m.month))
-				if m.target>0.0 and not self.based_last_month:
+				if m.target>0.0 and not self.based_last_month and bsc_target.based_last_month:
 					frappe.throw(_("Note: Month {0}'s Target has to be ZERO").format(m.month))
 				self.initiative_count+=m.count
 				self.initiative_target+=m.target
 				max_month.append(m.target)
 				self.month_count+=1		
-		if self.initiative_target<=0.0 and self.based_last_month:
+		if self.initiative_target<=0.0 and self.based_last_month and bsc_target.based_last_month:
 			frappe.throw(_("Initiative Target Must to be Greater than ZERO"))
-		elif self.initiative_target>=0.1 and not self.based_last_month:
+		elif self.initiative_target>=0.1 and not self.based_last_month and bsc_target.based_last_month:
 			frappe.throw(_("Initiative Target Must to be ZERO"))
 		if self.initiative_target<0.0:
 			frappe.throw(_("Initiative Target Must to be not Less than ZERO"))

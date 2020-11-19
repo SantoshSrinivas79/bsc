@@ -39,5 +39,20 @@ frappe.query_reports["Department-wise Initiative Achievement Report"] = {
 			},
        
 		}
-	]
+	],
+	"formatter": function(value, row, column, data, default_formatter) {
+		value = default_formatter(value, row, column, data);
+		value = $(`<span style='font-weight:bold'>${value}</span>`);
+		var $value = $(value).css({"color":"black"});
+		if (data.is_achieved=='Yes') {
+			$value = $(value).css({"color":"green"});
+		}
+		else {
+			$value = $(value).css({"color":"red"});
+		}
+
+		value = $value.wrap("<p></p>").parent().html();
+		return value;
+	},
+
 };

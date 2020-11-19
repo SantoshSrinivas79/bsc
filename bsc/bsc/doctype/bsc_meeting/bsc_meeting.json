@@ -9,9 +9,14 @@
   "naming_series",
   "date",
   "meeting_name",
+  "column_break_4",
+  "start_time",
+  "end_time",
+  "detail_section",
   "description",
   "section_break_3",
-  "meeting_attendance"
+  "bsc_committee",
+  "members"
  ],
  "fields": [
   {
@@ -19,13 +24,6 @@
    "fieldtype": "Date",
    "in_list_view": 1,
    "label": "Date",
-   "reqd": 1
-  },
-  {
-   "fieldname": "meeting_attendance",
-   "fieldtype": "Table",
-   "label": "BSC Meeting Attendance",
-   "options": "BSC Meeting Attendance",
    "reqd": 1
   },
   {
@@ -48,9 +46,41 @@
    "fieldname": "description",
    "fieldtype": "Text Editor",
    "label": "Description"
+  },
+  {
+   "fieldname": "bsc_committee",
+   "fieldtype": "Link",
+   "label": "BSC Committee",
+   "options": "BSC Committee"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "label": "End Time"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "detail_section",
+   "fieldtype": "Section Break",
+   "label": "Detail"
+  },
+  {
+   "fieldname": "members",
+   "fieldtype": "Table",
+   "label": "BSC Meeting Attendance",
+   "options": "BSC Meeting Attendance"
   }
  ],
- "modified": "2020-07-06 05:44:55.493646",
+ "modified": "2020-09-20 08:00:39.833935",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Meeting",
@@ -70,7 +100,9 @@
   }
  ],
  "quick_entry": 1,
+ "search_fields": "meeting_name",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "title_field": "meeting_name",
  "track_changes": 1
 }

@@ -1,0 +1,60 @@
+{
+ "creation": "2020-09-20 07:24:24.620660",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "employee_name",
+  "user",
+  "title"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "columns": 2,
+   "fetch_from": "employee.user_id",
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "User",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "title",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Title",
+   "options": "\n1\n2\n3"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-09-20 07:57:17.357459",
+ "modified_by": "Administrator",
+ "module": "BSC",
+ "name": "BSC Committee Member",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

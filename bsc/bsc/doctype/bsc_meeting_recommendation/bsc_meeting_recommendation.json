@@ -15,8 +15,8 @@
   "subject",
   "description",
   "section_break_10",
-  "department",
-  "employee"
+  "employee",
+  "department"
  ],
  "fields": [
   {
@@ -29,10 +29,10 @@
    "fieldname": "bsc_meeting_minutes",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "BSC Meeting Minutes",
    "options": "BSC Meeting Minutes",
-   "reqd": 1,
-   "set_only_once": 1
+   "reqd": 1
   },
   {
    "fetch_from": "bsc_meeting_minutes.description",
@@ -45,6 +45,8 @@
    "fetch_from": "bsc_meeting_minutes.bsc_meeting",
    "fieldname": "bsc_meeting",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "BSC Meeting",
    "options": "BSC Meeting",
    "read_only": 1
@@ -82,10 +84,12 @@
    "fieldtype": "Section Break"
   },
   {
+   "fetch_from": "employee.department",
    "fieldname": "department",
    "fieldtype": "Link",
    "label": "Department",
-   "options": "Department"
+   "options": "Department",
+   "read_only": 1
   },
   {
    "fieldname": "employee",
@@ -94,7 +98,7 @@
    "options": "Employee"
   }
  ],
- "modified": "2020-08-09 10:02:07.596184",
+ "modified": "2020-09-20 07:36:49.150097",
  "modified_by": "Administrator",
  "module": "BSC",
  "name": "BSC Meeting Recommendation",
@@ -114,8 +118,9 @@
   }
  ],
  "quick_entry": 1,
- "search_fields": "description,meeting_minutes_description,meeting_name",
+ "search_fields": "subject,meeting_minutes_description,meeting_name",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "title_field": "subject",
  "track_changes": 1
 }

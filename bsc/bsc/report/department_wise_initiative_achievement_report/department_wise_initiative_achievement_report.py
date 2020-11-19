@@ -22,7 +22,12 @@ def get_columns():
 		_("BSC Initiative") + ":Link/BSC Initiative:100",
 		_("Initiative Name") + ":Data:200",
 		_("Month") + ":Data:80",	
-		_("Is Achieved") + ":Data:80",	
+		{
+			"fieldname": "is_achieved",
+			"label": _("Is Achieved"),
+			"fieldtype": "Data",
+			"width": 70
+		},
 		_("Weakness Reasons") + ":Data:200",
 		_("Suggested Solutions") + ":Data:200"
 	]
@@ -33,14 +38,16 @@ def get_conditions(filters):
 	if filters.get("department"): conditions.append("log.department = %(department)s")
 	if filters.get("month"): conditions.append("log.month in %(month)s")
 	if filters.get("fiscal_year"): conditions.append("log.fiscal_year = %(fiscal_year)s")
-	if filters.get("bsc_indicator"): conditions.append("ini.bsc_indicator = %(bsc_indicator)s")
+	if filters.get("bsc_indicator"): conditions.append("tar.bsc_indicator = %(bsc_indicator)s")
 	return "where {}".format(" and ".join(conditions)) if conditions else ""
 
 
 def get_initiative(filters):
-	log_list = frappe.db.sql("""SELECT log.department, ini.bsc_indicator, log.bsc_initiative, ini.initiative_name, log.month,
+	log_list = frappe.db.sql("""SELECT log.department, tar.bsc_indicator, log.bsc_initiative, ini.initiative_name, log.month,
 		log.is_achieved, log.weakness_reasons, log.suggested_solutions
-		FROM `tabBSC Initiative Log` log INNER JOIN `tabBSC Initiative` ini ON ini.name = log.bsc_initiative
+		FROM `tabBSC Initiative Log` log 
+		INNER JOIN `tabBSC Initiative` ini ON ini.name = log.bsc_initiative
+		INNER JOIN `tabBSC Target` tar ON tar.name = ini.bsc_target
 		{conditions} order by log.department, log.bsc_initiative
 		""".format(
 			conditions=get_conditions(filters),

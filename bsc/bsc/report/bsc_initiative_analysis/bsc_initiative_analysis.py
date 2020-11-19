@@ -96,8 +96,8 @@ def get_conditions(filters):
 	if filters.get("department"): conditions.append("log.docstatus < 2")
 	if filters.get("department"): conditions.append("log.department = %(department)s")
 	if filters.get("fiscal_year"): conditions.append("log.fiscal_year = %(fiscal_year)s")
-	if filters.get("bsc_indicator"): conditions.append("tar.bsc_indicator = %(bsc_indicator)s")
-	if filters.get("bsc_objective"): conditions.append("ind.bsc_objective = %(bsc_objective)s")
+	if filters.get("bsc_indicator"): conditions.append("ind.name = %(bsc_indicator)s")
+	if filters.get("bsc_objective"): conditions.append("obj.name = %(bsc_objective)s")
 	if filters.get("bsc_perspective"): conditions.append("obj.bsc_perspective = %(bsc_perspective)s")
 	if filters.get("bsc_month"): conditions.append("log.month = %(bsc_month)s")
 	if filters.get("docstatus"): conditions.append("log.docstatus = %s"%cstr(docstatus[filters.get("docstatus")]))
@@ -106,11 +106,12 @@ def get_conditions(filters):
 
 def get_data(filters):
 	ini_list = frappe.db.sql("""SELECT log.department, obj.bsc_perspective, 
-		ind.bsc_objective, tar.bsc_indicator, tar.initiative_name, log.name, 
+		ind.bsc_objective, tarr.bsc_indicator, tar.initiative_name, log.name, 
 		log.month, log.fiscal_year, log.is_achieved
 		FROM `tabBSC Initiative Log` log 
 		INNER JOIN `tabBSC Initiative` tar ON log.bsc_initiative = tar.name
-		INNER JOIN `tabBSC Indicator` ind ON tar.bsc_indicator = ind.name
+		INNER JOIN `tabBSC Target` tarr ON tar.bsc_target = tarr.name
+		INNER JOIN `tabBSC Indicator` ind ON tarr.bsc_indicator = ind.name
 		INNER JOIN `tabBSC Objective` obj ON ind.bsc_objective = obj.name
 		{conditions} order by log.modified ASC
 		""".format(

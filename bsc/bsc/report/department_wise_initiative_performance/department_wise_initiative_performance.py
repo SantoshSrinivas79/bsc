@@ -28,13 +28,13 @@ def get_data(filters):
 		tar, ach, per = get_tar(ind.bsc_indicator,filters.get("fiscal_year"),ind.department,0,filters)
 		tar_, ach_, per_ = get_tar(ind.bsc_indicator,filters.get("fiscal_year"),ind.department,1,filters)
 		tar_, ach_, per_ = get_tar_total(ind.bsc_indicator,filters.get("fiscal_year"),ind.department)
-		if flt(tar)>0.0:
+		if flt(tar)>=0.0:
 			if (filters.get("greater") == 1 and tar < ach) or (not filters.get("greater") or filters.get("greater")==0):
 				data.append({
 					"bsc_perspective": ind.bsc_perspective,
 					"bsc_objective": ind.bsc_objective,
 					"bsc_indicator": ind.bsc_indicator,
-					"bsc_target": "",
+					"bsc_target": ind.target,
 					"indicator_name": ind.full_name,
 					"department": ind.department,
 					"target": tar,
@@ -63,6 +63,7 @@ def get_data(filters):
 
 def get_conditions(filters):
 	conditions = []
+	conditions.append("tar.docstatus < 2")
 	if filters.get("month"): conditions.append("tar.month in %(month)s")
 	if filters.get("department"): conditions.append("tar.department in %(department)s")
 	if filters.get("fiscal_year"): conditions.append("tar.fiscal_year = %(fiscal_year)s")
@@ -74,12 +75,12 @@ def get_conditions(filters):
 
 def get_indicator(filters):
 	ind_map = frappe._dict()
-	ind_list = frappe.db.sql("""SELECT tar.bsc_indicator, ind.full_name, 
+	ind_list = frappe.db.sql("""SELECT tar.name as target, tar.bsc_indicator, ind.full_name, 
 		ind.bsc_objective, ind.bsc_perspective, tar.department
-		FROM `tabBSC Ledger Entry` tar 
+		FROM `tabBSC Target` tar
 		INNER JOIN `tabDepartment` dep ON dep.name = tar.department
 		INNER JOIN `tabBSC Indicator` ind ON ind.name = tar.bsc_indicator
-		{conditions} group by tar.bsc_indicator, tar.department order by dep.parent_department 
+		{conditions} order by dep.parent_department ASC
 		""".format(
 			conditions=get_conditions(filters),
 		),
